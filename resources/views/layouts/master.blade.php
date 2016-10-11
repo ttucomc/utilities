@@ -17,6 +17,7 @@
     <body>
 
         {{-- Content goes here --}}
+        @yield('content')
 
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/materialize.js') }}"></script>
