@@ -1,6 +1,6 @@
 const elixir = require('laravel-elixir');
 
-require('laravel-elixir-materialize-css');
+require('laravel-elixir-materialize');
 require('laravel-elixir-vue-2');
 
 /*
