@@ -1,6 +1,5 @@
 const elixir = require('laravel-elixir');
 
-require('laravel-elixir-materialize-css');
 require('laravel-elixir-vue-2');
 
 /*
@@ -15,7 +14,8 @@ require('laravel-elixir-vue-2');
  */
 
 elixir(mix => {
-    mix.materialize();
+
+    mix.copy('resources/assets/js/materialize.min.js', 'public/js');
 
     mix.sass('app.scss');
 
@@ -24,4 +24,5 @@ elixir(mix => {
     mix.browserSync({
       proxy: 'ttucomc-utilities.app'
     })
+
 });

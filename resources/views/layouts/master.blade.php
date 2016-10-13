@@ -11,7 +11,6 @@
 
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="{{ asset('css/materialize.css') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     </head>
@@ -20,8 +19,10 @@
 
         <nav>
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo center">TTU Utilities</a>
-                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <a href="#" class="brand-logo">
+                    <img src="{{ asset('storage/images/header-logo.svg') }}" alt="TTU Utilities Header Logo" />
+                </a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Logout</a></li>
                 </ul>
@@ -34,7 +35,7 @@
         </nav>
 
         {{-- Content goes here --}}
-        <main style="height: 80vh;">
+        <main style="height: 90vh;">
             <div class="container">
                 @yield('content')
             </div>
@@ -62,7 +63,7 @@
         </footer>
 
         <script src="{{ asset('js/app.js') }}"></script>
-        <script src="{{ asset('js/materialize.js') }}"></script>
+        <script src="{{ asset('js/materialize.min.js') }}"></script>
 
         <script type="text/javascript">
 
