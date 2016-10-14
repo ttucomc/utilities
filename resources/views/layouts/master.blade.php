@@ -17,6 +17,7 @@
 
     <body>
 
+        {{-- Navigation --}}
         <nav>
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo">
@@ -33,13 +34,15 @@
                 <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
             </div>
         </nav>
+        {{-- End of navigation --}}
 
-        {{-- Content goes here --}}
+        {{-- Main content for each page goes here --}}
         <main style="height: 90vh;">
             <div class="container">
                 @yield('content')
             </div>
         </main>
+        {{-- End of content --}}
 
         {{-- Footer --}}
         <footer class="page-footer">
@@ -61,14 +64,13 @@
                 </div>
             </div>
         </footer>
+        {{-- End of footer --}}
+
 
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/materialize.min.js') }}"></script>
-
         <script type="text/javascript">
-
             $(".button-collapse").sideNav();
-
         </script>
 
     </body>
