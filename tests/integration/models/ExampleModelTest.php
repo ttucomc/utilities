@@ -6,13 +6,23 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ExampleModelTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    // Want the database to look the same before each test run
+    use DatabaseTransactions;
+
+    /** @test */
+    public function Example()
     {
-        $this->assertTrue(true);
+        // Given
+        // Create and persist data (in database) using model factories
+
+        /****************************************************************/
+
+        // When
+        // Some specific condition is met
+
+        /****************************************************************/
+
+        // Then
+        // Assertions go here
     }
 }
