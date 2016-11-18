@@ -36,4 +36,16 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+
+    /**
+     * Logout current user session.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logout()
+    {
+        Auth::logout();
+        \Session::flush();
+        return redirect('/');
+    }
 }

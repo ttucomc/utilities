@@ -6531,6 +6531,14 @@ nav img {
   nav img {
     height: 50px; } }
 
+main {
+  height: 90vh; }
+
 /****** End of site imports ******/
+html {
+  height: 100%; }
+
+body {
+  min-height: 100%; }
 
 /*# sourceMappingURL=app.css.map */

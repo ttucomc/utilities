@@ -9,9 +9,11 @@
 
         <title>COMC Utilities</title>
 
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+        <!-- Styles -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+        <link rel="stylesheet" href="/css/app.css">
 
     </head>
 
@@ -21,15 +23,19 @@
         <nav>
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo">
-                    <img src="{{ asset('storage/images/header-logo.svg') }}" alt="TTU Utilities Header Logo" />
+                    <img src="/storage/images/header-logo.svg" alt="TTU Utilities Header Logo" />
                 </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="{{ url('/logout') }}">Profile</a></li>
+                    @if (Auth::check())
+                        <li><a href="#">Logout</a></li>
+                    @endif
                 </ul>
                 <ul id="slide-out" class="side-nav">
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="{{ url('/logout') }}">Profile</a></li>
+                    @if (Auth::check())
+                        <li><a href="#">Logout</a></li>
+                    @endif
                 </ul>
                 <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
             </div>
@@ -37,9 +43,11 @@
         {{-- End of navigation --}}
 
         {{-- Main content for each page goes here --}}
-        <main style="height: 90vh;">
+        <main>
             <div class="container">
-                @yield('content')
+                <div class="row">
+                    @yield('content')
+                </div>
             </div>
         </main>
         {{-- End of content --}}
@@ -49,7 +57,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col s8">
-                        <img src="{{ asset('storage/images/ttu_logo.svg') }}" alt="TTU Logo" />
+                        <img src="/storage/images/ttu_logo.svg" alt="TTU Logo" />
                         <p>
                             From here, anything is possible. <br>
                             2500 Broadway Lubbock,Texas 79409 <br>
@@ -66,13 +74,18 @@
         </footer>
         {{-- End of footer --}}
 
-
-        <script src="{{ asset('js/app.js') }}"></script>
-        <script src="{{ asset('js/materialize.min.js') }}"></script>
+        <script src="/js/app.js"></script>
+        <script src="/js/materialize.min.js"></script>
         <script type="text/javascript">
             $(".button-collapse").sideNav();
         </script>
 
+        {{-- Login modal --}}
+        <script type="text/javascript">
+            @if(! Auth::check())
+                $('#login-modal').openModal();
+            @endif
+        </script>
     </body>
 
 </html>
