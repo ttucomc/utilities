@@ -15,6 +15,9 @@
         {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
         <link rel="stylesheet" href="/css/app.css">
 
+        <script src="/js/app.js"></script>
+        <script src="/js/materialize.min.js"></script>
+
     </head>
 
     <body>
@@ -74,18 +77,10 @@
         </footer>
         {{-- End of footer --}}
 
-        <script src="/js/app.js"></script>
-        <script src="/js/materialize.min.js"></script>
         <script type="text/javascript">
             $(".button-collapse").sideNav();
         </script>
 
-        {{-- Login modal --}}
-        <script type="text/javascript">
-            @if(! Auth::check())
-                $('#login-modal').openModal();
-            @endif
-        </script>
     </body>
 
 </html>

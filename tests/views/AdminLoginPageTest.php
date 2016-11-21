@@ -10,9 +10,9 @@ class UserLoginPageTest extends TestCase
     public function admin_can_see_login_form()
     {
         $this->visit('/')
-             ->see('Enter Admin Credentials')
-             ->see('username')
-             ->see('password')
+             ->see('Enter Credentials')
+             ->see('Email')
+             ->see('Password')
              ->see('Login');
     }
 }
