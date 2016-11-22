@@ -15,7 +15,6 @@ require('laravel-elixir-vue-2');
 
 elixir(mix => {
 
-    // This comment is a test
     mix.copy('resources/assets/js/materialize.min.js', 'public/js');
 
     mix.sass('app.scss');

@@ -50,5 +50,14 @@
 /****** Beginning of site imports ******/
 
 @import "site-components/nav";
+@import "site-components/main";
 
 /****** End of site imports ******/
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+}

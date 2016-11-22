@@ -9,44 +9,61 @@
 
         <title>COMC Utilities</title>
 
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+        <!-- Styles -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="/css/app.css">
+
+        <script src="/js/app.js"></script>
+        <script src="/js/materialize.min.js"></script>
 
     </head>
 
     <body>
 
+        {{-- Navigation --}}
         <nav>
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo">
-                    <img src="{{ asset('storage/images/header-logo.svg') }}" alt="TTU Utilities Header Logo" />
+                    <img src="/storage/images/header-logo.svg" alt="TTU Utilities Header Logo" />
                 </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Logout</a></li>
+                    @if (Auth::check())
+                        <li><a href="#">Faculty/Staff</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="/#">Profile</a></li>
+                        <li><a href="{{ url('auth/logout') }}">Logout</a></li>
+                    @endif
                 </ul>
                 <ul id="slide-out" class="side-nav">
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Logout</a></li>
+                    @if (Auth::check())
+                        <li><a href="#">Faculty/Staff</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="/#">Profile</a></li>
+                        <li><a href="{{ url('auth/logout') }}">Logout</a></li>
+                    @endif
                 </ul>
                 <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
             </div>
         </nav>
+        {{-- End of navigation --}}
 
-        {{-- Content goes here --}}
-        <main style="height: 90vh;">
+        {{-- Main content for each page starts here --}}
+        <main>
             <div class="container">
-                @yield('content')
+                <div class="row">
+                    @yield('content')
+                </div>
             </div>
         </main>
+        {{-- End of main content --}}
 
         {{-- Footer --}}
         <footer class="page-footer">
             <div class="container">
                 <div class="row">
                     <div class="col s8">
-                        <img src="{{ asset('storage/images/ttu_logo.svg') }}" alt="TTU Logo" />
+                        <img src="/storage/images/ttu_logo.svg" alt="TTU Logo" />
                         <p>
                             From here, anything is possible. <br>
                             2500 Broadway Lubbock,Texas 79409 <br>
@@ -61,14 +78,10 @@
                 </div>
             </div>
         </footer>
-
-        <script src="{{ asset('js/app.js') }}"></script>
-        <script src="{{ asset('js/materialize.min.js') }}"></script>
+        {{-- End of footer --}}
 
         <script type="text/javascript">
-
             $(".button-collapse").sideNav();
-
         </script>
 
     </body>
