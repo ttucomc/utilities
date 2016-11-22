@@ -12,7 +12,6 @@
         <!-- Styles -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
         <link rel="stylesheet" href="/css/app.css">
 
         <script src="/js/app.js"></script>
@@ -29,15 +28,19 @@
                     <img src="/storage/images/header-logo.svg" alt="TTU Utilities Header Logo" />
                 </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="{{ url('/logout') }}">Profile</a></li>
                     @if (Auth::check())
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="#">Faculty/Staff</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="/#">Profile</a></li>
+                        <li><a href="{{ url('auth/logout') }}">Logout</a></li>
                     @endif
                 </ul>
                 <ul id="slide-out" class="side-nav">
-                    <li><a href="{{ url('/logout') }}">Profile</a></li>
                     @if (Auth::check())
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="#">Faculty/Staff</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="/#">Profile</a></li>
+                        <li><a href="{{ url('auth/logout') }}">Logout</a></li>
                     @endif
                 </ul>
                 <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -45,7 +48,7 @@
         </nav>
         {{-- End of navigation --}}
 
-        {{-- Main content for each page goes here --}}
+        {{-- Main content for each page starts here --}}
         <main>
             <div class="container">
                 <div class="row">
@@ -53,7 +56,7 @@
                 </div>
             </div>
         </main>
-        {{-- End of content --}}
+        {{-- End of main content --}}
 
         {{-- Footer --}}
         <footer class="page-footer">

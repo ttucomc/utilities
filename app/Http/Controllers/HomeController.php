@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
+use App\User;
+
 class HomeController extends Controller
 {
     /**
@@ -17,12 +20,14 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the application administrator dashboard.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('home');
+        // return 'User is now logged in!';
+        $user = Auth::user();
+        return view('admin.dashboard', compact('user'));
     }
 }

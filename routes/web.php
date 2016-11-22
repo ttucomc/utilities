@@ -16,4 +16,11 @@ Auth::routes();
 Route::get('/', function () {
     return view('admin.dashboard');
 });
-Route::get('/logout', "LoginController@logout");
+
+Route::get('dashboard', 'HomeController@index');
+
+Route::get('auth/logout', function() {
+    Auth::logout();
+    Session::flush();
+    return Redirect::to('/');
+});

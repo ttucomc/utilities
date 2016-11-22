@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class UserLoginPageTest extends TestCase
+class AdminLoginPageTest extends TestCase
 {
     /** @test */
     public function admin_can_see_login_form()
@@ -14,5 +14,19 @@ class UserLoginPageTest extends TestCase
              ->see('Email')
              ->see('Password')
              ->see('Login');
+    }
+
+    /** @test */
+    public function admin_can_see_dashboard_when_logged_in()
+    {
+        $this->visit('/')
+             ->see('Enter Credentials')
+             ->see('Email')
+             ->see('Password')
+             ->see('Login')
+             ->type('test@ttu.edu', 'email')
+             ->type('test', 'password')
+             ->press('Login')
+             ->seePageIs('/');
     }
 }
