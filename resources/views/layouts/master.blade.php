@@ -29,17 +29,17 @@
                 </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     @if (Auth::check())
+                        <li><a href="/#">Profile</a></li>
                         <li><a href="#">Faculty/Staff</a></li>
                         <li><a href="#">News</a></li>
-                        <li><a href="/#">Profile</a></li>
                         <li><a href="{{ url('auth/logout') }}">Logout</a></li>
                     @endif
                 </ul>
                 <ul id="slide-out" class="side-nav">
                     @if (Auth::check())
+                        <li><a href="/#">Profile</a></li>
                         <li><a href="#">Faculty/Staff</a></li>
                         <li><a href="#">News</a></li>
-                        <li><a href="/#">Profile</a></li>
                         <li><a href="{{ url('auth/logout') }}">Logout</a></li>
                     @endif
                 </ul>
