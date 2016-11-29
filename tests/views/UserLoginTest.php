@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class UserLoginPageTest extends TestCase
+class UserLoginTest extends TestCase
 {
     // /** @test */
     // public function user_can_visit_the_home_page_and_see_a_login_form()

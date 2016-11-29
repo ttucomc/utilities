@@ -6527,6 +6527,10 @@ nav img {
   padding-left: .5em;
   padding-top: .2em; }
 
+@media only screen and (min-width: 993px) {
+  nav ul a {
+    padding: 0 25px; } }
+
 @media only screen and (max-width: 601px) {
   nav img {
     height: 50px; } }

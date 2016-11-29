@@ -28,6 +28,7 @@ class HomeController extends Controller
     {
         // return 'User is now logged in!';
         $user = Auth::user();
-        return view('admin.dashboard', compact('user'));
+        $first_name = $user->first_name;
+        return view('admin.dashboard', compact('first_name'));
     }
 }

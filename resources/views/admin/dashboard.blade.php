@@ -33,8 +33,22 @@
 
     @if(Auth::check())
 
-        <div class="col s9">
-            <h1>Admin Dashboard</h1>
+        <div class="col s12">
+            <section class="search-bar">
+                <div class="nav-wrapper">
+                    <form>
+                        <div class="input-field">
+                            <input id="search" type="search">
+                            <label for="search"><i class="material-icons">search</i>Faculty/Staff or News articles</label>
+                            <i class="material-icons">close</i>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <div class="col s12">
+            <h3>Admin Dashboard: Welcome, {{ $first_name }}</h3>
         </div>
 
     @endif

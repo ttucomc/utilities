@@ -20,6 +20,15 @@
     </head>
 
     <body>
+        {{-- Dropdown structure --}}
+        <ul id="faculty-staff-dropdown" class="dropdown-content">
+            <li><a href="#!">Create Faculty</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">Create Staff</a></li>
+        </ul>
+        <ul id="news-dropdown" class="dropdown-content">
+            <li><a href="#!">Create Article</li>
+        </ul>
 
         {{-- Navigation --}}
         <nav>
@@ -27,22 +36,35 @@
                 <a href="#" class="brand-logo">
                     <img src="/storage/images/header-logo.svg" alt="TTU Utilities Header Logo" />
                 </a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    @if (Auth::check())
-                        <li><a href="/#">Profile</a></li>
-                        <li><a href="#">Faculty/Staff</a></li>
-                        <li><a href="#">News</a></li>
-                        <li><a href="{{ url('auth/logout') }}">Logout</a></li>
-                    @endif
-                </ul>
+
                 <ul id="slide-out" class="side-nav">
                     @if (Auth::check())
                         <li><a href="/#">Profile</a></li>
-                        <li><a href="#">Faculty/Staff</a></li>
-                        <li><a href="#">News</a></li>
+                        <li><a class="dropdown-button" data-beloworigin="true" href="/#" data-activates="faculty-staff-dropdown-mobile">Faculty/Staff<i class="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a class="dropdown-button" data-beloworigin="true" href="/#" data-activates="news-dropdown-mobile">News<i class="material-icons right">arrow_drop_down</i></a></li>
                         <li><a href="{{ url('auth/logout') }}">Logout</a></li>
                     @endif
                 </ul>
+
+                {{-- Dropdown structure for mobile phones--}}
+                <ul id="faculty-staff-dropdown-mobile" class="dropdown-content">
+                    <li><a href="#!">Create Faculty</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#!">Create Staff</a></li>
+                </ul>
+                <ul id="news-dropdown-mobile" class="dropdown-content">
+                    <li><a href="#!">Create Article</li>
+                </ul>
+
+                <ul class="right hide-on-med-and-down">
+                    @if (Auth::check())
+                        <li><a href="/#">Profile</a></li>
+                        <li><a class="dropdown-button" data-beloworigin="true" href="/#" data-activates="faculty-staff-dropdown">Faculty/Staff<i class="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a class="dropdown-button" data-beloworigin="true" href="/#" data-activates="news-dropdown">News<i class="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a href="{{ url('auth/logout') }}">Logout</a></li>
+                    @endif
+                </ul>
+
                 <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
             </div>
         </nav>
@@ -51,7 +73,7 @@
         {{-- Main content for each page starts here --}}
         <main>
             <div class="container">
-                <div class="row">
+                <div class="row" style="padding-top: 2em;">
                     @yield('content')
                 </div>
             </div>
@@ -81,7 +103,16 @@
         {{-- End of footer --}}
 
         <script type="text/javascript">
-            $(".button-collapse").sideNav();
+            $(document).ready(function() {
+                $('.button-collapse').sideNav();
+                $('.dropdown-button').dropdown({
+                    inDuration: 300,
+                    outDuration: 225,
+                    constrain_width: false,
+                    hover: true,
+                    alignment: 'right'
+                });
+            });
         </script>
 
     </body>
