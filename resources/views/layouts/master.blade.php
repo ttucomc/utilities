@@ -9,6 +9,8 @@
 
         <title>COMC Utilities</title>
 
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
         <!-- Styles -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -59,8 +61,8 @@
                 <ul class="right hide-on-med-and-down">
                     @if (Auth::check())
                         <li><a href="/#">Profile</a></li>
-                        <li><a class="dropdown-button" data-beloworigin="true" href="/#" data-activates="faculty-staff-dropdown">Faculty/Staff<i class="material-icons right">arrow_drop_down</i></a></li>
-                        <li><a class="dropdown-button" data-beloworigin="true" href="/#" data-activates="news-dropdown">News<i class="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a name="faculty-staff" class="dropdown-button" data-beloworigin="true" href="/#" data-activates="faculty-staff-dropdown">Faculty/Staff<i class="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a name="news" class="dropdown-button" data-beloworigin="true" href="/#" data-activates="news-dropdown">News<i class="material-icons right">arrow_drop_down</i></a></li>
                         <li><a href="{{ url('auth/logout') }}">Logout</a></li>
                     @endif
                 </ul>
@@ -104,7 +106,10 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
+                // Side Nav on mobile
                 $('.button-collapse').sideNav();
+
+                // Dropdown nav items
                 $('.dropdown-button').dropdown({
                     inDuration: 300,
                     outDuration: 225,

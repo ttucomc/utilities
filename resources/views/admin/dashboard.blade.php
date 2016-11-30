@@ -48,7 +48,7 @@
         </div>
 
         <div class="col s12">
-            <h3>Admin Dashboard: Welcome, {{ $first_name }}</h3>
+            <h3>Admin Dashboard: Welcome, {{ Auth::user()->first_name }}</h3>
         </div>
 
     @endif

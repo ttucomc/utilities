@@ -9,29 +9,57 @@ use App\User;
 
 class AdminDashboardTest extends TestCase
 {
-    // Cannot figure out how to login as an authenticated user
-    // using $this->actingAs($adminUser). For now, I will be
-    // disabling middleware.
+    use DatabaseTransactions;
+
+    protected $adminUser;
+
     public function setUp()
     {
         parent::setUp();
 
-        $adminUser = User::first();
-        $this->actingAs($adminUser);
+        $this->adminUser = factory(App\User::class)->create();
     }
 
     /** @test */
-    public function admin_can_see_option_to_modify_his_profile()
+    public function admin_can_see_the_search_bar_to_search_for_faculty_or_staff_or_news_articles()
     {
-        $this->visit('/')
+        $this->actingAs($this->adminUser)
+             ->visit('/')
+             ->see('Faculty/Staff or News articles'); // text in search bar
+    }
+
+    /** @test */
+    public function admin_can_see_option_to_modify_their_profile()
+    {
+        $this->actingAs($this->adminUser)
+             ->visit('/')
              ->see('Profile');
     }
 
     /** @test */
     public function admin_can_see_option_to_create_a_new_faculty_member()
     {
-        $this->visit('/')
-             ->press('Faculty/Staff')
-             ->see('Create New Faculty/Staff Member');
+        $this->actingAs($this->adminUser)
+             ->visit('/')
+             ->click('faculty-staff') //'name' attribute on dropdown selector
+             ->see('Create Faculty');
+    }
+
+    /** @test */
+    public function admin_can_see_option_to_create_a_new_staff_member()
+    {
+        $this->actingAs($this->adminUser)
+             ->visit('/')
+             ->click('faculty-staff') //'name' attribute on dropdown selector
+             ->see('Create Staff');
+    }
+
+    /** @test */
+    public function admin_can_see_option_to_create_a_new_news_article()
+    {
+        $this->actingAs($this->adminUser)
+             ->visit('/')
+             ->click('news') //'name' attribute on dropdown selector
+             ->see('Create Article');
     }
 }
