@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 
-class HomeController extends Controller
+class AdminDashboardController extends Controller
 {
     /**
      * Create a new controller instance.

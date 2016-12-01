@@ -104,6 +104,8 @@
         </footer>
         {{-- End of footer --}}
 
+        <script src="/js/vuejs-entrypoint.js"></script>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 // Side Nav on mobile

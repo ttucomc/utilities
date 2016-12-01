@@ -34,6 +34,11 @@
     @if(Auth::check())
 
         <div class="col s12">
+            <h3>Admin Dashboard: Welcome, {{ Auth::user()->first_name }}</h3>
+        </div>
+
+        {{-- This div will be the vuejs dynamic content area --}}
+        <div id="admin-dashboard-vuejs-content" class="col s12">
             <section class="search-bar">
                 <div class="nav-wrapper">
                     <form>
@@ -45,10 +50,8 @@
                     </form>
                 </div>
             </section>
-        </div>
 
-        <div class="col s12">
-            <h3>Admin Dashboard: Welcome, {{ Auth::user()->first_name }}</h3>
+            <example></example>
         </div>
 
     @endif

@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('admin.dashboard');
 });
 
-Route::get('dashboard', 'HomeController@index');
+Route::get('dashboard', 'AdminDashboardController@index');
 
 Route::get('auth/logout', function() {
     Auth::logout();
