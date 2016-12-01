@@ -1,5 +1,5 @@
 <template lang="html">
-    <p>Here is an example vue component</p>
+    <h4>Create News Article</h4>
 </template>
 
 <script>

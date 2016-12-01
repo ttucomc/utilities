@@ -14,10 +14,8 @@
 Auth::routes();
 
 Route::get('/', function () {
-    return view('admin.dashboard');
+    return view('layouts.master');
 });
-
-Route::get('dashboard', 'AdminDashboardController@index');
 
 Route::get('auth/logout', function() {
     Auth::logout();
