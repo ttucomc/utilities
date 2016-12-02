@@ -5,7 +5,7 @@
  */
 
 const VueRouter = require('vue-router');
-Vue.use(require('vue-router'));
+Vue.use(VueRouter);
 
 // Vue component imports
 import CreateFacultyMember from './components/CreateFacultyMember.vue';

@@ -24,12 +24,12 @@
     <body>
         {{-- Dropdown structure --}}
         <ul id="faculty-staff-dropdown" class="dropdown-content">
-            <li><a href="/#/create-faculty-member">Create Faculty</a></li>
+            <li><a href="/#/create-faculty-member">Create Faculty<i class="small material-icons right">input</i></a></li>
             <li class="divider"></li>
-            <li><a href="/#/create-staff-member">Create Staff</a></li>
+            <li><a href="/#/create-staff-member">Create Staff<i class="small material-icons right">input</i></a></li>
         </ul>
         <ul id="news-dropdown" class="dropdown-content">
-            <li><a href="/#/create-news-article">Create Article</a></li>
+            <li><a href="/#/create-news-article">Create Article<i class="small material-icons right">input</i></a></li>
         </ul>
 
         {{-- Start of vue div --}}
@@ -44,27 +44,18 @@
                     <ul id="slide-out" class="side-nav">
                         @if (Auth::check())
                             <li><a href="/#">Profile</a></li>
-                            <li><a class="dropdown-button" data-beloworigin="true" href="/#" data-activates="faculty-staff-dropdown-mobile">Faculty/Staff<i class="material-icons right">arrow_drop_down</i></a></li>
-                            <li><a class="dropdown-button" data-beloworigin="true" href="/#" data-activates="news-dropdown-mobile">News<i class="material-icons right">arrow_drop_down</i></a></li>
+                            <li><a href="/#/create-faculty-member">Create Faculty</a></li>
+                            <li><a href="/#/create-staff-member">Create Staff</a></li>
+                            <li><a href="/#/create-news-article">Create Article</a></li>
                             <li><a href="{{ url('auth/logout') }}">Logout</a></li>
                         @endif
                     </ul>
 
-                    {{-- Dropdown structure for mobile phones--}}
-                    <ul id="faculty-staff-dropdown-mobile" class="dropdown-content">
-                        <li><a href="/#/create-faculty-member">Create Faculty</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/#/create-staff-member">Create Staff</a></li>
-                    </ul>
-                    <ul id="news-dropdown-mobile" class="dropdown-content">
-                        <li><a href="/#/create-news-article">Create Article</a></li>
-                    </ul>
-
                     <ul class="right hide-on-med-and-down">
                         @if (Auth::check())
-                            <li><a href="/#">Profile</a></li>
+                            <li><a href="/#"><i class="small material-icons left">perm_identity</i>Profile</a></li>
                             <li><a name="faculty-staff" class="dropdown-button" data-beloworigin="true" data-activates="faculty-staff-dropdown">Faculty/Staff<i class="material-icons right">arrow_drop_down</i></a></li>
-                            <li><a name="news" class="dropdown-button" data-beloworigin="true" data-activates="news-dropdown">News<i class="material-icons right">arrow_drop_down</i></a></li>
+                            <li><a name="news" class="dropdown-button" data-beloworigin="true" data-activates="news-dropdown">News Articles<i class="material-icons right">arrow_drop_down</i></a></li>
                             <li><a href="{{ url('auth/logout') }}">Logout</a></li>
                         @endif
                     </ul>
@@ -76,38 +67,8 @@
 
             {{-- Main content for each page starts here --}}
             <main>
-                {{-- Login modal --}}
-                <div id="login-modal" class="modal">
-                    <div class="modal-content">
-                      <h4>Enter Credentials</h4>
+                @include('auth.login-modal')
 
-                      <form class="col s12 m6" role="form" action="{{ url('/login') }}" method="POST">
-                          {{ csrf_field() }}
-
-                          @if($errors->has('email') || $errors->has('password'))
-                              <span style="color:red"><strong>Incorrect credentials</strong></span>
-                          @endif
-                          <div class="row" style="margin-top: 1em;">
-                              <div class="input-field col s12 {{ $errors->has('email') ? 'has-error' : '' }}">
-                                  <input id="email" name="email" type="email" class="validate" value="{{ old('email') }}" required autofocus>
-                                  <label for="email">Email</label>
-                              </div>
-                              <div class="input-field col s12 {{ $errors->has('password') ? 'has-error' : '' }}">
-                                  <input id="password" name="password" type="password" class="validate" value="{{ old('password') }}" required>
-                                  <label for="password">Password</label>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <button class="btn waves-effect waves-light" type="submit" name="login">Login
-                                  <i class="material-icons right">send</i>
-                              </button>
-                          </div>
-                      </form>
-                    </div>
-                </div>
-                {{-- End of login modal --}}
-
-                {{-- router-view is the vuejs dynamic content area --}}
                 <div class="container">
                     <div class="row" style="padding-top: 2em;">
                         @if(Auth::check())
@@ -126,6 +87,7 @@
                                     </div>
                                 </section>
 
+                                {{-- router-view is the vuejs dynamic content area --}}
                                 <router-view></router-view>
                             </div>
                         @endif
@@ -163,7 +125,9 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 // Side Nav on mobile
-                $('.button-collapse').sideNav();
+                $('.button-collapse').sideNav({
+                    closeOnClick: true
+                });
 
                 // Dropdown nav items
                 $('.dropdown-button').dropdown({
