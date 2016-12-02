@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 
-class HomeController extends Controller
+class AdminDashboardController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,8 +26,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // return 'User is now logged in!';
-        $user = Auth::user();
-        return view('admin.dashboard', compact('user'));
+        // return view('layouts.master');
     }
 }

@@ -19,7 +19,8 @@ elixir(mix => {
 
     mix.sass('app.scss');
 
-    mix.webpack('app.js');
+    mix.webpack('app.js')
+       .webpack('vuejs-entrypoint.js');
 
     mix.browserSync({
       proxy: 'ttucomc-utilities.app'

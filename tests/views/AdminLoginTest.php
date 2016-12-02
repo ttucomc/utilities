@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class AdminLoginPageTest extends TestCase
+class AdminLoginTest extends TestCase
 {
     /** @test */
     public function admin_can_see_login_form()
@@ -27,6 +27,20 @@ class AdminLoginPageTest extends TestCase
              ->type('test@ttu.edu', 'email')
              ->type('test', 'password')
              ->press('Login')
-             ->seePageIs('/');
+             ->seePageIs('dashboard');
+    }
+
+    /** @test */
+    public function admin_cannot_login_with_the_wrong_credentials()
+    {
+        $this->visit('/')
+             ->see('Enter Credentials')
+             ->see('Email')
+             ->see('Password')
+             ->see('Login')
+             ->type('test@ttu.edu', 'email')
+             ->type('wrong-password', 'password')
+             ->press('Login')
+             ->see('Incorrect Credentials');
     }
 }
