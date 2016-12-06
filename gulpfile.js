@@ -23,7 +23,7 @@ elixir(mix => {
        .webpack('vuejs-entrypoint.js');
 
     mix.browserSync({
-      proxy: 'ttucomc-utilities.app:8000'
+      proxy: 'ttucomc-utilities.app'
     })
 
 });
