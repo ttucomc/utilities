@@ -6,6 +6,10 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class AdminLoginTest extends TestCase
 {
+    use DatabaseTransactions;
+
+    protected $adminUser;
+
     /** @test */
     public function admin_can_see_login_form()
     {
@@ -19,15 +23,20 @@ class AdminLoginTest extends TestCase
     /** @test */
     public function admin_can_see_dashboard_when_logged_in()
     {
+        $this->adminUser = factory(App\User::class)->create();
+
+        $email = $this->adminUser->email;
+        $password = 'secret';
+
         $this->visit('/')
              ->see('Enter Credentials')
              ->see('Email')
              ->see('Password')
              ->see('Login')
-             ->type('test@ttu.edu', 'email')
-             ->type('test', 'password')
+             ->type($email, 'email')
+             ->type($password, 'password')
              ->press('Login')
-             ->seePageIs('dashboard');
+             ->seePageIs('/');
     }
 
     /** @test */
@@ -38,7 +47,7 @@ class AdminLoginTest extends TestCase
              ->see('Email')
              ->see('Password')
              ->see('Login')
-             ->type('test@ttu.edu', 'email')
+             ->type('wrong-email@ttu.edu', 'email')
              ->type('wrong-password', 'password')
              ->press('Login')
              ->see('Incorrect Credentials');
