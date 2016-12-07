@@ -59,9 +59,9 @@ module.exports = function(config) {
         * are writing in ES6 and would run our file through babel before webpack.
         */
         preprocessors: {
-            'app.js': ['babel'],
-            'vuejs-entrypoint.js': ['babel'],
-            'tests/unit/*.spec.js': ['babel', 'webpack']
+            'app.js': ['babel', 'webpack'],
+            'vuejs-entrypoint.js': ['babel', 'webpack'],
+            'tests/**/*.spec.js': ['babel', 'webpack']
         },
     })
 }
