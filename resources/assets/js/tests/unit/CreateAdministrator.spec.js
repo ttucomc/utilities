@@ -1,5 +1,6 @@
 
 // var Vue = require('vue');
+
 import CreateAdministrator from '../../components/CreateAdministrator.vue';
 
 describe('CreateAdministrator', () => {

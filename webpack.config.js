@@ -1,5 +1,9 @@
 module.exports = {
 
-  // your Webpack specific config content
+    module: {
+        loaders: [
+            { test: /\.vue/, loader: "vue" }
+        ]
+    }
 
 }

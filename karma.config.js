@@ -18,7 +18,7 @@ module.exports = function(config) {
 
         autoWatch: true, // enable / disable watching files & then run tests
 
-        browsers: ['PhantomJS'], //'PhantomJS', 'Firefox',
+        browsers: ['Chrome'], //'PhantomJS', 'Firefox',
 
         singleRun: true, // if true, Karma captures browsers, runs the tests and exits
 
@@ -44,7 +44,7 @@ module.exports = function(config) {
          * tests directory including subdirectories
          **/
         files: [
-            { pattern: 'tests/unit/index.js', watched: false },
+            { pattern: 'tests/**/*.js', watched: false },
         ],
 
         // list of files to exclude
@@ -59,8 +59,9 @@ module.exports = function(config) {
         * are writing in ES6 and would run our file through babel before webpack.
         */
         preprocessors: {
-            // 'vuejs-entrypoint.js': ['webpack', 'babel'],
-            'tests/unit/index.js': ['webpack']
+            'app.js': ['babel'],
+            'vuejs-entrypoint.js': ['babel'],
+            'tests/unit/*.spec.js': ['babel', 'webpack']
         },
     })
 }
