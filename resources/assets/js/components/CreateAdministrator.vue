@@ -1,7 +1,7 @@
 
 <template>
     <div class="row">
-        <div class="col s12 m6">
+        <div class="col m6 offset-m3">
             <div class="card grey lighten-4">
                 <form v-on:submit.prevent="createAdmin()">
                     <div class="card-content">
@@ -25,7 +25,7 @@
                             </div>
 
                             <div class="input-field col s12 m6">
-                                <input id="email_repeat" class="validate" type="email" name="email_repeat" value="">
+                                <input v-model="adminData.repeatEmail" id="email_repeat" class="validate" type="email" name="email_repeat" value="">
                                 <label for="email_repeat">Re-enter Email</label>
                             </div>
                         </div>
@@ -37,14 +37,14 @@
                             </div>
 
                             <div class="input-field col s12 m6">
-                                <input id="password_repeat" class="validate" type="password" name="password_repeat" value="">
+                                <input v-model="adminData.repeatPassword" id="password_repeat" class="validate" type="password" name="password_repeat" value="">
                                 <label for="password_repeat">Re-enter Password</label>
                             </div>
                         </div>
                     </div>
 
                     <div class="card-action">
-                        <button class="waves-effect btn-flat button-text-color" type="submit" name="create-admin">Create<i class="material-icons right">done</i></button>
+                        <button class="waves-effect btn-flat button-text-color" type="submit" name="create-admin" :disabled="isEmailEqual && isPasswordEqual">Create<i class="material-icons right">done</i></button>
                     </div>
                 </form>
             </div>
@@ -60,16 +60,41 @@
                     first_name: '',
                     last_name: '',
                     email: '',
+                    repeatEmail: '',
                     password: '',
+                    repeatPassword: '',
                 },
 
-                adminCreated: false
+                adminCreated: false,
+
+                sameFormEmail: false,
+
+                sameFormPassword: false
             }
         },
         computed: {},
-        ready: function () {},
+        ready: function () {
+            this.isEmailEqual();
+            this.isPasswordEqual();
+        },
         attached: function () {},
         methods: {
+            isEmailEqual() {
+                const vm = this;
+
+                if(vm.adminData.email === vm.adminData.repeatEmail) {
+                    vm.sameFormEmail = true;
+                }
+            },
+
+            isPasswordEqual() {
+                const vm = this;
+
+                if(vm.adminData.password === vm.adminData.repeatPassword)    {
+                    vm.sameFormPassword = true;
+                }
+            },
+
             createAdmin(adminData) {
                 const vm = this;
 

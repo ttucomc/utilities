@@ -8500,7 +8500,7 @@ nav img {
 }
 
 main {
-  height: 90vh;
+  min-height: 90vh;
 }
 
 @media only screen and (min-width: 993px) {
