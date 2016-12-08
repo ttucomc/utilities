@@ -1,3 +1,5 @@
+require('vue-loader');
+
 module.exports = {
 
     // This code needs to be uncommented when running the tests for the vue
