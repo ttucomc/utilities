@@ -3,7 +3,7 @@
 /public/js
 /vendor
 /.idea
-/config/database.php
+*database.php
 Homestead.json
 Homestead.yaml
 .env
