@@ -2,9 +2,9 @@
 <template>
     <div class="row">
         <div class="col s12 m6">
-            <div class="card grey darken-3">
+            <div class="card grey lighten-4">
                 <form v-on:submit.prevent="createAdmin()">
-                    <div class="card-content white-text">
+                    <div class="card-content">
                         <span class="card-title">Create New Administrator</span>
 
                         <div class="row">
