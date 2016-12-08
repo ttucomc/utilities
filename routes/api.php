@@ -13,6 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+// Route::post('/admin/create', function (Request $request) {
+//     return Request::all();
+// })->middleware('auth:api');

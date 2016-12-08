@@ -11,6 +11,8 @@
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
+        <meta id="token" name="token" value="{{ csrf_token() }}" />
+
         <!-- Styles -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">

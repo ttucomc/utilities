@@ -17,7 +17,9 @@ class AdminDashboardTest extends TestCase
     {
         parent::setUp();
 
-        $this->adminUser = factory(App\User::class)->create();
+        $this->adminUser = factory(User::class)->create([
+            'is_admin' => 1
+        ]);
     }
 
     /** @test */

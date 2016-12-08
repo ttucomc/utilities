@@ -13,7 +13,6 @@ import CreateFacultyMember from './components/CreateFacultyMember.vue';
 import CreateStaffMember from './components/CreateStaffMember.vue';
 import CreateNewsArticle from './components/CreateNewsArticle.vue';
 
-
 // Setup Vue-router
 const router = new VueRouter({
     routes: [

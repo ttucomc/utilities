@@ -22,3 +22,9 @@ Route::get('auth/logout', function() {
     Session::flush();
     return Redirect::to('/');
 });
+
+Route::group(['middleware' => 'admin'], function() {
+    Route::post('api/admin/create', function(Request $request) {
+        return Request::all();
+    });
+});
