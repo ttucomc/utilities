@@ -25,6 +25,15 @@ class User extends Authenticatable implements UserAuthenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'is_admin',
     ];
+
+    /**
+     * Determine if the user is an administrator.
+     *
+     * @return boolean
+     */
+    public function isAdmin() {
+        return $this->is_admin;
+    }
 }
