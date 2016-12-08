@@ -18,9 +18,6 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="/css/app.css">
 
-        <script src="/js/app.js"></script>
-        <script src="/js/materialize.min.js"></script>
-
     </head>
 
     <body>
@@ -122,7 +119,9 @@
         </div>
         {{-- End of vue div --}}
 
-        <script src="/js/vuejs-entrypoint.js"></script>
+        {{-- <script src="/js/vuejs-entrypoint.js"></script> --}}
+        <script src="/js/app.js"></script>
+        <script src="/js/materialize.min.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function() {
