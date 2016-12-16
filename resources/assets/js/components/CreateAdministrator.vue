@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col m6 offset-m3">
             <div class="card grey lighten-4">
-                <form v-on:submit.prevent="createAdmin()">
+                <form id="admin-form" v-on:submit.prevent="createAdmin()">
                     <div class="card-content">
                         <span class="card-title">Create New Administrator</span>
 
@@ -44,11 +44,21 @@
                     </div>
 
                     <div class="card-action">
-                        <button class="waves-effect btn-flat button-text-color" type="submit" name="create-admin" v-show="emailsMatch && passwordsMatch">Create<i class="material-icons right">done</i></button>
+                        <button @click="AJAXIcon = true" class="waves-effect btn-flat button-text-color" type="submit" name="create-admin" v-show="emailsMatch && passwordsMatch && emailIsValid && ! AJAXIcon">Create<i class="material-icons right">done</i></button>
                         <div class="error" v-show="! emailsMatch"><small>{{ emailErrorMsg }}</small></div>
+                        <div class="error" v-show="! emailIsValid"><small>{{ emailNotValidMsg }}</small></div>
                         <div class="error" v-show="! passwordsMatch"><small>{{ passwordErrorMsg }}</small></div>
-                        <div class="success" v-show="adminCreated">{{ successMsg }}</div>
-
+                        <div v-show="AJAXIcon" class="preloader-wrapper small active">
+                            <div class="spinner-layer spinner-blue-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div><div class="gap-patch">
+                                <div class="circle"></div>
+                              </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -69,13 +79,15 @@
                     repeatPassword: '',
                 },
 
-                adminCreated: false,
+                AJAXIcon: false,
 
-                successMsg: 'Admin has been successfully created',
+                successMsg: 'Admin created successfully',
 
                 emailErrorMsg: 'Email fields must match',
 
-                passwordErrorMsg: 'Password fields must be match'
+                emailNotValidMsg: 'Email is not valid',
+
+                passwordErrorMsg: 'Password fields must match'
             }
         },
         computed: {
@@ -83,6 +95,11 @@
                 return this.adminData.email === this.adminData.repeatEmail &&
                         this.adminData.email.length != 0 &&
                         this.adminData.repeatEmail.length != 0;
+            },
+
+            emailIsValid: function() {
+                return this.adminData.email.includes("@") &&
+                        this.adminData.repeatEmail.includes("@");
             },
 
             passwordsMatch: function () {
@@ -97,8 +114,10 @@
             createAdmin(adminData) {
                 const vm = this;
 
-                vm.$http.post('api/admin/create', vm.adminData)
-                .then((newAdmin) => {
+                vm.$http.post('api/admin/store', vm.adminData)
+                .then((response) => {
+                    vm.AJAXIcon = false;
+
                     vm.adminData.first_name = '';
                     vm.adminData.last_name = '';
                     vm.adminData.email = '';
@@ -106,9 +125,15 @@
                     vm.adminData.password = '';
                     vm.adminData.repeatPassword = '';
 
-                    vm.adminCreated = true;
+                    $("#admin-form")[0].reset();
+                    Materialize.toast(vm.successMsg, 4000, 'blue');
                 }, (error) => {
-                    // handle error
+                    vm.AJAXIcon = false;
+
+                    $.each(error.body, function(key, value) {
+                        Materialize.toast(value[0], 4000, 'red');
+                    });
+
                 });
             }
         },
