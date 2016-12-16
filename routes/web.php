@@ -24,7 +24,5 @@ Route::get('auth/logout', function() {
 });
 
 Route::group(['middleware' => 'admin'], function() {
-    Route::post('api/admin/create', function(Request $request) {
-        return Request::all();
-    });
+    Route::post('api/admin/store', 'AdminController@storeAdmin');
 });

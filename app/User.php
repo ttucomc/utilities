@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as UserAuthenticatable;
+use Illuminate\Http\Request;
 
 class User extends Authenticatable implements UserAuthenticatable
 {
@@ -35,5 +36,18 @@ class User extends Authenticatable implements UserAuthenticatable
      */
     public function isAdmin() {
         return $this->is_admin;
+    }
+
+    /**
+     * Store the new Administrator in the database.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return void
+     */
+    public function storeAdmin(Request $request)
+    {
+        $admin = User::create($request->all());
+        $admin->is_admin = 1;
+        $admin->save();
     }
 }
