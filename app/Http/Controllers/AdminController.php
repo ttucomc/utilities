@@ -42,13 +42,29 @@ class AdminController extends Controller
     /**
      * Store a newly created Administrator in storage.
      *
-     * @param  \Illuminate\Http\StoreNewAdministrator  $request
+     * @param  \Illuminate\Http\StoreNewAdministratorRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function storeAdmin(Requests\StoreNewAdministratorRequest $request)
     {
         $admin = new User;
         $admin->storeAdmin($request);
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+    /**
+     * Store a newly created staff memeber in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeStaff(Request $request)
+    {
+        $staff = new Team;
+        $staff->storeStaff($request);
 
         return response()->json([
             'success' => true

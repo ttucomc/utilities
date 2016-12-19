@@ -4,6 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/*
+ * The user acts as the administrator within the application.
+ * There are administrators and if the need arises, there
+ * can be lower level users who won't have full admin
+ * rights.
+ */
+
 class CreateUsersTable extends Migration
 {
     /**

@@ -14,8 +14,8 @@ class StoreNewAdministratorRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = Auth::user();
-        return $user->isAdmin();
+        // Handled by Admin middleware
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class StoreNewAdministratorRequest extends FormRequest
             'first_name'    => 'required',
             'last_name'     => 'required',
             'email'         => 'required|unique:users,email',
-            'password'      => 'required'
+            'password'      => 'required|min:6'
         ];
     }
 }

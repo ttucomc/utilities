@@ -25,4 +25,5 @@ Route::get('auth/logout', function() {
 
 Route::group(['middleware' => 'admin'], function() {
     Route::post('api/admin/store', 'AdminController@storeAdmin');
+    Route::post('api/team/store/staff', 'AdminController@storeStaff');
 });
