@@ -1,7 +1,7 @@
 
 <template>
     <div class="row">
-        <div class="col m6 offset-m3">
+        <div class="col m8 offset-m2">
             <div class="card grey lighten-4">
                 <form id="staff-form"
                       v-on:submit.prevent="createStaff()">
@@ -34,7 +34,8 @@
                                        class="validate"
                                        type="email"
                                        name="email"
-                                       value="">
+                                       value=""
+                                       placeholder="@ttu.edu">
                                 <label for="email"
                                        data-error="Please enter a valid email address">Email</label>
                             </div>
@@ -45,23 +46,10 @@
                                        class="validate"
                                        type="email"
                                        name="email_repeat"
-                                       value="">
+                                       value=""
+                                       placeholder="@ttu.edu">
                                 <label for="email_repeat"
                                        data-error="Please enter a valid email address">Re-enter Email</label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="file-field input-field">
-                                <div class="btn">
-                                    <span>File</span>
-                                    <input type="file">
-                                </div>
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate"
-                                           type="text"
-                                           placeholder="Attach a photo">
-                                </div>
                             </div>
                         </div>
 
@@ -91,6 +79,20 @@
                                        name="room_number"
                                        value="">
                                 <label for="room_number">Room Number</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="file-field input-field col s12">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input type="file">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate"
+                                           type="text"
+                                           placeholder="Attach a photo">
+                                </div>
                             </div>
                         </div>
 
@@ -216,7 +218,7 @@
                     vm.staffData.duties = '';
                     vm.staffData.training = '';
 
-                    $("#admin-form")[0].reset();
+                    $("#staff-form")[0].reset();
                     Materialize.toast(vm.successMsg, 4000, 'blue');
                 }, (error) => {
                     vm.AJAXIcon = false;

@@ -20,7 +20,7 @@ class Admin
             return $next($request);
         }
 
-        return response('You are no Jedi Master!');
+        return redirect('unauthorized-access');
 
     }
 }

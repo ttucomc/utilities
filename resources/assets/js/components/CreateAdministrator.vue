@@ -1,7 +1,7 @@
 
 <template>
     <div class="row">
-        <div class="col m6 offset-m3">
+        <div class="col m8 offset-m2">
             <div class="card grey lighten-4">
                 <form id="admin-form"
                       v-on:submit.prevent="createAdmin()">
@@ -34,7 +34,8 @@
                                        class="validate"
                                        type="email"
                                        name="email"
-                                       value="">
+                                       value=""
+                                       placeholder="@ttu.edu">
                                 <label for="email"
                                        data-error="Please enter a valid email address" >Email</label>
                             </div>
@@ -45,7 +46,8 @@
                                        class="validate"
                                        type="email"
                                        name="email_repeat"
-                                       value="">
+                                       value=""
+                                       placeholder="@ttu.edu">
                                 <label for="email_repeat"
                                        data-error="Please enter a valid email address">Re-enter Email</label>
                             </div>

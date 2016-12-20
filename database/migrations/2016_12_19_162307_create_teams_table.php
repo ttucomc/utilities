@@ -19,7 +19,7 @@ class CreateTeamsTable extends Migration
             $table->string('last_name', 30);
             $table->string('email')->unique();
             $table->string('photo')->nullable();
-            $table->string('role', 50);
+            $table->string('role', 50)->nullable();
             $table->string('title', 50);
             $table->string('department', 100);
             $table->string('room_number', 50);
@@ -28,7 +28,7 @@ class CreateTeamsTable extends Migration
             $table->string('master', 100)->nullable();
             $table->string('phd', 100)->nullable();
             $table->json('social_handles')->nullable();
-            $table->text('bio');
+            $table->text('bio')->nullable();
             $table->json('courses')->nullable();
             $table->text('research')->nullable();
             $table->text('duties')->nullable();

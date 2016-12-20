@@ -39,4 +39,17 @@ class Team extends Model
         $staff->role = "staff";
         $staff->save();
     }
+
+    /**
+     * Store the new faculty member in the database.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return void
+     */
+    public function storeFaculty(Request $request)
+    {
+        $staff = Team::create($request->all());
+        $staff->role = "faculty";
+        $staff->save();
+    }
 }
