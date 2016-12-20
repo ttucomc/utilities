@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\User;
+use App\Team;
 
 /*
  * Storing new admins and team members in the database assumes that the
@@ -152,40 +153,23 @@ class AdminControllerTest extends TestCase
                  'title'            => 'Staff CEO',
                  'department'       => 'IT',
                  'room_number'      => '250A',
-                 'office_hours'     => null,
-                 'bachelor'         => null,
-                 'masters'          => null,
-                 'phd'              => null,
                  'social_handles'   => null,
                  'bio'              => 'The Jane Staffer bio...',
-                 'courses'          => null,
-                 'research'         => null,
                  'duties'           => 'My duties include...',
                  'training'         => 'My training includes...',
-                 'awards'           => null,
-                 'cv'               => null
              ])
              ->seeInDatabase('teams', [
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
                  'photo'            => '/path/to/photo.jpg',
-                 'role'             => 'staff',
                  'title'            => 'Staff CEO',
                  'department'       => 'IT',
                  'room_number'      => '250A',
-                 'office_hours'     => null,
-                 'bachelor'         => null,
-                 'master'           => null,
-                 'phd'              => null,
                  'social_handles'   => null,
                  'bio'              => 'The Jane Staffer bio...',
-                 'courses'          => null,
-                 'research'         => null,
                  'duties'           => 'My duties include...',
                  'training'         => 'My training includes...',
-                 'awards'           => null,
-                 'cv'               => null
              ])
              ->seeJson([
                  'success'     => true

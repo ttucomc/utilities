@@ -52,7 +52,21 @@
                         </div>
 
                         <div class="row">
-                            <div class="input-field col s12 m6">
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input type="file">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate"
+                                           type="text"
+                                           placeholder="Attach a photo">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12 m4">
                                 <input id="title"
                                        v-model="staffData.title"
                                        type="text"
@@ -61,7 +75,7 @@
                                 <label for="title">Title</label>
                             </div>
 
-                            <div class="input-field col s12 m6">
+                            <div class="input-field col s12 m4">
                                 <input id="department"
                                        v-model="staffData.department"
                                        type="text"
@@ -69,10 +83,8 @@
                                        value="">
                                 <label for="department">Department</label>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="input-field col s12">
+                            <div class="input-field col s12 m4">
                                 <input id="room_number"
                                        v-model="staffData.room_number"
                                        type="text"
@@ -90,6 +102,28 @@
                                           name="bio"
                                           value=""></textarea>
                                 <label for="bio">Bio</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="duties"
+                                          v-model="staffData.duties"
+                                          class="materialize-textarea"
+                                          name="duties"
+                                          value=""></textarea>
+                                <label for="duties">Duties</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="training"
+                                          v-model="staffData.training"
+                                          class="materialize-textarea"
+                                          name="training"
+                                          value=""></textarea>
+                                <label for="training">Training</label>
                             </div>
                         </div>
                     </div>
@@ -130,11 +164,14 @@
                     first_name: '',
                     last_name: '',
                     email: '',
+                    repeatEmail: '',
                     photo: '',
                     title: '',
                     department: '',
                     room_number: '',
-                    bio: ''
+                    bio: '',
+                    duties: '',
+                    training: ''
                 },
 
                 AJAXIcon: false,
@@ -176,6 +213,8 @@
                     vm.staffData.department = '';
                     vm.staffData.room_number = '';
                     vm.staffData.bio = '';
+                    vm.staffData.duties = '';
+                    vm.staffData.training = '';
 
                     $("#admin-form")[0].reset();
                     Materialize.toast(vm.successMsg, 4000, 'blue');
