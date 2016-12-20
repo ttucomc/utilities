@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('layouts.master');
 });
 
+Route::get('unauthorized-access', function() {
+    return view('errors.unauthorized-access');
+});
+
 Route::get('auth/logout', function() {
     Auth::logout();
     Session::flush();
@@ -25,4 +29,6 @@ Route::get('auth/logout', function() {
 
 Route::group(['middleware' => 'admin'], function() {
     Route::post('api/admin/store', 'AdminController@storeAdmin');
+    Route::post('api/team/store/staff', 'AdminController@storeStaff');
+    Route::post('api/team/store/faculty', 'AdminController@storeFaculty');
 });

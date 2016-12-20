@@ -1,54 +1,93 @@
 
 <template>
     <div class="row">
-        <div class="col m6 offset-m3">
+        <div class="col m8 offset-m2">
             <div class="card grey lighten-4">
-                <form id="admin-form" v-on:submit.prevent="createAdmin()">
+                <form id="admin-form"
+                      v-on:submit.prevent="createAdmin()">
                     <div class="card-content">
                         <span class="card-title">Create New Administrator</span>
 
                         <div class="row">
                             <div class="input-field col s12 m6">
-                                <input v-model="adminData.first_name" id="first_name" class="validate" type="text" name="first_name" value="">
+                                <input id="first_name"
+                                       v-model="adminData.first_name"
+                                       type="text"
+                                       name="first_name"
+                                       value="">
                                 <label for="first_name">First Name</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <input v-model="adminData.last_name" id="last_name" class="validate" type="text" name="last_name" value="">
+                                <input id="last_name"
+                                       v-model="adminData.last_name"
+                                       type="text"
+                                       name="last_name"
+                                       value="">
                                 <label for="last_name">Last Name</label>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col s12 m6">
-                                <input v-model="adminData.email" id="email" class="validate" type="email" name="email" value="">
-                                <label data-error="Please enter a valid email address" for="email">Email</label>
+                                <input id="email"
+                                       v-model="adminData.email"
+                                       class="validate"
+                                       type="email"
+                                       name="email"
+                                       value=""
+                                       placeholder="@ttu.edu">
+                                <label for="email"
+                                       data-error="Please enter a valid email address" >Email</label>
                             </div>
 
                             <div class="input-field col s12 m6">
-                                <input v-model="adminData.repeatEmail" id="email_repeat" class="validate" type="email" name="email_repeat" value="">
-                                <label data-error="Please enter a valid email address" for="email_repeat">Re-enter Email</label>
+                                <input id="email_repeat"
+                                       v-model="adminData.repeatEmail"
+                                       class="validate"
+                                       type="email"
+                                       name="email_repeat"
+                                       value=""
+                                       placeholder="@ttu.edu">
+                                <label for="email_repeat"
+                                       data-error="Please enter a valid email address">Re-enter Email</label>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col s12 m6">
-                                <input v-model="adminData.password" id="password" class="validate" type="password" name="password" value="">
+                                <input id="password"
+                                       v-model="adminData.password"
+                                       class="validate"
+                                       type="password"
+                                       name="password"
+                                       value="">
                                 <label for="password">Password</label>
                             </div>
 
                             <div class="input-field col s12 m6">
-                                <input v-model="adminData.repeatPassword" id="password_repeat" class="validate" type="password" name="password_repeat" value="">
+                                <input id="password_repeat"
+                                       v-model="adminData.repeatPassword"
+                                       class="validate"
+                                       type="password"
+                                       name="password_repeat"
+                                       value="">
                                 <label for="password_repeat">Re-enter Password</label>
                             </div>
                         </div>
                     </div>
 
                     <div class="card-action">
-                        <button @click="AJAXIcon = true" class="waves-effect btn-flat button-text-color" type="submit" name="create-admin" v-show="emailsMatch && passwordsMatch && emailIsValid && ! AJAXIcon">Create<i class="material-icons right">done</i></button>
+                        <button class="waves-effect btn-flat button-text-color"
+                                v-show="emailsMatch && passwordsMatch && emailIsValid && ! AJAXIcon"
+                                @click="AJAXIcon = true"
+                                type="submit"
+                                name="create-admin"
+                                >Create<i class="material-icons right">done</i></button>
                         <div class="error" v-show="! emailsMatch"><small>{{ emailErrorMsg }}</small></div>
                         <div class="error" v-show="! emailIsValid"><small>{{ emailNotValidMsg }}</small></div>
                         <div class="error" v-show="! passwordsMatch"><small>{{ passwordErrorMsg }}</small></div>
-                        <div v-show="AJAXIcon" class="preloader-wrapper small active">
+                        <div class="preloader-wrapper small active"
+                             v-show="AJAXIcon">
                             <div class="spinner-layer spinner-blue-only">
                               <div class="circle-clipper left">
                                 <div class="circle"></div>
@@ -133,7 +172,6 @@
                     $.each(error.body, function(key, value) {
                         Materialize.toast(value[0], 4000, 'red');
                     });
-
                 });
             }
         },

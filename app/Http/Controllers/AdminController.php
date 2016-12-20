@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\Team;
 use App\Http\Requests;
 
 class AdminController extends Controller
@@ -16,7 +17,7 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('admin');
     }
 
     /**
@@ -42,13 +43,45 @@ class AdminController extends Controller
     /**
      * Store a newly created Administrator in storage.
      *
-     * @param  \Illuminate\Http\StoreNewAdministrator  $request
+     * @param  \Illuminate\Http\StoreNewAdministratorRequest $request
      * @return \Illuminate\Http\Response
      */
     public function storeAdmin(Requests\StoreNewAdministratorRequest $request)
     {
         $admin = new User;
         $admin->storeAdmin($request);
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+    /**
+     * Store a newly created staff memeber in storage.
+     *
+     * @param  \Illuminate\Http\StoreNewStaffRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeStaff(Requests\StoreNewStaffRequest $request)
+    {
+        $staff = new Team;
+        $staff->storeStaff($request);
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+    /**
+     * Store a newly created faculty memeber in storage.
+     *
+     * @param  \Illuminate\Http\StoreNewFacultyRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeFaculty(Requests\StoreNewFacultyRequest $request)
+    {
+        $staff = new Team;
+        $staff->storeFaculty($request);
 
         return response()->json([
             'success' => true

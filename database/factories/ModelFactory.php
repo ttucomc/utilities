@@ -15,11 +15,22 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'first_name' => $faker->name,
-        'last_name'  => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'is_admin' => $faker->randomNumber(1),
+        'first_name'     => $faker->name,
+        'last_name'      => $faker->name,
+        'email'          => $faker->unique()->safeEmail,
+        'password'       => $password ?: $password = bcrypt('secret'),
+        'is_admin'       => $faker->randomNumber(1),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Team::class, function (Faker\Generator $faker) {
+    return [
+        'first_name'     => $faker->name,
+        'last_name'      => $faker->name,
+        'email'          => $faker->unique()->safeEmail,
+        'title'          => $faker->titleMale,
+        'department'     => $faker->company,
+        'room_number'    => '225B',
     ];
 });

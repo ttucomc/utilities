@@ -138,6 +138,8 @@
                     alignment: 'right'
                 });
 
+                $('#social-handles').material_select();
+
                 // Login modal will display if user is not logged in
                 @if(! Auth::check())
                     $('#login-modal').openModal({dismissible:false});
