@@ -36,7 +36,8 @@
                                        name="email"
                                        value=""
                                        placeholder="@ttu.edu">
-                                <label for="email"
+                                <label class="active"
+                                       for="email"
                                        data-error="Please enter a valid email address" >Email</label>
                             </div>
 
@@ -48,7 +49,8 @@
                                        name="email_repeat"
                                        value=""
                                        placeholder="@ttu.edu">
-                                <label for="email_repeat"
+                                <label class="active"
+                                       for="email_repeat"
                                        data-error="Please enter a valid email address">Re-enter Email</label>
                             </div>
                         </div>
