@@ -35,7 +35,8 @@
                                        name="email"
                                        value=""
                                        placeholder="@ttu.edu">
-                                <label for="email"
+                                <label class="active"
+                                       for="email"
                                        data-error="Please enter a valid email address">Email</label>
                             </div>
 
@@ -47,7 +48,8 @@
                                        name="email_repeat"
                                        value=""
                                        placeholder="@ttu.edu">
-                                <label for="email_repeat"
+                                <label class="active"
+                                       for="email_repeat"
                                        data-error="Please enter a valid email address">Re-enter Email</label>
                             </div>
                         </div>
@@ -100,8 +102,9 @@
                                        type="text"
                                        name="office_hours"
                                        value=""
-                                       placeholder="ex: 'MWF: 1:00pm to 3:00pm'">
-                                <label for="office_hours">Office Hours</label>
+                                       placeholder="MWF: 1:00pm to 3:00pm">
+                                <label class="active"
+                                       for="office_hours">Office Hours</label>
                             </div>
                         </div>
 

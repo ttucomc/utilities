@@ -15,6 +15,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="/css/app.css">
 
@@ -70,7 +71,7 @@
 
                 <div class="container">
                     <div class="row" style="padding-top: 2em;">
-                        @if(Auth::check())
+                        @if(Auth::check() && Auth::user()->isAdmin())
                             <div class="col s12">
                                 <h3>Admin Dashboard: <small>Welcome, {{ Auth::user()->first_name }}</small></h3>
 
@@ -89,6 +90,8 @@
                                 {{-- router-view is the vuejs dynamic content area --}}
                                 <router-view></router-view>
                             </div>
+                        @else
+                            @include('errors.unauthorized-access')
                         @endif
                     </div>
                 </div>
@@ -139,6 +142,8 @@
                 });
 
                 $('#social-handles').material_select();
+
+                Materialize.updateTextFields();
 
                 // Login modal will display if user is not logged in
                 @if(! Auth::check())
