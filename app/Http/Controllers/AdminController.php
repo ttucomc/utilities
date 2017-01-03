@@ -59,7 +59,7 @@ class AdminController extends Controller
     /**
      * Store a newly created staff memeber in storage.
      *
-     * @param  \Illuminate\Http\StoreNewStaffRequest $request
+     * @param  \Illuminate\Http\Requests\StoreNewStaffRequest $request
      * @return \Illuminate\Http\Response
      */
     public function storeStaff(Requests\StoreNewStaffRequest $request)
@@ -75,7 +75,7 @@ class AdminController extends Controller
     /**
      * Store a newly created faculty memeber in storage.
      *
-     * @param  \Illuminate\Http\StoreNewFacultyRequest $request
+     * @param  \Illuminate\Http\Requests\StoreNewFacultyRequest $request
      * @return \Illuminate\Http\Response
      */
     public function storeFaculty(Requests\StoreNewFacultyRequest $request)

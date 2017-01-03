@@ -138,22 +138,25 @@
                         </div>
 
                         <div class="row">
-                            <div class="input-field col s12 m6">
-                                <select id="social-handles"
-                                        v-model="facultyData.social_handles"
-                                        multiple>
-                                    <option v-for="social_handle in facultyData.social_handles">{{ social_handle.text }}</option>
-                                </select>
-                                <label>Social Handles</label>
+                            <div class="input-field col s12">
+                                <textarea id="social-handles"
+                                          v-model="facultyData.social_handles"
+                                          class="materialize-textarea"
+                                          name="social-handles"
+                                          value=""></textarea>
+                                <label for="social-handles">Social Handles | Website</label>
                              </div>
+                        </div>
 
-                             <div class="input-field col s12 m6">
-                                 <input id="social-handle-input"
-                                        v-model="facultyData.phd"
-                                        type="text"
-                                        name="phd"
-                                        value="">
-                             </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="courses"
+                                          v-model="facultyData.courses"
+                                          class="materialize-textarea"
+                                          name="courses"
+                                          value=""></textarea>
+                                <label for="bio">Courses</label>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -164,6 +167,17 @@
                                           name="bio"
                                           value=""></textarea>
                                 <label for="bio">Bio</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="research"
+                                          v-model="facultyData.research"
+                                          class="materialize-textarea"
+                                          name="research"
+                                          value=""></textarea>
+                                <label for="bio">Research</label>
                             </div>
                         </div>
 
@@ -186,6 +200,20 @@
                                           name="training"
                                           value=""></textarea>
                                 <label for="training">Training</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="file-field input-field col s12">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input type="file">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate"
+                                           type="text"
+                                           placeholder="Attach CV">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -236,12 +264,7 @@
                     bachelor: '',
                     master: '',
                     phd: '',
-                    social_handles: [
-                        { text: 'Choose social media' },
-                        { text: 'Facebook' },
-                        { text: 'Twitter' },
-                        { text: 'Website' }
-                    ],
+                    social_handles: '',
                     bio: '',
                     courses: '',
                     research: '',
@@ -272,15 +295,13 @@
                         this.facultyData.repeatEmail.includes("@");
             },
         },
-        ready: function () {
-            $('#social_handles').material_select();
-        },
+        ready: function () {},
         attached: function () {},
         methods: {
             createFaculty(facultyData) {
                 const vm = this;
 
-                vm.$http.post('api/team/store/staff', vm.facultyData)
+                vm.$http.post('api/team/store/faculty', vm.facultyData)
                 .then((response) => {
                     vm.AJAXIcon = false;
 

@@ -27,9 +27,9 @@ class CreateTeamsTable extends Migration
             $table->string('bachelor', 100)->nullable();
             $table->string('master', 100)->nullable();
             $table->string('phd', 100)->nullable();
-            $table->json('social_handles')->nullable();
+            $table->text('social_handles')->nullable();
             $table->text('bio')->nullable();
-            $table->json('courses')->nullable();
+            $table->text('courses')->nullable();
             $table->text('research')->nullable();
             $table->text('duties')->nullable();
             $table->text('training')->nullable();
