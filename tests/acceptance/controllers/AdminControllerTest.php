@@ -378,4 +378,214 @@ class AdminControllerTest extends TestCase
                      ]
              ]);
     }
+
+    /** @test */
+    public function it_can_store_a_new_faculty_member_in_the_database()
+    {
+        $this->actingAs($this->adminUser)
+             ->json('POST', '/api/team/store/faculty', [
+                 'first_name'       => 'Jane',
+                 'last_name'        => 'Faculty',
+                 'email'            => 'jane@email.com',
+                 'photo'            => '/path/to/photo.jpg',
+                 'title'            => 'Faculty CEO',
+                 'department'       => 'Web Design',
+                 'room_number'      => '255C',
+                 'social_handles'   => 'facebook.com/jane twitter.com/jane',
+                 'courses'          => 'course1 course2 course3',
+                 'bio'              => 'The Jane Faculty bio...',
+                 'research'         => 'My research includes...',
+                 'duties'           => 'My duties include...',
+                 'training'         => 'My training includes...',
+                 'cv'               => '/path/to/cv.pdf'
+             ])
+             ->seeInDatabase('teams', [
+                 'first_name'       => 'Jane',
+                 'last_name'        => 'Faculty',
+                 'email'            => 'jane@email.com',
+                 'photo'            => '/path/to/photo.jpg',
+                 'role'             => 'faculty',
+                 'title'            => 'Faculty CEO',
+                 'department'       => 'Web Design',
+                 'room_number'      => '255C',
+                 'social_handles'   => 'facebook.com/jane twitter.com/jane',
+                 'courses'          => 'course1 course2 course3',
+                 'bio'              => 'The Jane Faculty bio...',
+                 'research'         => 'My research includes...',
+                 'duties'           => 'My duties include...',
+                 'training'         => 'My training includes...',
+                 'cv'               => '/path/to/cv.pdf'
+             ])
+             ->seeJson([
+                 'success'     => true
+             ]);
+    }
+
+    /** @test */
+    public function it_requires_a_first_name_to_store_a_new_faculty_member()
+    {
+        $this->actingAs($this->adminUser)
+             ->json('POST', '/api/team/store/faculty', [
+                 'first_name'       => '',
+                 'last_name'        => 'Faculty',
+                 'email'            => 'jane@email.com',
+                 'photo'            => '/path/to/photo.jpg',
+                 'title'            => 'Faculty CEO',
+                 'department'       => 'Web Design',
+                 'room_number'      => '255C',
+                 'social_handles'   => 'facebook.com/jane twitter.com/jane',
+                 'courses'          => 'course1 course2 course3',
+                 'bio'              => 'The Jane Faculty bio...',
+                 'research'         => 'My research includes...',
+                 'duties'           => 'My duties include...',
+                 'training'         => 'My training includes...',
+                 'cv'               => '/path/to/cv.pdf'
+             ])
+        ->assertResponseStatus(422)
+        ->seeJson([
+            'first_name'  => [
+                   'The first name field is required.'
+                ]
+        ]);
+    }
+
+    /** @test */
+    public function it_requires_a_last_name_to_store_a_new_faculty_member()
+    {
+        $this->actingAs($this->adminUser)
+             ->json('POST', '/api/team/store/faculty', [
+                 'first_name'       => 'Jane',
+                 'last_name'        => '',
+                 'email'            => 'jane@email.com',
+                 'photo'            => '/path/to/photo.jpg',
+                 'title'            => 'Faculty CEO',
+                 'department'       => 'Web Design',
+                 'room_number'      => '255C',
+                 'social_handles'   => 'facebook.com/jane twitter.com/jane',
+                 'courses'          => 'course1 course2 course3',
+                 'bio'              => 'The Jane Faculty bio...',
+                 'research'         => 'My research includes...',
+                 'duties'           => 'My duties include...',
+                 'training'         => 'My training includes...',
+                 'cv'               => '/path/to/cv.pdf'
+             ])
+        ->assertResponseStatus(422)
+        ->seeJson([
+            'last_name'  => [
+                   'The last name field is required.'
+                ]
+        ]);
+    }
+
+    /** @test */
+    public function it_requires_an_email_to_store_a_new_faculty_member()
+    {
+        $this->actingAs($this->adminUser)
+             ->json('POST', '/api/team/store/faculty', [
+                 'first_name'       => 'Jane',
+                 'last_name'        => 'Faculty',
+                 'email'            => '',
+                 'photo'            => '/path/to/photo.jpg',
+                 'title'            => 'Faculty CEO',
+                 'department'       => 'Web Design',
+                 'room_number'      => '255C',
+                 'social_handles'   => 'facebook.com/jane twitter.com/jane',
+                 'courses'          => 'course1 course2 course3',
+                 'bio'              => 'The Jane Faculty bio...',
+                 'research'         => 'My research includes...',
+                 'duties'           => 'My duties include...',
+                 'training'         => 'My training includes...',
+                 'cv'               => '/path/to/cv.pdf'
+             ])
+        ->assertResponseStatus(422)
+        ->seeJson([
+            'email'  => [
+                   'The email field is required.'
+                ]
+        ]);
+    }
+
+    /** @test */
+    public function it_requires_a_title_to_store_a_new_faculty_member()
+    {
+        $this->actingAs($this->adminUser)
+             ->json('POST', '/api/team/store/faculty', [
+                 'first_name'       => 'Jane',
+                 'last_name'        => 'Faculty',
+                 'email'            => 'jane@email.com',
+                 'photo'            => '/path/to/photo.jpg',
+                 'title'            => '',
+                 'department'       => 'Web Design',
+                 'room_number'      => '255C',
+                 'social_handles'   => 'facebook.com/jane twitter.com/jane',
+                 'courses'          => 'course1 course2 course3',
+                 'bio'              => 'The Jane Faculty bio...',
+                 'research'         => 'My research includes...',
+                 'duties'           => 'My duties include...',
+                 'training'         => 'My training includes...',
+                 'cv'               => '/path/to/cv.pdf'
+             ])
+        ->assertResponseStatus(422)
+        ->seeJson([
+            'title'  => [
+                   'The title field is required.'
+                ]
+        ]);
+    }
+
+    /** @test */
+    public function it_requires_a_department_to_store_a_new_faculty_member()
+    {
+        $this->actingAs($this->adminUser)
+             ->json('POST', '/api/team/store/faculty', [
+                 'first_name'       => 'Jane',
+                 'last_name'        => 'Faculty',
+                 'email'            => 'jane@email.com',
+                 'photo'            => '/path/to/photo.jpg',
+                 'title'            => 'Faculty CEO',
+                 'department'       => '',
+                 'room_number'      => '255C',
+                 'social_handles'   => 'facebook.com/jane twitter.com/jane',
+                 'courses'          => 'course1 course2 course3',
+                 'bio'              => 'The Jane Faculty bio...',
+                 'research'         => 'My research includes...',
+                 'duties'           => 'My duties include...',
+                 'training'         => 'My training includes...',
+                 'cv'               => '/path/to/cv.pdf'
+             ])
+        ->assertResponseStatus(422)
+        ->seeJson([
+            'department'  => [
+                   'The department field is required.'
+                ]
+        ]);
+    }
+
+    /** @test */
+    public function it_requires_a_room_number_to_store_a_new_faculty_member()
+    {
+        $this->actingAs($this->adminUser)
+             ->json('POST', '/api/team/store/faculty', [
+                 'first_name'       => 'Jane',
+                 'last_name'        => 'Faculty',
+                 'email'            => 'jane@email.com',
+                 'photo'            => '/path/to/photo.jpg',
+                 'title'            => 'Faculty CEO',
+                 'department'       => 'Web Design',
+                 'room_number'      => '',
+                 'social_handles'   => 'facebook.com/jane twitter.com/jane',
+                 'courses'          => 'course1 course2 course3',
+                 'bio'              => 'The Jane Faculty bio...',
+                 'research'         => 'My research includes...',
+                 'duties'           => 'My duties include...',
+                 'training'         => 'My training includes...',
+                 'cv'               => '/path/to/cv.pdf'
+             ])
+        ->assertResponseStatus(422)
+        ->seeJson([
+            'room_number'  => [
+                   'The room number field is required.'
+                ]
+        ]);
+    }
 }
