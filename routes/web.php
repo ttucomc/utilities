@@ -14,7 +14,11 @@
 Auth::routes();
 
 Route::get('/', function () {
-    return view('layouts.master');
+    return view('layouts.user-master');
+});
+
+Route::get('/admin/', function () {
+    return view('layouts.admin-master');
 });
 
 Route::get('unauthorized-access', function() {
