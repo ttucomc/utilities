@@ -22,42 +22,43 @@
     </head>
 
     <body>
-        {{-- Dropdown structure --}}
-        <ul id="faculty-staff-dropdown" class="dropdown-content">
-            <li><a href="/#/create-faculty-member">Create Faculty<i class="small material-icons right">input</i></a></li>
-            <li class="divider"></li>
-            <li><a href="/#/create-staff-member">Create Staff<i class="small material-icons right">input</i></a></li>
-        </ul>
-        <ul id="news-dropdown" class="dropdown-content">
-            <li><a href="/#/create-news-article">Create Article<i class="small material-icons right">input</i></a></li>
-        </ul>
+
 
         {{-- Start of vue div --}}
         <div id="admin-dashboard-vuejs-content">
             {{-- Navigation --}}
             <nav>
                 <div class="nav-wrapper">
-                    <a href="#" class="brand-logo">
+                    <a href="/" class="brand-logo">
                         <img src="/storage/images/header-logo.svg" alt="TTU Utilities Header Logo" />
                     </a>
 
                     <ul id="slide-out" class="side-nav">
                         @if (Auth::check())
-                            <li><a href="/#">Profile</a></li>
-                            <li><a href="/#/create-faculty-member">Create Faculty</a></li>
-                            <li><a href="/#/create-staff-member">Create Staff</a></li>
-                            <li><a href="/#/create-news-article">Create Article</a></li>
+                            <li><a href="/admin">Profile</a></li>
+                            <li><a href="/admin/create-faculty-member">Create Faculty</a></li>
+                            <li><a href="/admin/create-staff-member">Create Staff</a></li>
+                            <li><a href="/admin/create-news-article">Create Article</a></li>
                             <li><a href="{{ url('auth/logout') }}">Logout</a></li>
                         @endif
                     </ul>
 
                     <ul class="right hide-on-med-and-down">
                         @if (Auth::check())
-                            <li><a href="/#"><i class="small material-icons left">perm_identity</i>Profile</a></li>
+                            <li><router-link to="/admin"><i class="small material-icons left">perm_identity</i>Profile</router-link></li>
                             <li><a name="faculty-staff" class="dropdown-button" data-beloworigin="true" data-activates="faculty-staff-dropdown">Faculty/Staff<i class="material-icons right">arrow_drop_down</i></a></li>
                             <li><a name="news" class="dropdown-button" data-beloworigin="true" data-activates="news-dropdown">News Articles<i class="material-icons right">arrow_drop_down</i></a></li>
                             <li><a href="{{ url('auth/logout') }}">Logout</a></li>
                         @endif
+                    </ul>
+                    {{-- Dropdown structure --}}
+                    <ul id="faculty-staff-dropdown" class="dropdown-content">
+                        <li><router-link to="/admin/create-faculty-member">Create Faculty<i class="small material-icons right">input</i></router-link></li>
+                        <li class="divider"></li>
+                        <li><router-link to="/admin/create-staff-member">Create Staff<i class="small material-icons right">input</i></router-link></li>
+                    </ul>
+                    <ul id="news-dropdown" class="dropdown-content">
+                        <li><router-link to="/admin/create-news-article">Create Article<i class="small material-icons right">input</i></router-link></li>
                     </ul>
 
                     <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -114,7 +115,7 @@
                 </div>
                 <div class="footer-copyright">
                     <div class="container">
-                        © 2016 Copyright Text
+                        © <?php echo date('Y'); ?> College of Media &amp; Communication
                     </div>
                 </div>
             </footer>
@@ -126,6 +127,7 @@
         <script src="/js/materialize.min.js"></script>
 
         <script type="text/javascript">
+
             $(document).ready(function() {
                 // Side Nav on mobile
                 $('.button-collapse').sideNav({

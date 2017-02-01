@@ -33,7 +33,7 @@
 /* 1. Colors
    ========================================================================== */
 
-$primary-color: #bd0f0f !default;
+$primary-color: #C00 !default;
 $primary-color-light: lighten($primary-color, 15%) !default;
 $primary-color-dark: darken($primary-color, 15%) !default;
 
@@ -92,7 +92,7 @@ $button-floating-radius: 50% !default;
 
 $card-padding: 20px !default;
 $card-bg-color: #fff !default;
-$card-link-color: color("orange", "accent-2") !default;
+$card-link-color: $primary-color !default;
 $card-link-color-light: lighten($card-link-color, 20%) !default;
 
 

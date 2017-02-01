@@ -20,27 +20,33 @@ import CreateAdministrator from './components/CreateAdministrator.vue';
 import CreateFacultyMember from './components/CreateFacultyMember.vue';
 import CreateStaffMember from './components/CreateStaffMember.vue';
 import CreateNewsArticle from './components/CreateNewsArticle.vue';
+import Home from './components/Home.vue';
 
 // Setup Vue-router
 const router = new VueRouter({
+    mode: 'history',
     routes: [
         {
             path: '/',
+            component: Home
+        },
+        {
+            path: '/admin',
             component: CreateAdministrator
         },
 
         {
-            path: '/create-faculty-member',
+            path: '/admin/create-faculty-member',
             component: CreateFacultyMember
         },
 
         {
-            path: '/create-staff-member',
+            path: '/admin/create-staff-member',
             component: CreateStaffMember
         },
 
         {
-            path: '/create-news-article',
+            path: '/admin/create-news-article',
             component: CreateNewsArticle
         }
     ]
