@@ -1,29 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
-
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>COMC Utilities</title>
-
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-
-        <meta id="token" name="token" value="{{ csrf_token() }}" />
-
-        <!-- Styles -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="/css/app.css">
-
+        @include('layouts.head-snippet')
     </head>
 
     <body>
-
-
         {{-- Start of vue div --}}
         <div id="admin-dashboard-vuejs-content">
             {{-- Navigation --}}
@@ -35,23 +16,24 @@
 
                     <ul id="slide-out" class="side-nav">
                         @if (Auth::check())
-                            <li><a href="/admin">Profile</a></li>
-                            <li><a href="/admin/create-faculty-member">Create Faculty</a></li>
-                            <li><a href="/admin/create-staff-member">Create Staff</a></li>
-                            <li><a href="/admin/create-news-article">Create Article</a></li>
+                            <li><a href="/admin-portal">Profile</a></li>
+                            <li><router-link to="/admin/create-faculty-member">Create Faculty</router-link></li>
+                            <li><router-link to="/admin/create-staff-member">Create Staff</router-link></li>
+                            <li><router-link to="/admin/create-news-article">Create Article</router-link></li>
                             <li><a href="{{ url('auth/logout') }}">Logout</a></li>
                         @endif
                     </ul>
 
                     <ul class="right hide-on-med-and-down">
                         @if (Auth::check())
-                            <li><router-link to="/admin"><i class="small material-icons left">perm_identity</i>Profile</router-link></li>
+                            <li><router-link to="/admin-portal"><i class="small material-icons left">perm_identity</i>Profile</router-link></li>
                             <li><a name="faculty-staff" class="dropdown-button" data-beloworigin="true" data-activates="faculty-staff-dropdown">Faculty/Staff<i class="material-icons right">arrow_drop_down</i></a></li>
                             <li><a name="news" class="dropdown-button" data-beloworigin="true" data-activates="news-dropdown">News Articles<i class="material-icons right">arrow_drop_down</i></a></li>
                             <li><a href="{{ url('auth/logout') }}">Logout</a></li>
                         @endif
                     </ul>
-                    {{-- Dropdown structure --}}
+
+                    {{-- Dropdown structure for drop down arrows in navigation (only on large screens) --}}
                     <ul id="faculty-staff-dropdown" class="dropdown-content">
                         <li><router-link to="/admin/create-faculty-member">Create Faculty<i class="small material-icons right">input</i></router-link></li>
                         <li class="divider"></li>
@@ -153,7 +135,5 @@
                 @endif
             });
         </script>
-
     </body>
-
 </html>

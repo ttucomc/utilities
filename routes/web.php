@@ -17,8 +17,12 @@ Route::get('/', function () {
     return view('layouts.user-master');
 });
 
-Route::get('/admin/', function () {
+Route::get('/admin-portal', function () {
     return view('layouts.admin-master');
+});
+
+Route::get('/eraider-sign-in', function () {
+    return view('layouts.eRaider.eraider-authentication');
 });
 
 Route::get('unauthorized-access', function() {

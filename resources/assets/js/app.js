@@ -31,7 +31,7 @@ const router = new VueRouter({
             component: Home
         },
         {
-            path: '/admin',
+            path: '/admin-portal',
             component: CreateAdministrator
         },
 

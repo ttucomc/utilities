@@ -2,23 +2,7 @@
 <html lang="en">
 
     <head>
-
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>COMC Utilities</title>
-
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-
-        <meta id="token" name="token" value="{{ csrf_token() }}" />
-
-        <!-- Styles -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="/css/app.css">
-
+        @include('layouts.head-snippet')
     </head>
 
     <body>
@@ -42,13 +26,19 @@
                     </a>
 
                     <ul id="slide-out" class="side-nav">
-                          <li><a href="/#">Profile</a></li>
-                          <li><a href="{{ url('auth/logout') }}">Logout</a></li>
+                          <li><a href="/">Profile</a></li>
+                          <li><a href="/admin-portal">Admin</a></li>
+                          @if (Auth::check())
+                            <li><a href="{{ url('auth/logout') }}">Logout</a></li>
+                          @endif
                     </ul>
 
                     <ul class="right hide-on-med-and-down">
                           <li><a href="/"><i class="small material-icons left">perm_identity</i>Profile</a></li>
-                          <li><a href="/admin">Admin</a></li>
+                          <li><a href="/admin-portal">Admin</a></li>
+                          @if (Auth::check())
+                            <li><a href="{{ url('auth/logout') }}">Logout</a></li>
+                          @endif
                     </ul>
 
                     <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -58,7 +48,6 @@
 
             {{-- Main content for each page starts here --}}
             <main class="container">
-
                 {{-- router-view is the vuejs dynamic content area --}}
                 <router-view></router-view>
             </main>
