@@ -21,6 +21,18 @@ Route::get('/admin-portal', function () {
     return view('layouts.admin-master');
 });
 
+Route::get('/admin-portal/create-staff-member', function() {
+    return view('layouts.admin-master');
+});
+
+Route::get('/admin-portal/create-news-article', function() {
+    return view('layouts.admin-master');
+});
+
+Route::get('/admin-portal/create-faculty-member', function() {
+    return view('layouts.admin-master');
+});
+
 Route::get('/eraider-sign-in', function () {
     return view('layouts.eRaider.eraider-authentication');
 });
