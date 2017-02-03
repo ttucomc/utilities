@@ -23,11 +23,12 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
+     * Where to redirect administrators after login. User login redirection will be handled by
+     * eRaider script.
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    protected $redirectTo = '/admin-portal';
 
     /**
      * Create a new controller instance.

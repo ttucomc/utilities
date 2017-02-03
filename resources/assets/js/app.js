@@ -31,22 +31,22 @@ const router = new VueRouter({
             component: Home
         },
         {
-            path: '/admin',
+            path: '/admin-portal',
             component: CreateAdministrator
         },
 
         {
-            path: '/admin/create-faculty-member',
+            path: '/admin-portal/create-faculty-member',
             component: CreateFacultyMember
         },
 
         {
-            path: '/admin/create-staff-member',
+            path: '/admin-portal/create-staff-member',
             component: CreateStaffMember
         },
 
         {
-            path: '/admin/create-news-article',
+            path: '/admin-portal/create-news-article',
             component: CreateNewsArticle
         }
     ]

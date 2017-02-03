@@ -1,7 +1,6 @@
-
 <template>
     <div class="row">
-        <div class="col m8 offset-m2">
+        <div class="col s12 m8 offset-m2">
             <div class="card grey lighten-4">
                 <form id="admin-form"
                       v-on:submit.prevent="createAdmin()">

@@ -1,4 +1,3 @@
-
 <template>
     <section id="home" class="row">
         <div class="col s12">
@@ -16,7 +15,7 @@
                     <span class="card-title"><i class="material-icons large">person</i><br />Faculty/Staff Bio</span>
                 </div>
                 <div class="card-action">
-                    <a href="#">Edit your bio</a>
+                    <a href="/eraider-sign-in">Edit your bio</a>
                 </div>
             </div>
         </div>
@@ -26,7 +25,7 @@
                     <span class="card-title"><i class="material-icons large">settings</i><br />Administrators</span>
                 </div>
                 <div class="card-action">
-                    <a href="/admin">Access admin portal</a>
+                    <a href="/admin-portal">Access admin portal</a>
                 </div>
             </div>
         </div>
