@@ -1,5 +1,5 @@
 <?php
-        // session_start();
+        session_start();
         // $_SESSION['eRaiderDispatchURL'] = "https://www.depts.ttu.edu/dept_name/application_name/index.php";
         $_SESSION['eRaiderDispatchURL'] = "http://utilities.comc.ttu.edu";
         $_SESSION['eRaiderDBUsername'] = "ESI_MCOM_COMCUTILITIES";
