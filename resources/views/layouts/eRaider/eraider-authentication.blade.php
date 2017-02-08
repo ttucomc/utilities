@@ -1,4 +1,4 @@
-<?php //include 'resources/views/layouts/eRaider/include.php';
+<?php
         $path = resource_path();
         include $path . '/views/layouts/eRaider/include.php'; ?>
 
