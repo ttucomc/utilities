@@ -6,6 +6,8 @@
  */
 
 require('./bootstrap');
+var Dropzone = require('./dropzone');
+Dropzone.autoDiscover = false;
 
 /**
  * Create a fresh Vue application instance. The instance has been attached to

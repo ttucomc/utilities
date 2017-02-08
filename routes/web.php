@@ -48,7 +48,10 @@ Route::get('auth/logout', function() {
 });
 
 Route::group(['middleware' => 'admin'], function() {
-    Route::post('api/admin/store', 'AdminController@storeAdmin');
-    Route::post('api/team/store/staff', 'AdminController@storeStaff');
-    Route::post('api/team/store/faculty', 'AdminController@storeFaculty');
+    Route::post('admin-portal/api/admin/store', 'AdminController@storeAdmin');
+
+    Route::post('admin-portal/api/team/store/staff', 'AdminController@storeStaff');
+
+    Route::post('admin-portal/api/team/store/faculty', 'AdminController@storeFaculty');
+    Route::post('admin-portal/api/team/store/faculty/cv', 'AdminController@storeFacultyCV');
 });

@@ -73,19 +73,31 @@ class AdminController extends Controller
     }
 
     /**
-     * Store a newly created faculty memeber in storage.
+     * Store a newly created faculty member in storage.
      *
      * @param  \Illuminate\Http\Requests\StoreNewFacultyRequest $request
      * @return \Illuminate\Http\Response
      */
     public function storeFaculty(Requests\StoreNewFacultyRequest $request)
     {
+        $filename = $request->input('cv');
+        return $filename;
+
         $staff = new Team;
         $staff->storeFaculty($request);
 
         return response()->json([
             'success' => true
         ]);
+    }
+
+    /**
+     * Store the CV for the faculty member.
+     * 
+     * @return [type] [description]
+     */
+    public function storeFacultyCV() {
+        return "Working on backend implementation.";
     }
 
     /**

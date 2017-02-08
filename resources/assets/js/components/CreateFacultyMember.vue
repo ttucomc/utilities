@@ -2,8 +2,7 @@
     <div class="row">
         <div class="col s12 m8 offset-m2">
             <div class="card grey lighten-4">
-                <form id="faculty-form"
-                      v-on:submit.prevent="createFaculty()">
+                <form id="faculty-form" enctype="multipart/form-data" v-on:submit.prevent="createFaculty()">
                     <div class="card-content">
                         <span class="card-title">Create New Faculty Member</span>
 
@@ -84,19 +83,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="file-field input-field col s12 m6">
-                                <div class="btn">
-                                    <span>File</span>
-                                    <input type="file">
-                                </div>
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate"
-                                           type="text"
-                                           placeholder="Attach a photo">
-                                </div>
-                            </div>
-
-                            <div class="input-field col s12 m6">
+                            <div class="input-field col s12">
                                 <input id="office_hours"
                                        v-model="facultyData.office_hours"
                                        type="text"
@@ -202,20 +189,6 @@
                                 <label for="training">Training</label>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="file-field input-field col s12">
-                                <div class="btn">
-                                    <span>File</span>
-                                    <input type="file">
-                                </div>
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate"
-                                           type="text"
-                                           placeholder="Attach CV">
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="card-action">
@@ -243,20 +216,29 @@
                 </form>
             </div>
         </div>
+
+        <hr class="col s12 m8 offset-m2 create-faculty-hr">
+
+        <div class="col s12 m8 offset-m2">
+            <h4>Add CV for: </h4>
+            <div id="faculty-cv-dropzone" class="myDropzone dropzone">
+                <div class="dz-message" data-dz-message><span>Drag and Drop CV here or click to Upload CV</span></div>
+                <div id="preview-template" style="display: none;"></div>
+            </div>
+        </div>
     </div>
 
 </template>
 
 <script>
     export default {
-        data: function () {
+        data: () => {
             return {
                 facultyData: {
                     first_name: '',
                     last_name: '',
                     email: '',
                     repeatEmail: '',
-                    photo: '',
                     title: '',
                     department: '',
                     room_number: '',
@@ -271,18 +253,18 @@
                     duties: '',
                     training: '',
                     awards: '',
-                    cv: ''
                 },
 
                 AJAXIcon: false,
 
-                successMsg: 'Staff member created successfully',
+                successMsg: 'Faculty member created successfully',
 
                 emailErrorMsg: 'Email fields must match',
 
                 emailNotValidMsg: 'Email is not valid'
             }
         },
+
         computed: {
             emailsMatch: function() {
                 return this.facultyData.email === this.facultyData.repeatEmail &&
@@ -295,8 +277,22 @@
                         this.facultyData.repeatEmail.includes("@");
             },
         },
-        ready: function () {},
-        attached: function () {},
+
+        mounted: () => {
+            var token = $('meta[name="token"]').attr('value');
+
+            $('#faculty-cv-dropzone').dropzone({
+                url: "api/team/store/faculty/cv",
+                headers: {
+                    'X-CSRF-TOKEN': token
+                }
+            });
+        },
+
+        created: () => {},
+
+        attached: () => {},
+
         methods: {
             createFaculty(facultyData) {
                 const vm = this;
@@ -336,10 +332,23 @@
                 });
             }
         },
+
         components: {}
     }
 </script>
 
 <style lang="sass">
+    .create-faculty-hr {
+        border-color: #C00;
+        margin: 4rem 0;
+    }
 
+    .myDropzone {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 150px;
+        border: 2px solid #C00;
+    }
 </style>
