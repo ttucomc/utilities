@@ -57,7 +57,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Store a newly created staff memeber in storage.
+     * Store a newly created staff member in storage.
      *
      * @param  \Illuminate\Http\Requests\StoreNewStaffRequest $request
      * @return \Illuminate\Http\Response
@@ -80,24 +80,36 @@ class AdminController extends Controller
      */
     public function storeFaculty(Requests\StoreNewFacultyRequest $request)
     {
-        $filename = $request->input('cv');
-        return $filename;
-
         $staff = new Team;
         $staff->storeFaculty($request);
 
+        $newFacultyMemberID = Team::where('email', $request->email)->first();
+
         return response()->json([
-            'success' => true
+            'success' => true,
+            'id'      => $newFacultyMemberID->id
         ]);
     }
 
     /**
      * Store the CV for the faculty member.
-     * 
+     *
      * @return [type] [description]
      */
-    public function storeFacultyCV() {
-        return "Working on backend implementation.";
+    public function storeFacultyCV(Request $request)
+    {
+        $facultyMember = Team::find($request->newFacultyMemberID);
+
+        $file = $request->file('file');
+
+        $fileName = $facultyMember->first_name . '-' . $facultyMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
+
+        $file->move('faculty/cv', $fileName);
+
+        $facultyMember->cv = '/faculty/cv/' . $fileName;
+        $facultyMember->save();
+
+        return $facultyMember->cv;
     }
 
     /**

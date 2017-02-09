@@ -220,7 +220,7 @@
         <hr class="col s12 m8 offset-m2 create-faculty-hr">
 
         <div class="col s12 m8 offset-m2">
-            <h4>Add CV for: </h4>
+            <h4>Add CV</h4>
             <div id="faculty-cv-dropzone" class="myDropzone dropzone">
                 <div class="dz-message" data-dz-message><span>Drag and Drop CV here or click to Upload CV</span></div>
                 <div id="preview-template" style="display: none;"></div>
@@ -257,6 +257,8 @@
 
                 AJAXIcon: false,
 
+                newFacultyMemberID: '',
+
                 successMsg: 'Faculty member created successfully',
 
                 emailErrorMsg: 'Email fields must match',
@@ -278,16 +280,7 @@
             },
         },
 
-        mounted: () => {
-            var token = $('meta[name="token"]').attr('value');
-
-            $('#faculty-cv-dropzone').dropzone({
-                url: "api/team/store/faculty/cv",
-                headers: {
-                    'X-CSRF-TOKEN': token
-                }
-            });
-        },
+        mounted: () => {},
 
         created: () => {},
 
@@ -300,6 +293,8 @@
                 vm.$http.post('api/team/store/faculty', vm.facultyData)
                 .then((response) => {
                     vm.AJAXIcon = false;
+
+                    vm.newFacultyMemberID = response.body.id;
 
                     vm.facultyData.first_name = '';
                     vm.facultyData.last_name = '';
@@ -323,6 +318,18 @@
 
                     $("#faculty-form")[0].reset();
                     Materialize.toast(vm.successMsg, 4000, 'blue');
+
+                    // Setup dropzone for CV
+                    var token = $('meta[name="token"]').attr('value');
+                    $('#faculty-cv-dropzone').dropzone({
+                        url: "api/team/store/faculty/cv",
+                        headers: {
+                            'X-CSRF-TOKEN': token
+                        },
+                        sending: function(file, xhr, formData) {
+                            formData.append("newFacultyMemberID", vm.newFacultyMemberID);
+                        }
+                    });
                 }, (error) => {
                     vm.AJAXIcon = false;
 
