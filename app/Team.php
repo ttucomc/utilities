@@ -54,4 +54,46 @@ class Team extends Model
         $staff->role = "faculty";
         $staff->save();
     }
+
+    /**
+     * Store the new faculty member CV in 'public/faculty/cv' and make the required
+     * database link in the Team table under 'cv' column.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return void
+     */
+    public function storeFacultyCV(Request $request)
+    {
+        $facultyMember = Team::find($request->newFacultyMemberID);
+
+        $file = $request->file('cv');
+
+        $fileName = $facultyMember->first_name . '-' . $facultyMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
+
+        $file->move('faculty/cv', $fileName);
+
+        $facultyMember->cv = '/faculty/cv/' . $fileName;
+        $facultyMember->save();
+    }
+
+    /**
+     * Store the new staff member CV in 'public/staff/cv' and make the required
+     * database link in the Team table under 'cv' column.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return void
+     */
+    public function storeStaffCV(Request $request)
+    {
+        $staffMember = Team::find($request->newStaffMemberID);
+
+        $file = $request->file('cv');
+
+        $fileName = $staffMember->first_name . '-' . $staffMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
+
+        $file->move('staff/cv', $fileName);
+
+        $staffMember->cv = '/staff/cv/' . $fileName;
+        $staffMember->save();
+    }
 }

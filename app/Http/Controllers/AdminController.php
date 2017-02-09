@@ -92,24 +92,35 @@ class AdminController extends Controller
     }
 
     /**
-     * Store the CV for the faculty member.
+     * Store the CV for the new faculty member.
      *
-     * @return [type] [description]
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
      */
     public function storeFacultyCV(Request $request)
     {
-        $facultyMember = Team::find($request->newFacultyMemberID);
+        $facultyMember = new Team;
+        $facultyMember->storeFacultyCV($request);
 
-        $file = $request->file('file');
+        return response()->json([
+            'success' => true
+        ]);
+    }
 
-        $fileName = $facultyMember->first_name . '-' . $facultyMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
+    /**
+     * Store the CV for the new staff member.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeStaffCV(Request $request)
+    {
+        $staffMember = new Team;
+        $staffMember->storeStaffCV($request);
 
-        $file->move('faculty/cv', $fileName);
-
-        $facultyMember->cv = '/faculty/cv/' . $fileName;
-        $facultyMember->save();
-
-        return $facultyMember->cv;
+        return response()->json([
+            'success' => true
+        ]);
     }
 
     /**

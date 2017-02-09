@@ -219,8 +219,8 @@
 
         <hr class="col s12 m8 offset-m2 create-faculty-hr">
 
-        <div class="col s12 m8 offset-m2">
-            <h4>Add CV</h4>
+        <div id="cv-dropzone-area" class="col s12 m8 offset-m2">
+            <h4>Add CV for: {{ newFacultyMemberFirstName }} {{ newFacultyMemberLastName }}</h4>
             <div id="faculty-cv-dropzone" class="myDropzone dropzone">
                 <div class="dz-message" data-dz-message><span>Drag and Drop CV here or click to Upload CV</span></div>
                 <div id="preview-template" style="display: none;"></div>
@@ -252,12 +252,16 @@
                     research: '',
                     duties: '',
                     training: '',
-                    awards: '',
+                    awards: ''
                 },
 
                 AJAXIcon: false,
 
                 newFacultyMemberID: '',
+
+                newFacultyMemberFirstName: '',
+
+                newFacultyMemberLastName: '',
 
                 successMsg: 'Faculty member created successfully',
 
@@ -277,7 +281,7 @@
             emailIsValid: function() {
                 return this.facultyData.email.includes("@") &&
                         this.facultyData.repeatEmail.includes("@");
-            },
+            }
         },
 
         mounted: () => {},
@@ -295,6 +299,9 @@
                     vm.AJAXIcon = false;
 
                     vm.newFacultyMemberID = response.body.id;
+
+                    vm.newFacultyMemberFirstName = vm.facultyData.first_name;
+                    vm.newFacultyMemberLastName = vm.facultyData.last_name;
 
                     vm.facultyData.first_name = '';
                     vm.facultyData.last_name = '';
@@ -323,11 +330,57 @@
                     var token = $('meta[name="token"]').attr('value');
                     $('#faculty-cv-dropzone').dropzone({
                         url: "api/team/store/faculty/cv",
+                        paramName: 'cv',
+                        maxFiles: 1,
+                        maxFilesize: 3,
+                        acceptedFiles: ".pdf",
                         headers: {
                             'X-CSRF-TOKEN': token
                         },
-                        sending: function(file, xhr, formData) {
-                            formData.append("newFacultyMemberID", vm.newFacultyMemberID);
+                        init: function() {
+                            var cvDropzone = this;
+
+                            this.on('sending', function(file, xhr, formData) {
+                                formData.append("newFacultyMemberID", vm.newFacultyMemberID);
+                            });
+
+                            this.on('success', function() {
+                                Materialize.toast("CV uploaded successfully", 4000, 'blue');
+                                Materialize.toast("This page will reload shortly", 4000, 'blue');
+
+                                vm.newFacultyMemberFirstName = '';
+                                vm.newFacultyMemberLastName = '';
+                                vm.newFacultyMemberID = '';
+
+                                setTimeout(function() {
+                                    cvDropzone.removeAllFiles(true);
+                                }, 3000);
+                                setTimeout(function() {
+                                    $('#cv-dropzone-area').hide();
+                                }, 4500);
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 5750);
+                            });
+
+                            this.on('error', function() {
+                                Materialize.toast("CV uploaded failed", 4000, 'red');
+                                Materialize.toast("This page will reload shortly", 4000, 'red');
+
+                                vm.newFacultyMemberFirstName = '';
+                                vm.newFacultyMemberLastName = '';
+                                vm.newFacultyMemberID = '';
+
+                                setTimeout(function() {
+                                    cvDropzone.removeAllFiles(true);
+                                }, 3000);
+                                setTimeout(function() {
+                                    $('#cv-dropzone-area').hide();
+                                }, 4500);
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 5750);
+                            });
                         }
                     });
                 }, (error) => {

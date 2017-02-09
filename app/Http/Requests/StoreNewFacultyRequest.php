@@ -25,12 +25,12 @@ class StoreNewFacultyRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'first_name'    => 'required',
-            // 'last_name'     => 'required',
+            'first_name'    => 'required',
+            'last_name'     => 'required',
             'email'         => 'required|unique:teams,email',
-            // 'title'         => 'required',
-            // 'department'    => 'required',
-            // 'room_number'   => 'required'
+            'title'         => 'required',
+            'department'    => 'required',
+            'room_number'   => 'required'
         ];
     }
 }
