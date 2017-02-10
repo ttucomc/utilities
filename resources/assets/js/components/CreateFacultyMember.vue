@@ -219,15 +219,32 @@
 
         <hr class="col s12 m8 offset-m2 create-faculty-hr">
 
-        <div id="cv-dropzone-area" class="col s12 m8 offset-m2">
+        <button class="waves-effect btn col s12 m4 offset-m2"
+                v-show="! AJAXIcon"
+                style="margin-bottom: 2rem;"
+                @click="reloadPage"
+                type="submit"
+                name="reloadButton"
+                >Finished with File Uploads</button>
+
+        <div id="faculty-cv-dropzone-area" class="col s12 m8 offset-m2">
             <h4>Add CV for: {{ newFacultyMemberFirstName }} {{ newFacultyMemberLastName }}</h4>
             <div id="faculty-cv-dropzone" class="myDropzone dropzone">
-                <div class="dz-message" data-dz-message><span>Drag and Drop CV here or click to Upload CV</span></div>
+                <div class="dz-message" data-dz-message><span>Drag and Drop CV here or click to Upload CV</span><br><span class="faculty-upload-constraint"><small>You must first create the faculty member to upload a CV</small></span></div>
+                <div id="preview-template" style="display: none;"></div>
+            </div>
+        </div>
+
+        <hr class="col s12 m8 offset-m2 create-faculty-hr">
+
+        <div id="faculty-profile-photo-dropzone-area" class="col s12 m8 offset-m2">
+            <h4>Add Profile Photo for: {{ newFacultyMemberFirstName }} {{ newFacultyMemberLastName }}</h4>
+            <div id="faculty-profile-photo-dropzone" class="myDropzone dropzone">
+                <div class="dz-message" data-dz-message><span>Drag and Drop photo here or click to Upload photo</span><br><span class="faculty-upload-constraint"><small>You must first create the faculty member to upload a profile photo</small></span></div>
                 <div id="preview-template" style="display: none;"></div>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -298,6 +315,8 @@
                 .then((response) => {
                     vm.AJAXIcon = false;
 
+                    $('.faculty-upload-constraint').hide();
+
                     vm.newFacultyMemberID = response.body.id;
 
                     vm.newFacultyMemberFirstName = vm.facultyData.first_name;
@@ -323,11 +342,13 @@
                     vm.facultyData.awards = '';
                     vm.facultyData.cv = '';
 
-                    $("#faculty-form")[0].reset();
+                    $('#faculty-form')[0].reset();
+                    Materialize.updateTextFields();
                     Materialize.toast(vm.successMsg, 4000, 'blue');
 
-                    // Setup dropzone for CV
                     var token = $('meta[name="token"]').attr('value');
+
+                    // Setup dropzone for CV
                     $('#faculty-cv-dropzone').dropzone({
                         url: "api/team/store/faculty/cv",
                         paramName: 'cv',
@@ -346,40 +367,77 @@
 
                             this.on('success', function() {
                                 Materialize.toast("CV uploaded successfully", 4000, 'blue');
-                                Materialize.toast("This page will reload shortly", 4000, 'blue');
+                                // Materialize.toast("This page will reload shortly to clear all dropzone form data.", 4000, 'blue');
 
-                                vm.newFacultyMemberFirstName = '';
-                                vm.newFacultyMemberLastName = '';
-                                vm.newFacultyMemberID = '';
+                                // vm.newFacultyMemberFirstName = '';
+                                // vm.newFacultyMemberLastName = '';
+                                // vm.newFacultyMemberID = '';
 
                                 setTimeout(function() {
                                     cvDropzone.removeAllFiles(true);
                                 }, 3000);
                                 setTimeout(function() {
-                                    $('#cv-dropzone-area').hide();
+                                    $('#faculty-cv-dropzone-area').hide();
                                 }, 4500);
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 5750);
+                                // setTimeout(function() {
+                                //     location.reload();
+                                // }, 5750);
                             });
 
                             this.on('error', function() {
                                 Materialize.toast("CV uploaded failed", 4000, 'red');
-                                Materialize.toast("This page will reload shortly", 4000, 'red');
-
-                                vm.newFacultyMemberFirstName = '';
-                                vm.newFacultyMemberLastName = '';
-                                vm.newFacultyMemberID = '';
+                                Materialize.toast("You can try again or try to upload the CV from the faculty member edit page.", 4000, 'red');
 
                                 setTimeout(function() {
                                     cvDropzone.removeAllFiles(true);
                                 }, 3000);
+                            });
+                        }
+                    });
+
+                    // Setup dropzone for profile photo
+                    $('#faculty-profile-photo-dropzone').dropzone({
+                        url: "api/team/store/faculty/profile-photo",
+                        paramName: 'profile-photo',
+                        maxFiles: 1,
+                        maxFilesize: 20,
+                        acceptedFiles: "image/*",
+                        headers: {
+                            'X-CSRF-TOKEN': token
+                        },
+                        init: function() {
+                            var profilePhotoDropzone = this;
+
+                            this.on('sending', function(file, xhr, formData) {
+                                formData.append("newFacultyMemberID", vm.newFacultyMemberID);
+                            });
+
+                            this.on('success', function() {
+                                Materialize.toast("Profile photo uploaded successfully", 4000, 'blue');
+                                // Materialize.toast("This page will reload shortly to clear all dropzone form data.", 4000, 'blue');
+                                //
+                                // vm.newFacultyMemberFirstName = '';
+                                // vm.newFacultyMemberLastName = '';
+                                // vm.newFacultyMemberID = '';
+
                                 setTimeout(function() {
-                                    $('#cv-dropzone-area').hide();
+                                    profilePhotoDropzone.removeAllFiles(true);
+                                }, 3000);
+                                setTimeout(function() {
+                                    $('#faculty-profile-photo-dropzone-area').hide();
                                 }, 4500);
+                                // setTimeout(function() {
+                                //     location.reload();
+                                // }, 5750);
+                            });
+
+                            this.on('error', function() {
+                                Materialize.toast("Profile photo upload failed", 4000, 'red');
+                                Materialize.toast("You can try again or try to upload the profile photo from the faculty member edit page.", 4000, 'red');
+
                                 setTimeout(function() {
-                                    location.reload();
-                                }, 5750);
+                                    profilePhotoDropzone.removeAllFiles(true);
+                                }, 3000);
                             });
                         }
                     });
@@ -390,6 +448,10 @@
                         Materialize.toast(value[0], 4000, 'red');
                     });
                 });
+            },
+
+            reloadPage() {
+                location.reload();
             }
         },
 
@@ -410,5 +472,9 @@
         flex-direction: column;
         min-height: 150px;
         border: 2px solid #C00;
+    }
+
+    span.faculty-upload-constraint {
+        font-weight: bold;
     }
 </style>

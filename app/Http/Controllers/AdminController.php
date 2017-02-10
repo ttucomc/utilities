@@ -67,6 +67,26 @@ class AdminController extends Controller
         $staff = new Team;
         $staff->storeStaff($request);
 
+        $newStaffMemberID = Team::where('email', $request->email)->first();
+
+        return response()->json([
+            'success' => true,
+            'id'      => $newStaffMemberID->id
+        ]);
+    }
+
+    /**
+     * Store the photo for the new staff member.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeStaffProfilePhoto(Request $request)
+    {
+        $staffMember = new Team;
+        // call model function to store staff photo
+        $staffMember->storeStaffProfilePhoto($request);
+
         return response()->json([
             'success' => true
         ]);
@@ -100,6 +120,7 @@ class AdminController extends Controller
     public function storeFacultyCV(Request $request)
     {
         $facultyMember = new Team;
+        // call model function to store faculty CV
         $facultyMember->storeFacultyCV($request);
 
         return response()->json([
@@ -108,15 +129,16 @@ class AdminController extends Controller
     }
 
     /**
-     * Store the CV for the new staff member.
+     * Store the profile photo for the new faculty member.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function storeStaffCV(Request $request)
+    public function storeFacultyProfilePhoto(Request $request)
     {
-        $staffMember = new Team;
-        $staffMember->storeStaffCV($request);
+        $facultyMember = new Team;
+        // call model function to store faculty CV
+        $facultyMember->storeFacultyProfilePhoto($request);
 
         return response()->json([
             'success' => true

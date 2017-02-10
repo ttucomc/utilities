@@ -43,6 +43,27 @@ class Team extends Model
     }
 
     /**
+     * Store the new staff member profile photo in 'public/staff/profile-photos' and make the
+     * required database link in the Team table under 'photo' column.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return void
+     */
+    public function storeStaffProfilePhoto(Request $request)
+    {
+        $staffMember = Team::find($request->newStaffMemberID);
+
+        $file = $request->file('profile-photo');
+
+        $fileName = $staffMember->first_name . '-' . $staffMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
+
+        $file->move('staff/profile-photos', $fileName);
+
+        $staffMember->photo = '/staff/profile-photos/' . $fileName;
+        $staffMember->save();
+    }
+
+    /**
      * Store the new faculty member in the database.
      *
      * @param  \Illuminate\Http\Request $request
@@ -77,23 +98,23 @@ class Team extends Model
     }
 
     /**
-     * Store the new staff member CV in 'public/staff/cv' and make the required
-     * database link in the Team table under 'cv' column.
+     * Store the new faculty member profile photo in 'public/faculty/profile-photos' and make the
+     * required database link in the Team table under 'photo' column.
      *
      * @param  \Illuminate\Http\Request $request
      * @return void
      */
-    public function storeStaffCV(Request $request)
+    public function storeFacultyProfilePhoto(Request $request)
     {
-        $staffMember = Team::find($request->newStaffMemberID);
+        $facultyMember = Team::find($request->newFacultyMemberID);
 
-        $file = $request->file('cv');
+        $file = $request->file('profile-photo');
 
-        $fileName = $staffMember->first_name . '-' . $staffMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
+        $fileName = $facultyMember->first_name . '-' . $facultyMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
 
-        $file->move('staff/cv', $fileName);
+        $file->move('faculty/profile-photos', $fileName);
 
-        $staffMember->cv = '/staff/cv/' . $fileName;
-        $staffMember->save();
+        $facultyMember->photo = '/faculty/profile-photos/' . $fileName;
+        $facultyMember->save();
     }
 }

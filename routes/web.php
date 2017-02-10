@@ -51,8 +51,9 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('admin-portal/api/admin/store', 'AdminController@storeAdmin');
 
     Route::post('admin-portal/api/team/store/staff', 'AdminController@storeStaff');
-    Route::post('admin-portal/api/team/store/staff/cv', 'AdminController@storeStaffCV');
+    Route::post('admin-portal/api/team/store/staff/profile-photo', 'AdminController@storeStaffProfilePhoto');
 
     Route::post('admin-portal/api/team/store/faculty', 'AdminController@storeFaculty');
     Route::post('admin-portal/api/team/store/faculty/cv', 'AdminController@storeFacultyCV');
+    Route::post('admin-portal/api/team/store/faculty/profile-photo', 'AdminController@storeFacultyProfilePhoto');
 });

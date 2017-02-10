@@ -84,20 +84,6 @@
                         </div>
 
                         <div class="row">
-                            <div class="file-field input-field col s12">
-                                <div class="btn">
-                                    <span>File</span>
-                                    <input type="file">
-                                </div>
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate"
-                                           type="text"
-                                           placeholder="Attach a photo">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
                             <div class="input-field col s12">
                                 <textarea id="bio"
                                           v-model="staffData.bio"
@@ -156,6 +142,16 @@
                 </form>
             </div>
         </div>
+
+        <hr class="col s12 m8 offset-m2 create-staff-hr">
+
+        <div id="staff-profile-photo-dropzone-area" class="col s12 m8 offset-m2">
+            <h4>Add Profile Photo for: {{ newStaffMemberFirstName }} {{ newStaffMemberLastName }}</h4>
+            <div id="staff-profile-photo-dropzone" class="myDropzone dropzone">
+                <div class="dz-message" data-dz-message><span>Drag and Drop photo here or click to Upload photo</span><br><span class="staff-upload-constraint"><small>You must first create the staff member to upload a profile photo</small></span></div>
+                <div id="preview-template" style="display: none;"></div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -168,7 +164,6 @@
                     last_name: '',
                     email: '',
                     repeatEmail: '',
-                    photo: '',
                     title: '',
                     department: '',
                     room_number: '',
@@ -179,6 +174,12 @@
 
                 AJAXIcon: false,
 
+                newStaffMemberID: '',
+
+                newStaffMemberFirstName: '',
+
+                newStaffMemberLastName: '',
+
                 successMsg: 'Staff member created successfully',
 
                 emailErrorMsg: 'Email fields must match',
@@ -186,6 +187,7 @@
                 emailNotValidMsg: 'Email is not valid'
             }
         },
+
         computed: {
             emailsMatch: function() {
                 return this.staffData.email === this.staffData.repeatEmail &&
@@ -198,8 +200,13 @@
                         this.staffData.repeatEmail.includes("@");
             },
         },
-        ready: function () {},
-        attached: function () {},
+
+        mounted: () => {},
+
+        ready: () => {},
+
+        attached: () => {},
+
         methods: {
             createStaff(staffData) {
                 const vm = this;
@@ -207,6 +214,13 @@
                 vm.$http.post('api/team/store/staff', vm.staffData)
                 .then((response) => {
                     vm.AJAXIcon = false;
+
+                    $('.staff-upload-constraint').hide();
+
+                    vm.newStaffMemberID = response.body.id;
+
+                    vm.newStaffMemberFirstName = vm.staffData.first_name;
+                    vm.newStaffMemberLastName = vm.staffData.last_name;
 
                     vm.staffData.first_name = '';
                     vm.staffData.last_name = '';
@@ -220,7 +234,56 @@
                     vm.staffData.training = '';
 
                     $("#staff-form")[0].reset();
+                    Materialize.updateTextFields();
                     Materialize.toast(vm.successMsg, 4000, 'blue');
+
+                    // Setup dropzone for CV
+                    var token = $('meta[name="token"]').attr('value');
+                    $('#staff-profile-photo-dropzone').dropzone({
+                        url: "api/team/store/staff/profile-photo",
+                        paramName: 'profile-photo',
+                        maxFiles: 1,
+                        maxFilesize: 20,
+                        acceptedFiles: "image/*",
+                        headers: {
+                            'X-CSRF-TOKEN': token
+                        },
+                        init: function() {
+                            var profilePhotoDropzone = this;
+
+                            this.on('sending', function(file, xhr, formData) {
+                                formData.append("newStaffMemberID", vm.newStaffMemberID);
+                            });
+
+                            this.on('success', function() {
+                                Materialize.toast("Profile photo uploaded successfully", 4000, 'blue');
+                                Materialize.toast("This page will reload shortly to clear all dropzone form data.", 4000, 'blue');
+
+                                vm.newStaffMemberFirstName = '';
+                                vm.newStaffMemberLastName = '';
+                                vm.newStaffMemberID = '';
+
+                                setTimeout(function() {
+                                    profilePhotoDropzone.removeAllFiles(true);
+                                }, 3000);
+                                setTimeout(function() {
+                                    $('#staff-profile-photo-dropzone-area').hide();
+                                }, 4500);
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 5750);
+                            });
+
+                            this.on('error', function() {
+                                Materialize.toast("Profile photo upload failed", 4000, 'red');
+                                Materialize.toast("You can try again or try to upload the profile photo from the staff member edit page.", 4000, 'red');
+
+                                setTimeout(function() {
+                                    cvDropzone.removeAllFiles(true);
+                                }, 3000);
+                            });
+                        }
+                    });
                 }, (error) => {
                     vm.AJAXIcon = false;
 
@@ -230,10 +293,27 @@
                 });
             }
         },
+
         components: {}
     }
 </script>
 
 <style lang="sass">
+    .create-staff-hr {
+        border-color: #C00;
+        margin: 4rem 0;
+    }
 
+    .myDropzone {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 150px;
+        border: 2px solid #C00;
+    }
+
+    span.staff-upload-constraint {
+        font-weight: bold;
+    }
 </style>
