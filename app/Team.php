@@ -15,9 +15,7 @@ class Team extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'photo', 'title', 'department', 'room_number',
-        'office_hours', 'bachelor', 'master', 'phd', 'social_handles', 'bio', 'courses',
-        'research', 'duties', 'training', 'awards', 'cv'
+        'eraiderID', 'first_name', 'last_name', 'email', 'photo', 'title', 'department', 'room_number', 'office_hours', 'bachelor', 'master', 'phd', 'social_handles', 'bio', 'courses', 'research', 'duties', 'training', 'awards', 'cv'
     ];
 
     /**

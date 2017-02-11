@@ -25,6 +25,7 @@ class StoreNewStaffRequest extends FormRequest
     public function rules()
     {
         return [
+            'eraiderID'     => 'required',
             'first_name'    => 'required',
             'last_name'     => 'required',
             'email'         => 'required|unique:teams,email',

@@ -28,6 +28,17 @@
 
                         <div class="row">
                             <div class="input-field col s12 m6">
+                                <input id="eraiderID"
+                                       v-model="staffData.eraiderID"
+                                       type="text"
+                                       name="eraiderID"
+                                       value="">
+                                <label for="eraiderID">eRaider ID</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12 m6">
                                 <input id="email"
                                        v-model="staffData.email"
                                        class="validate"
@@ -145,8 +156,18 @@
 
         <hr class="col s12 m8 offset-m2 create-staff-hr">
 
-        <div id="staff-profile-photo-dropzone-area" class="col s12 m8 offset-m2">
-            <h4>Add Profile Photo for: {{ newStaffMemberFirstName }} {{ newStaffMemberLastName }}</h4>
+        <div class="flex-centered col s12">
+            <button class="waves-effect btn"
+                    v-show="! AJAXIcon"
+                    style="margin: 0 0 2rem 0;"
+                    @click="reloadPage"
+                    type="submit"
+                    name="reloadButton"
+                    >No photo to upload</button>
+        </div>
+
+        <div id="staff-profile-photo-dropzone-area" class="col s12 m6 offset-m3">
+            <h5>Add Profile Photo for: {{ newStaffMemberFirstName }} {{ newStaffMemberLastName }}</h5>
             <div id="staff-profile-photo-dropzone" class="myDropzone dropzone">
                 <div class="dz-message" data-dz-message><span>Drag and Drop photo here or click to Upload photo</span><br><span class="staff-upload-constraint"><small>You must first create the staff member to upload a profile photo</small></span></div>
                 <div id="preview-template" style="display: none;"></div>
@@ -162,6 +183,7 @@
                 staffData: {
                     first_name: '',
                     last_name: '',
+                    eraiderID: '',
                     email: '',
                     repeatEmail: '',
                     title: '',
@@ -224,6 +246,7 @@
 
                     vm.staffData.first_name = '';
                     vm.staffData.last_name = '';
+                    vm.staffData.eraiderID = '';
                     vm.staffData.email = '';
                     vm.staffData.repeatEmail = '';
                     vm.staffData.title = '';
@@ -291,6 +314,10 @@
                         Materialize.toast(value[0], 4000, 'red');
                     });
                 });
+            },
+
+            reloadPage() {
+                location.reload();
             }
         },
 

@@ -27,6 +27,17 @@
 
                         <div class="row">
                             <div class="input-field col s12 m6">
+                                <input id="eraiderID"
+                                       v-model="facultyData.eraiderID"
+                                       type="text"
+                                       name="eraiderID"
+                                       value="">
+                                <label for="eraiderID">eRaider ID</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12 m6">
                                 <input id="email"
                                        v-model="facultyData.email"
                                        class="validate"
@@ -217,18 +228,18 @@
             </div>
         </div>
 
-        <hr class="col s12 m8 offset-m2 create-faculty-hr">
+        <div class="flex-centered col s12">
+            <button class="waves-effect btn"
+                    v-show="! AJAXIcon"
+                    style="margin: 2rem 0 2rem 0;"
+                    @click="reloadPage"
+                    type="submit"
+                    name="reloadButton"
+                    >Finished with File Uploads</button>
+        </div>
 
-        <button class="waves-effect btn col s12 m4 offset-m2"
-                v-show="! AJAXIcon"
-                style="margin-bottom: 2rem;"
-                @click="reloadPage"
-                type="submit"
-                name="reloadButton"
-                >Finished with File Uploads</button>
-
-        <div id="faculty-cv-dropzone-area" class="col s12 m8 offset-m2">
-            <h4>Add CV for: {{ newFacultyMemberFirstName }} {{ newFacultyMemberLastName }}</h4>
+        <div id="faculty-cv-dropzone-area" class="col s12 m6 offset-m3">
+            <h5>Add CV for: {{ newFacultyMemberFirstName }} {{ newFacultyMemberLastName }}</h5>
             <div id="faculty-cv-dropzone" class="myDropzone dropzone">
                 <div class="dz-message" data-dz-message><span>Drag and Drop CV here or click to Upload CV</span><br><span class="faculty-upload-constraint"><small>You must first create the faculty member to upload a CV</small></span></div>
                 <div id="preview-template" style="display: none;"></div>
@@ -237,8 +248,8 @@
 
         <hr class="col s12 m8 offset-m2 create-faculty-hr">
 
-        <div id="faculty-profile-photo-dropzone-area" class="col s12 m8 offset-m2">
-            <h4>Add Profile Photo for: {{ newFacultyMemberFirstName }} {{ newFacultyMemberLastName }}</h4>
+        <div id="faculty-profile-photo-dropzone-area" class="col s12 m6 offset-m3">
+            <h5>Add Profile Photo for: {{ newFacultyMemberFirstName }} {{ newFacultyMemberLastName }}</h5>
             <div id="faculty-profile-photo-dropzone" class="myDropzone dropzone">
                 <div class="dz-message" data-dz-message><span>Drag and Drop photo here or click to Upload photo</span><br><span class="faculty-upload-constraint"><small>You must first create the faculty member to upload a profile photo</small></span></div>
                 <div id="preview-template" style="display: none;"></div>
@@ -254,6 +265,7 @@
                 facultyData: {
                     first_name: '',
                     last_name: '',
+                    eraiderID: '',
                     email: '',
                     repeatEmail: '',
                     title: '',
@@ -324,6 +336,7 @@
 
                     vm.facultyData.first_name = '';
                     vm.facultyData.last_name = '';
+                    vm.facultyData.eraiderID = '';
                     vm.facultyData.email = '';
                     vm.facultyData.repeatEmail = '';
                     vm.facultyData.title = '';
@@ -463,6 +476,12 @@
     .create-faculty-hr {
         border-color: #C00;
         margin: 4rem 0;
+    }
+
+    .flex-centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .myDropzone {
