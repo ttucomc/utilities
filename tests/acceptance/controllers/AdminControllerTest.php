@@ -33,7 +33,7 @@ class AdminControllerTest extends TestCase
     public function it_can_store_a_new_administrator_in_the_database()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/admin/store', [
+             ->json('POST', 'admin-portal/api/admin/store', [
                  'first_name'  => 'Testy',
                  'last_name'   => 'Tester',
                  'email'       => 'test@email.com',
@@ -55,7 +55,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_a_first_name_to_store_a_new_administrator()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/admin/store', [
+             ->json('POST', 'admin-portal/api/admin/store', [
                  'first_name'  => '',
                  'last_name'   => 'Tester',
                  'email'       => 'test@email.com',
@@ -73,7 +73,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_a_last_name_to_store_a_new_administrator()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/admin/store', [
+             ->json('POST', 'admin-portal/api/admin/store', [
                  'first_name'  => 'Testy',
                  'last_name'   => '',
                  'email'       => 'test@email.com',
@@ -91,7 +91,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_an_email_to_store_a_new_administrator()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/admin/store', [
+             ->json('POST', 'admin-portal/api/admin/store', [
                  'first_name'  => 'Testy',
                  'last_name'   => 'Tester',
                  'email'       => '',
@@ -113,7 +113,7 @@ class AdminControllerTest extends TestCase
         ]);
 
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/admin/store', [
+             ->json('POST', 'admin-portal/api/admin/store', [
                  'first_name'  => 'Testy',
                  'last_name'   => 'Tester',
                  'email'       => 'test@email.com',
@@ -131,7 +131,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_a_password_to_store_a_new_administrator()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/admin/store', [
+             ->json('POST', 'admin-portal/api/admin/store', [
                  'first_name'  => 'Testy',
                  'last_name'   => 'Tester',
                  'email'       => 'test@email.com',
@@ -149,11 +149,11 @@ class AdminControllerTest extends TestCase
     public function it_requires_the_password_to_be_at_least_6_characters_to_store_a_new_administrator()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/admin/store', [
+             ->json('POST', 'admin-portal/api/admin/store', [
                  'first_name'  => 'Testy',
                  'last_name'   => 'Tester',
                  'email'       => 'test@email.com',
-                 'password'    => 'pass'
+                 'password'    => 'pass' //only 4 characters input
              ])
              ->assertResponseStatus(422)
              ->seeJson([
@@ -167,7 +167,8 @@ class AdminControllerTest extends TestCase
     public function it_can_store_a_new_staff_member_in_the_database()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/staff', [
+             ->json('POST', 'admin-portal/api/team/store/staff', [
+                 'eraiderID'        => 'jastaffer',
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
@@ -181,6 +182,7 @@ class AdminControllerTest extends TestCase
                  'training'         => 'My training includes...',
              ])
              ->seeInDatabase('teams', [
+                 'eraiderID'        => 'jastaffer',
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
@@ -203,7 +205,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_a_first_name_to_store_a_new_staff_member()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/staff', [
+             ->json('POST', 'admin-portal/api/team/store/staff', [
                  'first_name'       => '',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
@@ -228,7 +230,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_a_last_name_to_store_a_new_staff_member()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/staff', [
+             ->json('POST', 'admin-portal/api/team/store/staff', [
                  'first_name'       => 'Jane',
                  'last_name'        => '',
                  'email'            => 'janestaff@email.com',
@@ -253,7 +255,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_an_email_to_store_a_new_staff_member()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/staff', [
+             ->json('POST', 'admin-portal/api/team/store/staff', [
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => '',
@@ -283,7 +285,7 @@ class AdminControllerTest extends TestCase
         ]);
 
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/staff', [
+             ->json('POST', 'admin-portal/api/team/store/staff', [
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
@@ -308,7 +310,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_a_title_to_store_a_new_staff_member()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/staff', [
+             ->json('POST', 'admin-portal/api/team/store/staff', [
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
@@ -333,7 +335,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_the_department_to_store_a_new_staff_member()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/staff', [
+             ->json('POST', 'admin-portal/api/team/store/staff', [
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
@@ -358,7 +360,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_a_room_number_to_store_a_new_staff_member()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/staff', [
+             ->json('POST', 'admin-portal/api/team/store/staff', [
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
@@ -383,7 +385,8 @@ class AdminControllerTest extends TestCase
     public function it_can_store_a_new_faculty_member_in_the_database()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/faculty', [
+             ->json('POST', 'admin-portal/api/team/store/faculty', [
+                 'eraiderID'        => 'jafaculty',
                  'first_name'       => 'Jane',
                  'last_name'        => 'Faculty',
                  'email'            => 'jane@email.com',
@@ -400,6 +403,7 @@ class AdminControllerTest extends TestCase
                  'cv'               => '/path/to/cv.pdf'
              ])
              ->seeInDatabase('teams', [
+                 'eraiderID'        => 'jafaculty',
                  'first_name'       => 'Jane',
                  'last_name'        => 'Faculty',
                  'email'            => 'jane@email.com',
@@ -425,7 +429,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_a_first_name_to_store_a_new_faculty_member()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/faculty', [
+             ->json('POST', 'admin-portal/api/team/store/faculty', [
                  'first_name'       => '',
                  'last_name'        => 'Faculty',
                  'email'            => 'jane@email.com',
@@ -453,7 +457,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_a_last_name_to_store_a_new_faculty_member()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/faculty', [
+             ->json('POST', 'admin-portal/api/team/store/faculty', [
                  'first_name'       => 'Jane',
                  'last_name'        => '',
                  'email'            => 'jane@email.com',
@@ -481,7 +485,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_an_email_to_store_a_new_faculty_member()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/faculty', [
+             ->json('POST', 'admin-portal/api/team/store/faculty', [
                  'first_name'       => 'Jane',
                  'last_name'        => 'Faculty',
                  'email'            => '',
@@ -509,7 +513,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_a_title_to_store_a_new_faculty_member()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/faculty', [
+             ->json('POST', 'admin-portal/api/team/store/faculty', [
                  'first_name'       => 'Jane',
                  'last_name'        => 'Faculty',
                  'email'            => 'jane@email.com',
@@ -537,7 +541,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_a_department_to_store_a_new_faculty_member()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/faculty', [
+             ->json('POST', 'admin-portal/api/team/store/faculty', [
                  'first_name'       => 'Jane',
                  'last_name'        => 'Faculty',
                  'email'            => 'jane@email.com',
@@ -565,7 +569,7 @@ class AdminControllerTest extends TestCase
     public function it_requires_a_room_number_to_store_a_new_faculty_member()
     {
         $this->actingAs($this->adminUser)
-             ->json('POST', '/api/team/store/faculty', [
+             ->json('POST', 'admin-portal/api/team/store/faculty', [
                  'first_name'       => 'Jane',
                  'last_name'        => 'Faculty',
                  'email'            => 'jane@email.com',

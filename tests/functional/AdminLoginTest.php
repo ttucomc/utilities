@@ -13,7 +13,7 @@ class AdminLoginTest extends TestCase
     /** @test */
     public function admin_can_see_login_form()
     {
-        $this->visit('/')
+        $this->visit('/admin-portal')
              ->see('Enter Credentials')
              ->see('Email')
              ->see('Password')
@@ -28,7 +28,7 @@ class AdminLoginTest extends TestCase
         $email = $this->adminUser->email;
         $password = 'secret';
 
-        $this->visit('/')
+        $this->visit('/admin-portal')
              ->see('Enter Credentials')
              ->see('Email')
              ->see('Password')
@@ -36,13 +36,13 @@ class AdminLoginTest extends TestCase
              ->type($email, 'email')
              ->type($password, 'password')
              ->press('Login')
-             ->seePageIs('/');
+             ->seePageIs('/admin-portal');
     }
 
     /** @test */
     public function admin_cannot_login_with_the_wrong_credentials()
     {
-        $this->visit('/')
+        $this->visit('/admin-portal')
              ->see('Enter Credentials')
              ->see('Email')
              ->see('Password')

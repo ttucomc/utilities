@@ -26,7 +26,7 @@ class AdminDashboardTest extends TestCase
     public function admin_can_see_the_search_bar_to_search_for_faculty_or_staff_or_news_articles()
     {
         $this->actingAs($this->adminUser)
-             ->visit('/')
+             ->visit('/admin-portal')
              ->see('Faculty/Staff or News articles'); // text in search bar
     }
 
@@ -34,7 +34,7 @@ class AdminDashboardTest extends TestCase
     public function admin_can_see_option_to_modify_their_profile()
     {
         $this->actingAs($this->adminUser)
-             ->visit('/')
+             ->visit('/admin-portal')
              ->see('Profile');
     }
 
@@ -42,7 +42,7 @@ class AdminDashboardTest extends TestCase
     public function admin_can_see_option_to_create_a_new_faculty_member()
     {
         $this->actingAs($this->adminUser)
-             ->visit('/')
+             ->visit('/admin-portal')
              ->click('faculty-staff') //'name' attribute on dropdown selector
              ->see('Create Faculty');
     }
@@ -51,7 +51,7 @@ class AdminDashboardTest extends TestCase
     public function admin_can_see_option_to_create_a_new_staff_member()
     {
         $this->actingAs($this->adminUser)
-             ->visit('/')
+             ->visit('/admin-portal')
              ->click('faculty-staff') //'name' attribute on dropdown selector
              ->see('Create Staff');
     }
@@ -60,7 +60,7 @@ class AdminDashboardTest extends TestCase
     public function admin_can_see_option_to_create_a_new_news_article()
     {
         $this->actingAs($this->adminUser)
-             ->visit('/')
+             ->visit('/admin-portal')
              ->click('news') //'name' attribute on dropdown selector
              ->see('Create Article');
     }
