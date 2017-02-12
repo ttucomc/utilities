@@ -26,6 +26,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Team::class, function (Faker\Generator $faker) {
     return [
+        'eraiderID'      => 'test-raiderID',
         'first_name'     => $faker->name,
         'last_name'      => $faker->name,
         'email'          => $faker->unique()->safeEmail,

@@ -34,4 +34,16 @@ class StoreNewStaffRequest extends FormRequest
             'room_number'   => 'required'
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'eraiderID.required' => 'The eraiderID field is required.'
+        ];
+    }
 }

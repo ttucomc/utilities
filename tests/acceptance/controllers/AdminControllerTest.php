@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\User;
 use App\Team;
 
+use Illuminate\Http\UploadedFile;
+
 /*
  * Storing new admins and team members in the database assumes that the
  * requests come into the contoller from the client side through AJAX.
@@ -172,7 +174,7 @@ class AdminControllerTest extends TestCase
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
-                 'photo'            => '/path/to/photo.jpg',
+                 'photo'            => null,
                  'title'            => 'Staff CEO',
                  'department'       => 'IT',
                  'room_number'      => '250A',
@@ -186,7 +188,7 @@ class AdminControllerTest extends TestCase
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
-                 'photo'            => '/path/to/photo.jpg',
+                 'photo'            => null,
                  'role'             => 'staff',
                  'title'            => 'Staff CEO',
                  'department'       => 'IT',
@@ -202,10 +204,88 @@ class AdminControllerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_store_a_profile_photo_for_the_new_staff_member_in_the_database()
+    {
+        // The staff member is created before a profile photo can be uploaded
+        $this->actingAs($this->adminUser)
+             ->json('POST', 'admin-portal/api/team/store/staff', [
+                 'eraiderID'        => 'jastaffer',
+                 'first_name'       => 'Jane',
+                 'last_name'        => 'Staffer',
+                 'email'            => 'janestaff@email.com',
+                 'photo'            => null,
+                 'title'            => 'Staff CEO',
+                 'department'       => 'IT',
+                 'room_number'      => '250A',
+                 'social_handles'   => null,
+                 'bio'              => 'The Jane Staffer bio...',
+                 'duties'           => 'My duties include...',
+                 'training'         => 'My training includes...',
+             ])
+             ->seeInDatabase('teams', [
+                 'eraiderID'        => 'jastaffer',
+                 'first_name'       => 'Jane',
+                 'last_name'        => 'Staffer',
+                 'email'            => 'janestaff@email.com',
+                 'photo'            => null,
+                 'role'             => 'staff',
+                 'title'            => 'Staff CEO',
+                 'department'       => 'IT',
+                 'room_number'      => '250A',
+                 'social_handles'   => null,
+                 'bio'              => 'The Jane Staffer bio...',
+                 'duties'           => 'My duties include...',
+                 'training'         => 'My training includes...',
+             ]);
+
+        $newStaffMember = Team::where('email', 'janestaff@email.com')->first();
+
+        // Mock the profile photo being uploaded.
+        $file = new UploadedFile(public_path('staff/profile-photos/'), 'profile-photo.jpg', 'image/jpg', 4, null, true);
+
+        $this->actingAs($this->adminUser)
+             ->json('POST', 'admin-portal/api/team/store/staff/profile-photo', [
+                 'newStaffMemberID'     => $newStaffMember->id,
+                 'profile-photo'        => $file
+             ])
+             ->seeJson([
+                 'success'     => true
+             ])
+             ->assertTrue(file_exists(public_path() . '/staff/profile-photos/Jane-Staffer.jpg'));
+    }
+
+    /** @test */
+    public function it_requires_an_eraiderID_to_store_a_new_staff_member()
+    {
+        $this->actingAs($this->adminUser)
+             ->json('POST', 'admin-portal/api/team/store/staff', [
+                 'eraiderID'        => '',
+                 'first_name'       => 'Jane',
+                 'last_name'        => 'Staffer',
+                 'email'            => 'janestaff@email.com',
+                 'photo'            => '/path/to/photo.jpg',
+                 'title'            => 'Staff CEO',
+                 'department'       => 'IT',
+                 'room_number'      => '250A',
+                 'social_handles'   => null,
+                 'bio'              => 'The Jane Staffer bio...',
+                 'duties'           => 'My duties include...',
+                 'training'         => 'My training includes...',
+             ])
+             ->assertResponseStatus(422)
+             ->seeJson([
+                 'eraiderID'  => [
+                        'The eraiderID field is required.'
+                     ]
+             ]);
+    }
+
+    /** @test */
     public function it_requires_a_first_name_to_store_a_new_staff_member()
     {
         $this->actingAs($this->adminUser)
              ->json('POST', 'admin-portal/api/team/store/staff', [
+                 'eraiderID'        => 'jastaffer',
                  'first_name'       => '',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
@@ -231,6 +311,7 @@ class AdminControllerTest extends TestCase
     {
         $this->actingAs($this->adminUser)
              ->json('POST', 'admin-portal/api/team/store/staff', [
+                 'eraiderID'        => 'jastaffer',
                  'first_name'       => 'Jane',
                  'last_name'        => '',
                  'email'            => 'janestaff@email.com',
@@ -256,6 +337,7 @@ class AdminControllerTest extends TestCase
     {
         $this->actingAs($this->adminUser)
              ->json('POST', 'admin-portal/api/team/store/staff', [
+                 'eraiderID'        => 'jastaffer',
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => '',
@@ -286,6 +368,7 @@ class AdminControllerTest extends TestCase
 
         $this->actingAs($this->adminUser)
              ->json('POST', 'admin-portal/api/team/store/staff', [
+                 'eraiderID'        => 'jastaffer',
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
@@ -311,6 +394,7 @@ class AdminControllerTest extends TestCase
     {
         $this->actingAs($this->adminUser)
              ->json('POST', 'admin-portal/api/team/store/staff', [
+                 'eraiderID'        => 'jastaffer',
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
@@ -336,6 +420,7 @@ class AdminControllerTest extends TestCase
     {
         $this->actingAs($this->adminUser)
              ->json('POST', 'admin-portal/api/team/store/staff', [
+                 'eraiderID'        => 'jastaffer',
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
@@ -361,6 +446,7 @@ class AdminControllerTest extends TestCase
     {
         $this->actingAs($this->adminUser)
              ->json('POST', 'admin-portal/api/team/store/staff', [
+                 'eraiderID'        => 'jastaffer',
                  'first_name'       => 'Jane',
                  'last_name'        => 'Staffer',
                  'email'            => 'janestaff@email.com',
@@ -426,10 +512,37 @@ class AdminControllerTest extends TestCase
     }
 
     /** @test */
+    public function it_requires_an_eraiderID_to_store_a_new_faculty_member()
+    {
+        $this->actingAs($this->adminUser)
+             ->json('POST', 'admin-portal/api/team/store/faculty', [
+                 'eraiderID'        => '',
+                 'first_name'       => 'Jane',
+                 'last_name'        => 'Staffer',
+                 'email'            => 'janestaff@email.com',
+                 'photo'            => '/path/to/photo.jpg',
+                 'title'            => 'Staff CEO',
+                 'department'       => 'IT',
+                 'room_number'      => '250A',
+                 'social_handles'   => null,
+                 'bio'              => 'The Jane Staffer bio...',
+                 'duties'           => 'My duties include...',
+                 'training'         => 'My training includes...',
+             ])
+             ->assertResponseStatus(422)
+             ->seeJson([
+                 'eraiderID'  => [
+                        'The eraiderID field is required.'
+                     ]
+             ]);
+    }
+
+    /** @test */
     public function it_requires_a_first_name_to_store_a_new_faculty_member()
     {
         $this->actingAs($this->adminUser)
              ->json('POST', 'admin-portal/api/team/store/faculty', [
+                 'eraiderID'        => 'jafaculty',
                  'first_name'       => '',
                  'last_name'        => 'Faculty',
                  'email'            => 'jane@email.com',
@@ -458,6 +571,7 @@ class AdminControllerTest extends TestCase
     {
         $this->actingAs($this->adminUser)
              ->json('POST', 'admin-portal/api/team/store/faculty', [
+                 'eraiderID'        => 'jafaculty',
                  'first_name'       => 'Jane',
                  'last_name'        => '',
                  'email'            => 'jane@email.com',
@@ -486,6 +600,7 @@ class AdminControllerTest extends TestCase
     {
         $this->actingAs($this->adminUser)
              ->json('POST', 'admin-portal/api/team/store/faculty', [
+                 'eraiderID'        => 'jafaculty',
                  'first_name'       => 'Jane',
                  'last_name'        => 'Faculty',
                  'email'            => '',
@@ -514,6 +629,7 @@ class AdminControllerTest extends TestCase
     {
         $this->actingAs($this->adminUser)
              ->json('POST', 'admin-portal/api/team/store/faculty', [
+                 'eraiderID'        => 'jafaculty',
                  'first_name'       => 'Jane',
                  'last_name'        => 'Faculty',
                  'email'            => 'jane@email.com',
@@ -542,6 +658,7 @@ class AdminControllerTest extends TestCase
     {
         $this->actingAs($this->adminUser)
              ->json('POST', 'admin-portal/api/team/store/faculty', [
+                 'eraiderID'        => 'jafaculty',
                  'first_name'       => 'Jane',
                  'last_name'        => 'Faculty',
                  'email'            => 'jane@email.com',
@@ -570,6 +687,7 @@ class AdminControllerTest extends TestCase
     {
         $this->actingAs($this->adminUser)
              ->json('POST', 'admin-portal/api/team/store/faculty', [
+                 'eraiderID'        => 'jafaculty',
                  'first_name'       => 'Jane',
                  'last_name'        => 'Faculty',
                  'email'            => 'jane@email.com',
