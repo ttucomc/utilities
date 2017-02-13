@@ -67,11 +67,11 @@ class AdminController extends Controller
         $staff = new Team;
         $staff->storeStaff($request);
 
-        $newStaffMemberID = Team::where('email', $request->email)->first();
+        $newStaffMember = Team::where('email', $request->email)->first();
 
         return response()->json([
             'success' => true,
-            'id'      => $newStaffMemberID->id
+            'id'      => $newStaffMember->id
         ]);
     }
 
@@ -103,11 +103,11 @@ class AdminController extends Controller
         $staff = new Team;
         $staff->storeFaculty($request);
 
-        $newFacultyMemberID = Team::where('email', $request->email)->first();
+        $newFacultyMember = Team::where('email', $request->email)->first();
 
         return response()->json([
             'success' => true,
-            'id'      => $newFacultyMemberID->id
+            'id'      => $newFacultyMember->id
         ]);
     }
 

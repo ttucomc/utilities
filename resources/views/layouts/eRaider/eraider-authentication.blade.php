@@ -1,6 +1,6 @@
 <?php
-        $path = resource_path();
-        include $path . '/views/layouts/eRaider/include.php'; ?>
+    include resource_path() . '/views/layouts/eRaider/include.php';
+?>
 
 <!DOCTYPE html>
 <html>

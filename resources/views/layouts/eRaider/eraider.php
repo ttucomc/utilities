@@ -2,8 +2,6 @@
 
   // eRaider.php v08.1
 
-  // session_start();
-
   function eRaiderLoginCheckKey($username, $login_key) {
       if(get_magic_quotes_gpc()) {
           $username = stripslashes($username);

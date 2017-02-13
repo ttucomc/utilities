@@ -18,8 +18,6 @@
             alignment: 'right'
         });
 
-        $('#social-handles').material_select();
-
         Materialize.updateTextFields();
 
         // Login modal will display if user is not logged in

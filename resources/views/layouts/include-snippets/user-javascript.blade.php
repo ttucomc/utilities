@@ -17,8 +17,6 @@
             alignment: 'right'
         });
 
-        $('#social-handles').material_select();
-
         Materialize.updateTextFields();
     });
 </script>

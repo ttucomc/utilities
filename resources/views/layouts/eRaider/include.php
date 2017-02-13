@@ -6,6 +6,5 @@
         $_SESSION['eRaiderDBUsername'] = "ESI_MCOM_COMCUTILITIES";
         $_SESSION['eRaiderDBpassword'] = "UlEbUp6jOsUxUvA";
         // $_SESSION['eRaiderFailureURL'] = "<Optional URL goes here in the event of an authentication failure>";
-        $path = resource_path();
-        include $path . '/views/layouts/eRaider/eraider.php';
+        include resource_path() . '/views/layouts/eRaider/eraider.php';
 ?>

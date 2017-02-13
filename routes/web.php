@@ -14,8 +14,14 @@
 Auth::routes();
 
 Route::get('/', function () {
-    return view('layouts.user-master');
+    return view('layouts.welcome-page');
 });
+
+Route::get('eraider-sign-in', function() {
+    return view('layouts.eraider-authentication');
+});
+
+Route::get('user-portal/{elu}', 'TeamsController@showTeamMemberInfo');
 
 Route::get('/admin-portal', function () {
     return view('layouts.admin-master');

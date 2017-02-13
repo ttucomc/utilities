@@ -1,4 +1,6 @@
 <template>
+    <!-- Note: This component is no longer being used at the moment. The user side will be a normal server side application. This decision was made to allow for easier testing. -->
+
     <section id="home" class="row">
         <div class="col s12">
             <h1>{{ heading }}</h1>
