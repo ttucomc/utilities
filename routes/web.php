@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('layouts.welcome-page');
 });
 
-Route::get('eraider-sign-in', function() {
+Route::get('/eraider-sign-in', function() {
     return view('layouts.eraider-authentication');
 });
 
