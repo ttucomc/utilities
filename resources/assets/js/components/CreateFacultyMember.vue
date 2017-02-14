@@ -246,8 +246,6 @@
             </div>
         </div>
 
-        <hr class="col s12 m8 offset-m2 create-faculty-hr">
-
         <div id="faculty-profile-photo-dropzone-area" class="col s12 m6 offset-m3">
             <h5>Add Profile Photo for: {{ newFacultyMemberFirstName }} {{ newFacultyMemberLastName }}</h5>
             <div id="faculty-profile-photo-dropzone" class="myDropzone dropzone">
@@ -473,9 +471,8 @@
 </script>
 
 <style lang="sass">
-    .create-faculty-hr {
-        border-color: #C00;
-        margin: 4rem 0;
+    #faculty-cv-dropzone-area {
+        margin-bottom: 4rem;
     }
 
     .flex-centered {

@@ -64,14 +64,12 @@ class AdminController extends Controller
      */
     public function storeStaff(Requests\StoreNewStaffRequest $request)
     {
-        $staff = new Team;
-        $staff->storeStaff($request);
-
-        $newStaffMember = Team::where('email', $request->email)->first();
+        $staffMember = new Team;
+        $staffMember = $staffMember->storeStaff($request);
 
         return response()->json([
             'success' => true,
-            'id'      => $newStaffMember->id
+            'id'      => $staffMember->id
         ]);
     }
 
@@ -84,7 +82,6 @@ class AdminController extends Controller
     public function storeStaffProfilePhoto(Request $request)
     {
         $staffMember = new Team;
-        // call model function to store staff photo
         $staffMember->storeStaffProfilePhoto($request);
 
         return response()->json([
@@ -100,14 +97,12 @@ class AdminController extends Controller
      */
     public function storeFaculty(Requests\StoreNewFacultyRequest $request)
     {
-        $staff = new Team;
-        $staff->storeFaculty($request);
-
-        $newFacultyMember = Team::where('email', $request->email)->first();
+        $facultyMember = new Team;
+        $facultyMember = $facultyMember->storeFaculty($request);
 
         return response()->json([
             'success' => true,
-            'id'      => $newFacultyMember->id
+            'id'      => $facultyMember->id
         ]);
     }
 
@@ -120,7 +115,6 @@ class AdminController extends Controller
     public function storeFacultyCV(Request $request)
     {
         $facultyMember = new Team;
-        // call model function to store faculty CV
         $facultyMember->storeFacultyCV($request);
 
         return response()->json([
@@ -137,7 +131,6 @@ class AdminController extends Controller
     public function storeFacultyProfilePhoto(Request $request)
     {
         $facultyMember = new Team;
-        // call model function to store faculty CV
         $facultyMember->storeFacultyProfilePhoto($request);
 
         return response()->json([
@@ -170,7 +163,7 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

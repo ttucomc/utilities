@@ -22,17 +22,39 @@ class TeamsController extends Controller
     /**
      * Display information of the Team member.
      *
+     * @param  string $eraiderID [eraiderID of the team member]
      * @return \Illuminate\Http\Response
      */
-    public function showTeamMemberInfo($elu)
+    public function showTeamMemberInfo($eraiderID)
     {
         $teamMember = new Team;
-        $teamMember = Team::where('eraiderID', $elu)->first();
 
         if($teamMember != null) {
-            return view('users.home', ['teamMember' => $teamMember]);
+            return view('users.home', ['teamMember' => $teamMember->getMember($eraiderID)]);
         }
 
         return view('errors.unauthorized-access');
+    }
+
+    public function storeUserPhoto(Request $request)
+    {
+        $teamMember = new Team;
+        $photopath = $teamMember->storeUserPhotoUploadedByUser($request);
+
+        return response()->json([
+            'success'         => true,
+            'photopath'       => $photopath
+        ]);
+    }
+
+    public function storeFacultyCV(Request $request)
+    {
+        $facultyMember = new Team;
+        $cvpath = $facultyMember->storeFacultyCVUploadedByFacultyMember($request);
+
+        return response()->json([
+            'success'   => true,
+            'cvpath'        => $cvpath
+        ]);
     }
 }

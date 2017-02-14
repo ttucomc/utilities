@@ -13,17 +13,13 @@
                 </a>
 
                 <ul id="slide-out" class="side-nav">
-                      <li><a href="/user-portal/{{ $teamMember->eraiderID }}">Profile</a></li>
-                      @if (Auth::check())
-                        <li><a href="{{ url('auth/logout') }}">Logout</a></li>
-                      @endif
+                    <li><a href="/user-portal/{{ $teamMember->eraiderID }}">Profile</a></li>
+                    <li><a href="https://eraider.ttu.edu/signout.asp">Logout</a></li>
                 </ul>
 
                 <ul class="right hide-on-med-and-down">
-                      <li><a href="/user-portal/{{ $teamMember->eraiderID }}"><i class="small material-icons left">perm_identity</i>Profile</a></li>
-                      @if (Auth::check())
-                        <li><a href="{{ url('auth/logout') }}">Logout</a></li>
-                      @endif
+                    <li><a href="/user-portal/{{ $teamMember->eraiderID }}"><i class="small material-icons left">perm_identity</i>Profile</a></li>
+                    <li><a href="https://eraider.ttu.edu/signout.asp">Logout</a></li>
                 </ul>
 
                 <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -188,12 +184,62 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col s12 m6">
-                                <h4>Profile Photo</h4>
-                                <img class="materialboxed" width="400" src="{{ $teamMember->photo }}" alt="User Profile Photo">
+                        @if($teamMember->photo)
+                            <div class="row">
+                                <div class="col s12 m6">
+                                    <h4>Your Profile Photo</h4>
+                                    <img class="materialboxed" width="400" src="{{ $teamMember->photo }}" alt="User Profile Photo">
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <div id="profile-photo-area-before-user-upload" class="row">
+                                <div class="col s12 m6">
+                                    <h5>Add Your Profile Photo</h5>
+                                    <a id="add-profile-photo-button" href="#!" class="waves-effect waves-circle waves-light btn-floating"><i class="material-icons medium">add</i></a>
+                                    <div id="user-profile-photo-dropzone" class="myDropzone dropzone">
+                                        <div class="dz-message" data-dz-message><span>Drag and Drop photo here or click to Upload photo</div>
+                                        <div id="preview-template" style="display: none;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="profile-photo-area-after-user-upload" class="row">
+                                <div class="col s12 m6">
+                                    <h5>Your Profile Photo</h5>
+                                    <img id="profile-photo-after-user-upload" class="materialboxed" width="400" src="" alt="User Profile Photo">
+                                </div>
+                            </div>
+                        @endif
+
+                        <hr>
+
+                        @if($teamMember->role == 'faculty' && $teamMember->cv != null)
+                            <div class="row">
+                                <div class="col s12 m6">
+                                    <h5>Your CV</h5>
+                                    <a class="user-home-a" href="{{ $teamMember->cv }}" target="_blank"><p>{{ $teamMember->first_name }}-{{ $teamMember->last_name }}-CV</p></a>
+                                </div>
+                            </div>
+                        @else
+                            <div id="cv-area-before-faculty-user-upload" class="row">
+                                <div class="col s12 m6">
+                                    <h5>Add Your CV</h5>
+                                    <a id="add-faculty-cv-button" href="#!" class="waves-effect waves-circle waves-light btn-floating"><i class="material-icons medium">add</i></a>
+
+                                    <div id="faculty-user-cv-dropzone" class="myDropzone dropzone">
+                                        <div class="dz-message" data-dz-message><span>Drag and Drop CV here or click to Upload CV</div>
+                                        <div id="preview-template" style="display: none;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="cv-area-after-faculty-user-upload" class="row">
+                                <div class="col s12 m6">
+                                    <h5>Your CV</h5>
+                                    <a id="cv-after-faculty-user-upload" class="user-home-a" href="" target="_blank"><p>{{ $teamMember->first_name }}-{{ $teamMember->last_name }}-CV</p></a>
+                                </div>
+                            </div>
+                        @endif
                     </form>
                 </div>
             </section>
@@ -203,5 +249,119 @@
         @include('layouts.include-snippets.footer')
 
         @include('layouts.include-snippets.user-javascript')
+
+        <div id="eraiderID" data-field-id="{{ $teamMember->eraiderID }}"></div>
+        <script type="text/javascript">
+            $(document).ready( function() {
+                $('#user-profile-photo-dropzone').hide();
+                $('#faculty-user-cv-dropzone').hide();
+                $('#profile-photo-area-after-user-upload').hide();
+                $('#cv-area-after-faculty-user-upload').hide();
+
+                $('#add-profile-photo-button').click(function() {
+                    $('#add-profile-photo-button').hide();
+                    $('#user-profile-photo-dropzone').css("display", "block");
+
+                    initializePhotoDropzone();
+                });
+
+                $('#add-faculty-cv-button').click(function() {
+                    $('#add-faculty-cv-button').hide();
+                    $('#faculty-user-cv-dropzone').css("display", "block");
+
+                    initializeFacultyCVDropzone();
+                });
+
+                var token = $('meta[name="token"]').attr('value');
+
+                function initializeFacultyCVDropzone() {
+                    $('#faculty-user-cv-dropzone').dropzone({
+                        url: "api/team/store/faculty-team-member/cv",
+                        paramName: 'cv',
+                        maxFiles: 1,
+                        maxFilesize: 3,
+                        acceptedFiles: ".pdf",
+                        headers: {
+                            'X-CSRF-TOKEN': token
+                        },
+                        init: function() {
+                            var cvDropzone = this;
+
+                            this.on('sending', function(file, xhr, formData) {
+                                formData.append("eraiderID", $('#eraiderID').data("field-id"));
+                            });
+
+                            this.on('success', function(file, response) {
+                                Materialize.toast("CV uploaded successfully", 4000, 'blue');
+
+                                $('#cv-after-faculty-user-upload').attr("href", response.cvpath);
+
+                                setTimeout(function() {
+                                    $('#user-profile-photo-dropzone').hide();
+                                }, 3000);
+
+                                setTimeout(function() {
+                                    $('#cv-area-before-faculty-user-upload').hide();
+                                    $('#cv-area-after-faculty-user-upload').css("display", "block")
+                                }, 4000);
+
+                            });
+
+                            this.on('error', function() {
+                                Materialize.toast("CV upload failed", 4000, 'red');
+
+                                setTimeout(function() {
+                                    profilePhotoDropzone.removeAllFiles(true);
+                                }, 3000);
+                            });
+                        }
+                    });
+                }
+
+                function initializePhotoDropzone() {
+                    $('#user-profile-photo-dropzone').dropzone({
+                        url: "api/team/store/team-member/profile-photo",
+                        paramName: 'profile-photo',
+                        maxFiles: 1,
+                        maxFilesize: 20,
+                        acceptedFiles: "image/*",
+                        headers: {
+                            'X-CSRF-TOKEN': token
+                        },
+                        init: function() {
+                            var profilePhotoDropzone = this;
+
+                            this.on('sending', function(file, xhr, formData) {
+                                formData.append("eraiderID", $('#eraiderID').data("field-id"));
+                            });
+
+                            this.on('success', function(file, response) {
+                                Materialize.toast("Profile photo uploaded successfully", 4000, 'blue');
+
+                                $('#profile-photo-after-user-upload').attr("src", response.photopath);
+
+                                setTimeout(function() {
+                                    $('#user-profile-photo-dropzone').hide();
+                                }, 3000);
+
+                                setTimeout(function() {
+                                    $('#profile-photo-area-before-user-upload').hide();
+                                    $('#profile-photo-area-after-user-upload').css("display", "block")
+                                }, 4000);
+
+                            });
+
+                            this.on('error', function() {
+                                Materialize.toast("Profile photo upload failed", 4000, 'red');
+
+                                setTimeout(function() {
+                                    profilePhotoDropzone.removeAllFiles(true);
+                                }, 3000);
+                            });
+                        }
+                    });
+                }
+            });
+        </script>
     </body>
 </html>

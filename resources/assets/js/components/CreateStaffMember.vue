@@ -154,16 +154,14 @@
             </div>
         </div>
 
-        <hr class="col s12 m8 offset-m2 create-staff-hr">
-
         <div class="flex-centered col s12">
             <button class="waves-effect btn"
                     v-show="! AJAXIcon"
-                    style="margin: 0 0 2rem 0;"
+                    style="margin: 2rem 0;"
                     @click="reloadPage"
                     type="submit"
                     name="reloadButton"
-                    >No photo to upload</button>
+                    >Finished with File Uploads</button>
         </div>
 
         <div id="staff-profile-photo-dropzone-area" class="col s12 m6 offset-m3">
@@ -326,11 +324,6 @@
 </script>
 
 <style lang="sass">
-    .create-staff-hr {
-        border-color: #C00;
-        margin: 4rem 0;
-    }
-
     .myDropzone {
         display: flex;
         justify-content: center;

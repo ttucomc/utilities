@@ -28,6 +28,17 @@ class Team extends Model
     ];
 
     /**
+     * Fetch and return team member.
+     *
+     * @param  string $eraiderID
+     * @return App\Team object
+     */
+    public function getMember($eraiderID)
+    {
+        return Team::where('eraiderID', $eraiderID)->first();
+    }
+
+    /**
      * Store the new staff member in the database.
      *
      * @param  \Illuminate\Http\Request $request
@@ -35,9 +46,11 @@ class Team extends Model
      */
     public function storeStaff(Request $request)
     {
-        $staff = Team::create($request->all());
-        $staff->role = "staff";
-        $staff->save();
+        $staffMember = Team::create($request->all());
+        $staffMember->role = "staff";
+        $staffMember->save();
+
+        return $staffMember;
     }
 
     /**
@@ -69,9 +82,11 @@ class Team extends Model
      */
     public function storeFaculty(Request $request)
     {
-        $staff = Team::create($request->all());
-        $staff->role = "faculty";
-        $staff->save();
+        $facultyMember = Team::create($request->all());
+        $facultyMember->role = "faculty";
+        $facultyMember->save();
+
+        return $facultyMember;
     }
 
     /**
@@ -114,5 +129,43 @@ class Team extends Model
 
         $facultyMember->photo = '/faculty/profile-photos/' . $fileName;
         $facultyMember->save();
+    }
+
+    public function storeUserPhotoUploadedByUser(Request $request)
+    {
+        $teamMember = Team::where('eraiderID', $request->eraiderID)->first();
+
+        $file = $request->file('profile-photo');
+
+        $fileName = $teamMember->first_name . '-' . $teamMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
+
+        if($teamMember->role == 'faculty') {
+            $file->move('faculty/profile-photos', $fileName);
+            $teamMember->photo = '/faculty/profile-photos/' . $fileName;
+        }
+        else {
+            $file->move('staff/profile-photos', $fileName);
+            $teamMember->photo = '/staff/profile-photos/' . $fileName;
+        }
+
+        $teamMember->save();
+
+        return $teamMember->photo;
+    }
+
+    public function storeFacultyCVUploadedByFacultyMember(Request $request)
+    {
+        $facultyMember = Team::where('eraiderID', $request->eraiderID)->first();
+
+        $file = $request->file('cv');
+
+        $fileName = $facultyMember->first_name . '-' . $facultyMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
+
+        $file->move('faculty/cv', $fileName);
+        $facultyMember->cv = '/faculty/cv/' . $fileName;
+
+        $facultyMember->save();
+
+        return $facultyMember->cv;
     }
 }

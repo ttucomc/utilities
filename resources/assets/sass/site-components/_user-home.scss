@@ -2,3 +2,16 @@
     border-color: #C00;
     margin: 2rem 0;
 }
+
+.user-home-a {
+    color: #C00;
+}
+
+.myDropzone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 150px;
+    border: 2px solid #C00;
+}
