@@ -68,7 +68,7 @@ class Team extends Model
 
         $fileName = $staffMember->first_name . '-' . $staffMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
 
-        $file->move('staff/profile-photos', $fileName);
+        $file->move(public_path() . '/staff/profile-photos', $fileName);
 
         $staffMember->photo = '/staff/profile-photos/' . $fileName;
         $staffMember->save();
@@ -104,7 +104,7 @@ class Team extends Model
 
         $fileName = $facultyMember->first_name . '-' . $facultyMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
 
-        $file->move('faculty/cv', $fileName);
+        $file->move(public_path() . '/faculty/cv', $fileName);
 
         $facultyMember->cv = '/faculty/cv/' . $fileName;
         $facultyMember->save();
@@ -125,7 +125,7 @@ class Team extends Model
 
         $fileName = $facultyMember->first_name . '-' . $facultyMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
 
-        $file->move('faculty/profile-photos', $fileName);
+        $file->move(public_path() . '/faculty/profile-photos', $fileName);
 
         $facultyMember->photo = '/faculty/profile-photos/' . $fileName;
         $facultyMember->save();
@@ -140,11 +140,11 @@ class Team extends Model
         $fileName = $teamMember->first_name . '-' . $teamMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
 
         if($teamMember->role == 'faculty') {
-            $file->move('faculty/profile-photos', $fileName);
+            $file->move(public_path() . '/faculty/profile-photos', $fileName);
             $teamMember->photo = '/faculty/profile-photos/' . $fileName;
         }
         else {
-            $file->move('staff/profile-photos', $fileName);
+            $file->move(public_path() . '/staff/profile-photos', $fileName);
             $teamMember->photo = '/staff/profile-photos/' . $fileName;
         }
 
@@ -161,7 +161,7 @@ class Team extends Model
 
         $fileName = $facultyMember->first_name . '-' . $facultyMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
 
-        $file->move('faculty/cv', $fileName);
+        $file->move(public_path() . '/faculty/cv', $fileName);
         $facultyMember->cv = '/faculty/cv/' . $fileName;
 
         $facultyMember->save();
