@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/eraider-sign-in', function() {
-    return view('layouts.eraider-authentication');
+    return view('layouts.eRaider.eraider-authentication');
 });
 
 Route::get('user-portal/{eraiderID}', 'TeamsController@showTeamMemberInfo');
