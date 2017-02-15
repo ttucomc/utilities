@@ -4,18 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Filesystem\Filesystem;
 
 use Image;
 
 class Team extends Model
 {
+    protected $awsPhotosURL = 'https://s3.us-east-2.amazonaws.com/comc-team/photos/';
+    protected $awsCVsUrl = 'https://s3.us-east-2.amazonaws.com/comc-team/cvs/';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'eraiderID', 'first_name', 'last_name', 'email', 'photo', 'title', 'department', 'room_number', 'office_hours', 'bachelor', 'master', 'phd', 'social_handles', 'bio', 'courses', 'research', 'duties', 'training', 'awards', 'cv'
+        'eraiderID', 'first_name', 'last_name', 'email', 'phone_number', 'photo', 'title', 'department', 'room_number', 'office_hours', 'first_degree', 'second_degree', 'third_degree', 'social_handles', 'bio', 'courses', 'research', 'duties', 'training', 'awards', 'cv'
     ];
 
     /**
@@ -55,12 +59,12 @@ class Team extends Model
 
     /**
      * Store the new staff member profile photo in 'public/staff/profile-photos' and make the
-     * required database link in the Team table under 'photo' column.
+     * required database link in the Teams table under 'photo' column.
      *
      * @param  \Illuminate\Http\Request $request
      * @return void
      */
-    public function storeStaffProfilePhoto(Request $request)
+    public function storeStaffProfilePhotoUploadedByAdmin(Request $request)
     {
         $staffMember = Team::find($request->newStaffMemberID);
 
@@ -68,9 +72,11 @@ class Team extends Model
 
         $fileName = $staffMember->first_name . '-' . $staffMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
 
-        $file->move(public_path() . '/staff/profile-photos', $fileName);
+        $s3 = \Storage::disk('s3');
+        $filePath = '/photos/' . $fileName;
+        $s3->put($filePath, file_get_contents($file), 'public');
 
-        $staffMember->photo = '/staff/profile-photos/' . $fileName;
+        $staffMember->photo = $this->awsPhotosURL . $fileName;
         $staffMember->save();
     }
 
@@ -91,12 +97,12 @@ class Team extends Model
 
     /**
      * Store the new faculty member CV in 'public/faculty/cv' and make the required
-     * database link in the Team table under 'cv' column.
+     * database link in the Teams table under 'cv' column.
      *
      * @param  \Illuminate\Http\Request $request
      * @return void
      */
-    public function storeFacultyCV(Request $request)
+    public function storeFacultyCVUploadedByAdmin(Request $request)
     {
         $facultyMember = Team::find($request->newFacultyMemberID);
 
@@ -104,9 +110,11 @@ class Team extends Model
 
         $fileName = $facultyMember->first_name . '-' . $facultyMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
 
-        $file->move(public_path() . '/faculty/cv', $fileName);
+        $s3 = \Storage::disk('s3');
+        $filePath = '/cvs/' . $fileName;
+        $s3->put($filePath, file_get_contents($file), 'public');
 
-        $facultyMember->cv = '/faculty/cv/' . $fileName;
+        $facultyMember->cv = $this->awsCVsUrl . $fileName;
         $facultyMember->save();
     }
 
@@ -117,7 +125,7 @@ class Team extends Model
      * @param  \Illuminate\Http\Request $request
      * @return void
      */
-    public function storeFacultyProfilePhoto(Request $request)
+    public function storeFacultyProfilePhotoUploadedByAdmin(Request $request)
     {
         $facultyMember = Team::find($request->newFacultyMemberID);
 
@@ -125,18 +133,20 @@ class Team extends Model
 
         $fileName = $facultyMember->first_name . '-' . $facultyMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
 
-        $file->move(public_path() . '/faculty/profile-photos', $fileName);
+        $s3 = \Storage::disk('s3');
+        $filePath = '/photos/' . $fileName;
+        $s3->put($filePath, file_get_contents($file), 'public');
 
-        $facultyMember->photo = '/faculty/profile-photos/' . $fileName;
+        $facultyMember->photo = $this->awsPhotosURL . $fileName;
         $facultyMember->save();
     }
 
     /**
-     * [storeUserPhotoUploadedByUser description]
+     * [storeProfilePhotoUploadedByUser description]
      * @param  Request $request [description]
      * @return [type]           [description]
      */
-    public function storeUserPhotoUploadedByUser(Request $request)
+    public function storeProfilePhotoUploadedByUser(Request $request)
     {
         $teamMember = Team::where('eraiderID', $request->eraiderID)->first();
 
@@ -144,14 +154,11 @@ class Team extends Model
 
         $fileName = $teamMember->first_name . '-' . $teamMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
 
-        if($teamMember->role == 'faculty') {
-            $file->move(public_path() . '/faculty/profile-photos', $fileName);
-            $teamMember->photo = '/faculty/profile-photos/' . $fileName;
-        }
-        else {
-            $file->move(public_path() . '/staff/profile-photos', $fileName);
-            $teamMember->photo = '/staff/profile-photos/' . $fileName;
-        }
+        $s3 = \Storage::disk('s3');
+        $filePath = '/photos/' . $fileName;
+        $s3->put($filePath, file_get_contents($file), 'public');
+
+        $teamMember->photo = $this->awsPhotosURL . $fileName;
 
         $teamMember->save();
 
@@ -171,8 +178,11 @@ class Team extends Model
 
         $fileName = $facultyMember->first_name . '-' . $facultyMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
 
-        $file->move(public_path() . '/faculty/cv', $fileName);
-        $facultyMember->cv = '/faculty/cv/' . $fileName;
+        $s3 = \Storage::disk('s3');
+        $filePath = '/cvs/' . $fileName;
+        $s3->put($filePath, file_get_contents($file), 'public');
+
+        $facultyMember->cv = $this->awsCVsUrl . $fileName;
 
         $facultyMember->save();
 

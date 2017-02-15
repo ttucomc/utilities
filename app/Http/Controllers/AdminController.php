@@ -82,7 +82,7 @@ class AdminController extends Controller
     public function storeStaffProfilePhoto(Request $request)
     {
         $staffMember = new Team;
-        $staffMember->storeStaffProfilePhoto($request);
+        $staffMember->storeStaffProfilePhotoUploadedByAdmin($request);
 
         return response()->json([
             'success' => true
@@ -115,7 +115,7 @@ class AdminController extends Controller
     public function storeFacultyCV(Request $request)
     {
         $facultyMember = new Team;
-        $facultyMember->storeFacultyCV($request);
+        $facultyMember->storeFacultyCVUploadedByAdmin($request);
 
         return response()->json([
             'success' => true
@@ -131,7 +131,7 @@ class AdminController extends Controller
     public function storeFacultyProfilePhoto(Request $request)
     {
         $facultyMember = new Team;
-        $facultyMember->storeFacultyProfilePhoto($request);
+        $facultyMember->storeFacultyProfilePhotoUploadedByAdmin($request);
 
         return response()->json([
             'success' => true

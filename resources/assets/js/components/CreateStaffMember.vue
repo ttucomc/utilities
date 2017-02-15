@@ -35,6 +35,15 @@
                                        value="">
                                 <label for="eraiderID">eRaider ID</label>
                             </div>
+
+                            <div class="input-field col s12 m6">
+                                <input id="phone_number"
+                                       v-model="staffData.phone_number"
+                                       type="text"
+                                       name="phone_number"
+                                       value="">
+                                <label for="phone_number">Phone Number</label>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -126,6 +135,17 @@
                                 <label for="training">Training</label>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="awards"
+                                          v-model="staffData.awards"
+                                          class="materialize-textarea"
+                                          name="awards"
+                                          value=""></textarea>
+                                <label for="awards">Awards</label>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-action">
@@ -183,13 +203,15 @@
                     last_name: '',
                     eraiderID: '',
                     email: '',
+                    phone_number: '',
                     repeatEmail: '',
                     title: '',
                     department: '',
                     room_number: '',
                     bio: '',
                     duties: '',
-                    training: ''
+                    training: '',
+                    awards: ''
                 },
 
                 AJAXIcon: false,
@@ -246,6 +268,7 @@
                     vm.staffData.last_name = '';
                     vm.staffData.eraiderID = '';
                     vm.staffData.email = '';
+                    vm.staffData.phone_number = '';
                     vm.staffData.repeatEmail = '';
                     vm.staffData.title = '';
                     vm.staffData.department = '';
@@ -253,6 +276,7 @@
                     vm.staffData.bio = '';
                     vm.staffData.duties = '';
                     vm.staffData.training = '';
+                    vm.staffData.awards = '';
 
                     $("#staff-form")[0].reset();
                     Materialize.updateTextFields();

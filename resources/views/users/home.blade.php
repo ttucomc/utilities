@@ -39,7 +39,7 @@
 
                     <form action="#" method="POST">
                         <div class="row">
-                            <div class="input-field col s12 m6">
+                            <div class="input-field col s12 m4">
                                 <input id="first_name"
                                        type="text"
                                        name="first_name"
@@ -47,12 +47,20 @@
                                 <label for="first_name">First Name</label>
                             </div>
 
-                            <div class="input-field col s12 m6">
+                            <div class="input-field col s12 m4">
                                 <input id="last_name"
                                        type="text"
                                        name="last_name"
                                        value="{{ $teamMember->last_name }}">
                                 <label for="last_name">Last Name</label>
+                            </div>
+
+                            <div class="input-field col s12 m4">
+                                <input id="phone_number"
+                                       type="text"
+                                       name="phone_number"
+                                       value="{{ $teamMember->phone_number }}">
+                                <label for="phone_number">Phone Number</label>
                             </div>
                         </div>
 
@@ -97,27 +105,27 @@
 
                         <div class="row">
                             <div class="input-field col s12 m4">
-                                <input id="bachelor"
+                                <input id="first_degree"
                                        type="text"
-                                       name="bachelor"
-                                       value="{{ $teamMember->bachelor }}">
-                                <label for="bachelor">Bachelor's Degree</label>
+                                       name="first_degree"
+                                       value="{{ $teamMember->first_degree }}">
+                                <label for="first_degree">Degree</label>
                             </div>
 
                             <div class="input-field col s12 m4">
-                                <input id="master"
+                                <input id="second_degree"
                                        type="text"
-                                       name="master"
-                                       value="{{ $teamMember->master }}">
-                                <label for="master">Master's Degree</label>
+                                       name="second_degree"
+                                       value="{{ $teamMember->second_degree }}">
+                                <label for="second_degree">Degree</label>
                             </div>
 
                             <div class="input-field col s12 m4">
-                                <input id="phd"
+                                <input id="third_degree"
                                        type="text"
-                                       name="phd"
-                                       value="{{ $teamMember->phd }}">
-                                <label for="phd">Doctorate Degree</label>
+                                       name="third_degree"
+                                       value="{{ $teamMember->third_degree }}">
+                                <label for="third_degree">Degree</label>
                             </div>
                         </div>
 
@@ -266,16 +274,11 @@
         <div id="eraiderID" data-field-id="{{ $teamMember->eraiderID }}"></div>
         <script type="text/javascript">
             $(document).ready( function() {
+                initializePhotoDropzone();
+                initializeFacultyCVDropzone();
+
                 $('#profile-photo-area-after-user-upload').hide();
                 $('#cv-area-after-faculty-user-upload').hide();
-
-                $('#add-profile-photo-button').click(function() {
-                    initializePhotoDropzone();
-                });
-
-                $('#add-faculty-cv-button').click(function() {
-                    initializeFacultyCVDropzone();
-                });
 
                 var token = $('meta[name="token"]').attr('value');
 
@@ -328,7 +331,7 @@
                         url: "api/team/store/team-member/profile-photo",
                         paramName: 'profile-photo',
                         maxFiles: 1,
-                        maxFilesize: 20,
+                        maxFilesize: 1,
                         acceptedFiles: "image/*",
                         headers: {
                             'X-CSRF-TOKEN': token

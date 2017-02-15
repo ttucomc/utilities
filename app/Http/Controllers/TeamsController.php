@@ -44,7 +44,7 @@ class TeamsController extends Controller
     public function storeUserPhoto(Request $request)
     {
         $teamMember = new Team;
-        $photopath = $teamMember->storeUserPhotoUploadedByUser($request);
+        $photopath = $teamMember->storeProfilePhotoUploadedByUser($request);
 
         return response()->json([
             'success'         => true,

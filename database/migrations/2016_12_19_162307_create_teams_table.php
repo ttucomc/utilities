@@ -15,18 +15,19 @@ class CreateTeamsTable extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('first_name', 30);
-            $table->string('last_name', 30);
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('email')->unique();
+            $table->string('phone_number')->nullable();
             $table->string('photo')->nullable();
-            $table->string('role', 50)->nullable();
-            $table->string('title', 50);
-            $table->string('department', 100);
-            $table->string('room_number', 50);
+            $table->string('role')->nullable();
+            $table->string('title');
+            $table->string('department');
+            $table->string('room_number')->nullable();
             $table->string('office_hours')->nullable();
-            $table->string('bachelor', 100)->nullable();
-            $table->string('master', 100)->nullable();
-            $table->string('phd', 100)->nullable();
+            $table->string('first_degree')->nullable();
+            $table->string('second_degree')->nullable();
+            $table->string('third_degree')->nullable();
             $table->text('social_handles')->nullable();
             $table->text('bio')->nullable();
             $table->text('courses')->nullable();

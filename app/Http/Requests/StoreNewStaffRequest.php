@@ -30,8 +30,7 @@ class StoreNewStaffRequest extends FormRequest
             'last_name'     => 'required',
             'email'         => 'required|unique:teams,email',
             'title'         => 'required',
-            'department'    => 'required',
-            'room_number'   => 'required'
+            'department'    => 'required'
         ];
     }
 

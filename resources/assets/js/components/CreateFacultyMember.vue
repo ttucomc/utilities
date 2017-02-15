@@ -34,6 +34,15 @@
                                        value="">
                                 <label for="eraiderID">eRaider ID</label>
                             </div>
+
+                            <div class="input-field col s12 m6">
+                                <input id="phone_number"
+                                       v-model="facultyData.phone_number"
+                                       type="text"
+                                       name="phone_number"
+                                       value="">
+                                <label for="phone_number">Phone Number</label>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -108,30 +117,30 @@
 
                         <div class="row">
                             <div class="input-field col s12 m4">
-                                <input id="bachelor"
-                                       v-model="facultyData.bachelor"
+                                <input id="first_degree"
+                                       v-model="facultyData.first_degree"
                                        type="text"
-                                       name="bachelor"
+                                       name="first_degree"
                                        value="">
-                                <label for="bachelor">Bachelor's Degree</label>
+                                <label for="first_degree">First Degree</label>
                             </div>
 
                             <div class="input-field col s12 m4">
-                                <input id="master"
-                                       v-model="facultyData.master"
+                                <input id="second_degree"
+                                       v-model="facultyData.second_degree"
                                        type="text"
-                                       name="master"
+                                       name="second_degree"
                                        value="">
-                                <label for="master">Master's Degree</label>
+                                <label for="second_degree">Second Degree</label>
                             </div>
 
                             <div class="input-field col s12 m4">
-                                <input id="phd"
-                                       v-model="facultyData.phd"
+                                <input id="third_degree"
+                                       v-model="facultyData.third_degree"
                                        type="text"
-                                       name="phd"
+                                       name="third_degree"
                                        value="">
-                                <label for="phd">Doctorate Degree</label>
+                                <label for="third_degree">Third Degree</label>
                             </div>
                         </div>
 
@@ -200,6 +209,17 @@
                                 <label for="training">Training</label>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="awards"
+                                          v-model="facultyData.awards"
+                                          class="materialize-textarea"
+                                          name="awards"
+                                          value=""></textarea>
+                                <label for="awards">Awards</label>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-action">
@@ -265,14 +285,15 @@
                     last_name: '',
                     eraiderID: '',
                     email: '',
+                    phone_number: '',
                     repeatEmail: '',
                     title: '',
                     department: '',
                     room_number: '',
                     office_hours: '',
-                    bachelor: '',
-                    master: '',
-                    phd: '',
+                    first_degree: '',
+                    second_degree: '',
+                    third_degree: '',
                     social_handles: '',
                     bio: '',
                     courses: '',
@@ -336,14 +357,15 @@
                     vm.facultyData.last_name = '';
                     vm.facultyData.eraiderID = '';
                     vm.facultyData.email = '';
+                    vm.facultyData.phone_number = '';
                     vm.facultyData.repeatEmail = '';
                     vm.facultyData.title = '';
                     vm.facultyData.department = '';
                     vm.facultyData.room_number = '';
                     vm.facultyData.office_hours = '';
-                    vm.facultyData.bachelor = '';
-                    vm.facultyData.master = '';
-                    vm.facultyData.phd = '';
+                    vm.facultyData.first_degree = '';
+                    vm.facultyData.second_degree = '';
+                    vm.facultyData.third_degree = '';
                     vm.facultyData.social_handles = '';
                     vm.facultyData.bio = '';
                     vm.facultyData.courses = '';
@@ -411,7 +433,7 @@
                         url: "api/team/store/faculty/profile-photo",
                         paramName: 'profile-photo',
                         maxFiles: 1,
-                        maxFilesize: 20,
+                        maxFilesize: 1,
                         acceptedFiles: "image/*",
                         headers: {
                             'X-CSRF-TOKEN': token
