@@ -36,6 +36,11 @@ class TeamsController extends Controller
         return view('errors.unauthorized-access');
     }
 
+    /**
+     * [storeUserPhoto description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function storeUserPhoto(Request $request)
     {
         $teamMember = new Team;
@@ -47,6 +52,11 @@ class TeamsController extends Controller
         ]);
     }
 
+    /**
+     * [storeFacultyCV description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function storeFacultyCV(Request $request)
     {
         $facultyMember = new Team;

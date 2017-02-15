@@ -15,3 +15,14 @@
     min-height: 150px;
     border: 2px solid #C00;
 }
+
+.dropzone-accordion-body {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#cv-area-before-faculty-user-upload, #cv-area-after-faculty-user-upload {
+    margin-top: 3rem;
+}

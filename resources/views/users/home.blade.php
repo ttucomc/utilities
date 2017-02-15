@@ -33,6 +33,7 @@
                 <div class="col s12">
                     <h1>Welcome {{ $teamMember->first_name }}</h1>
                     <p>Make changes to your bio below. Please note that your changes will be submitted to an administrator for final approval. Approval of changes may take 24-48 hours to finalize.</p>
+                    <p>Profile photos and CV's can be uploaded here without administrator approval.</p>
 
                     <hr class="team-member-hr">
 
@@ -193,14 +194,21 @@
                             </div>
                         @else
                             <div id="profile-photo-area-before-user-upload" class="row">
-                                <div class="col s12 m6">
-                                    <h5>Add Your Profile Photo</h5>
-                                    <a id="add-profile-photo-button" href="#!" class="waves-effect waves-circle waves-light btn-floating"><i class="material-icons medium">add</i></a>
-                                    <div id="user-profile-photo-dropzone" class="myDropzone dropzone">
-                                        <div class="dz-message" data-dz-message><span>Drag and Drop photo here or click to Upload photo</div>
-                                        <div id="preview-template" style="display: none;"></div>
-                                    </div>
-                                </div>
+                                <ul class="collapsible popout" data-collapsible="accordion">
+                                    <li>
+                                        <div id="add-profile-photo-button" class="collapsible-header">
+                                            Add Your Profile Photo
+                                        </div>
+                                        <div class="collapsible-body dropzone-accordion-body">
+                                            <span>
+                                                <div id="user-profile-photo-dropzone" class="myDropzone dropzone">
+                                                    <div class="dz-message" data-dz-message><span>Drag and Drop photo here or click to Upload photo</div>
+                                                    <div id="preview-template" style="display: none;"></div>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
 
                             <div id="profile-photo-area-after-user-upload" class="row">
@@ -211,8 +219,6 @@
                             </div>
                         @endif
 
-                        <hr>
-
                         @if($teamMember->role == 'faculty' && $teamMember->cv != null)
                             <div class="row">
                                 <div class="col s12 m6">
@@ -220,17 +226,24 @@
                                     <a class="user-home-a" href="{{ $teamMember->cv }}" target="_blank"><p>{{ $teamMember->first_name }}-{{ $teamMember->last_name }}-CV</p></a>
                                 </div>
                             </div>
-                        @else
+                        @elseif($teamMember->role == 'faculty')
                             <div id="cv-area-before-faculty-user-upload" class="row">
-                                <div class="col s12 m6">
-                                    <h5>Add Your CV</h5>
-                                    <a id="add-faculty-cv-button" href="#!" class="waves-effect waves-circle waves-light btn-floating"><i class="material-icons medium">add</i></a>
+                                <ul class="collapsible popout" data-collapsible="accordion">
+                                    <li>
+                                        <div id="add-faculty-cv-button" class="collapsible-header">
+                                            Add Your CV
+                                        </div>
 
-                                    <div id="faculty-user-cv-dropzone" class="myDropzone dropzone">
-                                        <div class="dz-message" data-dz-message><span>Drag and Drop CV here or click to Upload CV</div>
-                                        <div id="preview-template" style="display: none;"></div>
-                                    </div>
-                                </div>
+                                        <div class="collapsible-body dropzone-accordion-body">
+                                            <span>
+                                                <div id="faculty-user-cv-dropzone" class="myDropzone dropzone">
+                                                    <div class="dz-message" data-dz-message><span>Drag and Drop CV here or click to Upload CV</div>
+                                                    <div id="preview-template" style="display: none;"></div>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
 
                             <div id="cv-area-after-faculty-user-upload" class="row">
@@ -253,22 +266,14 @@
         <div id="eraiderID" data-field-id="{{ $teamMember->eraiderID }}"></div>
         <script type="text/javascript">
             $(document).ready( function() {
-                $('#user-profile-photo-dropzone').hide();
-                $('#faculty-user-cv-dropzone').hide();
                 $('#profile-photo-area-after-user-upload').hide();
                 $('#cv-area-after-faculty-user-upload').hide();
 
                 $('#add-profile-photo-button').click(function() {
-                    $('#add-profile-photo-button').hide();
-                    $('#user-profile-photo-dropzone').css("display", "block");
-
                     initializePhotoDropzone();
                 });
 
                 $('#add-faculty-cv-button').click(function() {
-                    $('#add-faculty-cv-button').hide();
-                    $('#faculty-user-cv-dropzone').css("display", "block");
-
                     initializeFacultyCVDropzone();
                 });
 

@@ -131,6 +131,11 @@ class Team extends Model
         $facultyMember->save();
     }
 
+    /**
+     * [storeUserPhotoUploadedByUser description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function storeUserPhotoUploadedByUser(Request $request)
     {
         $teamMember = Team::where('eraiderID', $request->eraiderID)->first();
@@ -153,6 +158,11 @@ class Team extends Model
         return $teamMember->photo;
     }
 
+    /**
+     * [storeFacultyCVUploadedByFacultyMember description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function storeFacultyCVUploadedByFacultyMember(Request $request)
     {
         $facultyMember = Team::where('eraiderID', $request->eraiderID)->first();
