@@ -154,7 +154,7 @@
             createAdmin(adminData) {
                 const vm = this;
 
-                vm.$http.post('api/admin/store', vm.adminData)
+                vm.$http.post('admin-portal/api/admin/store', vm.adminData)
                 .then((response) => {
                     vm.AJAXIcon = false;
 
