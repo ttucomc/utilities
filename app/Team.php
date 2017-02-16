@@ -32,6 +32,16 @@ class Team extends Model
     ];
 
     /**
+     * Get the proposed profile request with the team member.
+     *
+     * @return App\TeamChangeProfileRequest
+     */
+    public function proposedProfileRequest()
+    {
+        return $this->hasOne('App\TeamChangeProfileRequest', 'team_id');
+    }
+
+    /**
      * Fetch and return team member.
      *
      * @param  string $eraiderID

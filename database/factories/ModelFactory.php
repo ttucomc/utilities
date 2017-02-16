@@ -32,6 +32,17 @@ $factory->define(App\Team::class, function (Faker\Generator $faker) {
         'email'          => $faker->unique()->safeEmail,
         'title'          => $faker->titleMale,
         'department'     => $faker->company,
-        'room_number'    => '225B',
+        'room_number'    => '225B'
+    ];
+});
+
+$factory->define(App\TeamChangeProfileRequest::class, function (Faker\Generator $faker) {
+    return [
+        'first_name'     => 'New First Name',
+        'last_name'      => 'New Last Name',
+        'email'          => 'newtestemail@mail.com',
+        'title'          => 'New Fake Title',
+        'department'     => 'CoMC New Fake Department',
+        'room_number'    => '220B'
     ];
 });

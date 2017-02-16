@@ -442,32 +442,6 @@ class AdminControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_requires_a_room_number_to_store_a_new_staff_member()
-    {
-        $this->actingAs($this->adminUser)
-             ->json('POST', 'admin-portal/api/team/store/staff', [
-                 'eraiderID'        => 'jastaffer',
-                 'first_name'       => 'Jane',
-                 'last_name'        => 'Staffer',
-                 'email'            => 'janestaff@email.com',
-                 'photo'            => '/path/to/photo.jpg',
-                 'title'            => 'Staff CEO',
-                 'department'       => 'IT',
-                 'room_number'      => '',
-                 'social_handles'   => null,
-                 'bio'              => 'The Jane Staffer bio...',
-                 'duties'           => 'My duties include...',
-                 'training'         => 'My training includes...',
-             ])
-             ->assertResponseStatus(422)
-             ->seeJson([
-                 'room_number'  => [
-                        'The room number field is required.'
-                     ]
-             ]);
-    }
-
-    /** @test */
     public function it_can_store_a_new_faculty_member_in_the_database()
     {
         $this->actingAs($this->adminUser)
@@ -678,35 +652,6 @@ class AdminControllerTest extends TestCase
         ->seeJson([
             'department'  => [
                    'The department field is required.'
-                ]
-        ]);
-    }
-
-    /** @test */
-    public function it_requires_a_room_number_to_store_a_new_faculty_member()
-    {
-        $this->actingAs($this->adminUser)
-             ->json('POST', 'admin-portal/api/team/store/faculty', [
-                 'eraiderID'        => 'jafaculty',
-                 'first_name'       => 'Jane',
-                 'last_name'        => 'Faculty',
-                 'email'            => 'jane@email.com',
-                 'photo'            => '/path/to/photo.jpg',
-                 'title'            => 'Faculty CEO',
-                 'department'       => 'Web Design',
-                 'room_number'      => '',
-                 'social_handles'   => 'facebook.com/jane twitter.com/jane',
-                 'courses'          => 'course1 course2 course3',
-                 'bio'              => 'The Jane Faculty bio...',
-                 'research'         => 'My research includes...',
-                 'duties'           => 'My duties include...',
-                 'training'         => 'My training includes...',
-                 'cv'               => '/path/to/cv.pdf'
-             ])
-        ->assertResponseStatus(422)
-        ->seeJson([
-            'room_number'  => [
-                   'The room number field is required.'
                 ]
         ]);
     }

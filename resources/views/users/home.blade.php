@@ -205,7 +205,7 @@
                                 <ul class="collapsible popout" data-collapsible="accordion">
                                     <li>
                                         <div id="add-profile-photo-button" class="collapsible-header">
-                                            Add Your Profile Photo
+                                            <strong>Add Your Profile Photo</strong>
                                         </div>
                                         <div class="collapsible-body dropzone-accordion-body">
                                             <span>
@@ -239,7 +239,7 @@
                                 <ul class="collapsible popout" data-collapsible="accordion">
                                     <li>
                                         <div id="add-faculty-cv-button" class="collapsible-header">
-                                            Add Your CV
+                                            <strong>Add Your CV</strong>
                                         </div>
 
                                         <div class="collapsible-body dropzone-accordion-body">
