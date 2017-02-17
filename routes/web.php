@@ -24,6 +24,8 @@ Route::get('/eraider-sign-in', function() {
 Route::get('user-portal/{eraiderID}', 'TeamsController@showTeamMemberInfo');
 Route::post('user-portal/api/team/store/team-member/profile-photo', 'TeamsController@storeUserPhoto');
 Route::post('user-portal/api/team/store/faculty-team-member/cv', 'TeamsController@storeFacultyCV');
+Route::post('user-portal/api/team/update-bio', 'TeamsController@updateBio');
+
 
 Route::get('admin-portal', function () {
     return view('layouts.admin-master');

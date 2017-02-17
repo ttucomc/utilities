@@ -30,14 +30,25 @@
         {{-- User Main content starts here --}}
         <main class="container">
             <section class="user-content row">
+                @if (count($errors) > 0)
+                    <div class="z-depth-3 card-panel grey darken-3">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li style="color: white;">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="col s12">
                     <h1>Welcome {{ $teamMember->first_name }}</h1>
                     <p>Make changes to your bio below. Please note that your changes will be submitted to an administrator for final approval. Approval of changes may take 24-48 hours to finalize.</p>
-                    <p>Profile photos and CV's can be uploaded here without administrator approval.</p>
 
                     <hr class="team-member-hr">
 
-                    <form action="#" method="POST">
+                    <form action="api/team/update-bio" method="POST">
+                        {{ csrf_field() }}
+
                         <div class="row">
                             <div class="input-field col s12 m4">
                                 <input id="first_name"
@@ -96,7 +107,8 @@
                                     <input id="office_hours"
                                            type="text"
                                            name="office_hours"
-                                           value="{{ $teamMember->office_hours }}">
+                                           value="{{ $teamMember->office_hours }}"
+                                           placeholder="MWF: 1:00pm to 3:00pm">
                                     <label class="active"
                                            for="office_hours">Office Hours</label>
                                 </div>
@@ -261,6 +273,12 @@
                                 </div>
                             </div>
                         @endif
+
+                        <div class="row">
+                            <div class="col s12 m4">
+                                <button class="btn waves-effect waves-light" type="submit" name="updateProfile">Update</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </section>
@@ -369,6 +387,23 @@
                         }
                     });
                 }
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready( function() {
+                // Form must be modified to click the update button
+                $('form')
+                    .each(function() {
+                        $(this).data('serialized', $(this).serialize());
+                    })
+                    .on('change input', function() {
+                        $(this)
+                            .find('input:submit, button:submit')
+                                .attr('disabled', $(this).serialize() == $(this).data('serialized'));
+                    })
+                    .find('input:submit, button:submit')
+                        .attr('disabled', true);
             });
         </script>
     </body>

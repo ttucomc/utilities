@@ -47,8 +47,8 @@ class TeamsController extends Controller
         $photopath = $teamMember->storeProfilePhotoUploadedByUser($request);
 
         return response()->json([
-            'success'         => true,
-            'photopath'       => $photopath
+            'success'     => true,
+            'photopath'   => $photopath
         ]);
     }
 
@@ -64,7 +64,17 @@ class TeamsController extends Controller
 
         return response()->json([
             'success'   => true,
-            'cvpath'        => $cvpath
+            'cvpath'    => $cvpath
         ]);
+    }
+
+    /**
+     * [updateBio description]
+     * @param  RequestsUpdateTeamMemberBio $request [description]
+     * @return [type]                               [description]
+     */
+    public function updateBio(Requests\UpdateTeamMemberBio $request)
+    {
+        return 'Working on it.';
     }
 }
