@@ -68,7 +68,7 @@ return [
         ],
 
         'heroku' => [
-             'driver'   => 'pgsql',
+             'driver'   => 'mysql',
              'host'     => env('DB_HOST', 'localhost'),
              'database' => env('DB_DATABASE', 'homestead'),
              'username' => env('DB_USERNAME', 'homestead'),
