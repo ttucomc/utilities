@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Team;
+use App\TeamChangeProfileRequest;
 use App\Http\Requests;
 
 class TeamsController extends Controller
@@ -69,12 +70,16 @@ class TeamsController extends Controller
     }
 
     /**
-     * [updateBio description]
+     * [requestToUpdateBio description]
      * @param  RequestsUpdateTeamMemberBio $request [description]
      * @return [type]                               [description]
      */
-    public function updateBio(Requests\UpdateTeamMemberBio $request)
+    public function requestToUpdateBio(Requests\UpdateTeamMemberBio $request)
     {
-        return 'Working on it.';
+        $updateRequest = new TeamChangeProfileRequest;
+        $updateRequest = $updateRequest->createUpdateRequest($request);
+
+        return redirect('/user-portal/' . $updateRequest->eraiderID)
+                ->with('status', 'Your request has been sent to the Admin.');
     }
 }

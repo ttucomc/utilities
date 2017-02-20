@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
-use Image;
+// use Image;
 
 class Team extends Model
 {
@@ -19,7 +19,7 @@ class Team extends Model
      * @var array
      */
     protected $fillable = [
-        'eraiderID', 'first_name', 'last_name', 'email', 'phone_number', 'photo', 'title', 'department', 'room_number', 'office_hours', 'first_degree', 'second_degree', 'third_degree', 'social_handles', 'bio', 'courses', 'research', 'duties', 'training', 'awards', 'cv'
+        'id', 'eraiderID', 'first_name', 'last_name', 'email', 'phone_number', 'photo', 'title', 'department', 'room_number', 'office_hours', 'first_degree', 'second_degree', 'third_degree', 'social_handles', 'bio', 'courses', 'research', 'duties', 'training', 'awards', 'cv'
     ];
 
     /**

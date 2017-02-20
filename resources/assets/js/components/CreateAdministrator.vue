@@ -166,6 +166,7 @@
                     vm.adminData.repeatPassword = '';
 
                     $("#admin-form")[0].reset();
+                    Materialize.updateTextFields();
                     Materialize.toast(vm.successMsg, 4000, 'blue');
                 }, (error) => {
                     vm.AJAXIcon = false;

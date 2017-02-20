@@ -21,7 +21,7 @@ class TeamModelTest extends TestCase
         // is in each field.
         $this->teamMember = factory(Team::class)->create();
         $this->teamMember->proposedProfileRequest()
-                        ->save(factory(TeamChangeProfileRequest::class)->make());
+                         ->save(factory(TeamChangeProfileRequest::class)->make());
     }
 
     /** @test */

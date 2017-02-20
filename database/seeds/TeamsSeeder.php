@@ -24,5 +24,18 @@ class TeamsSeeder extends Seeder
             'first_degree'  => 'East Carolina University',
             'bio'           => 'This is my bio...'
         ]);
+
+        DB::table('teams')->insert([
+            'eraiderID'     => 'stafferaider',
+            'first_name'    => 'Staff',
+            'last_name'     => 'Tester',
+            'email'         => 'staffMember@ttu.edu',
+            'phone_number'  => '251-113-1338',
+            'role'          => 'staff',
+            'title'         => 'Staff Title',
+            'department'    => 'CoMC Staff Dept.',
+            'room_number'   => '130G',
+            'bio'           => 'This is my bio...'
+        ]);
     }
 }

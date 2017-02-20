@@ -30,15 +30,7 @@
         {{-- User Main content starts here --}}
         <main class="container">
             <section class="user-content row">
-                @if (count($errors) > 0)
-                    <div class="z-depth-3 card-panel grey darken-3">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li style="color: white;">{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                @include('layouts.include-snippets.errors')
 
                 <div class="col s12">
                     <h1>Welcome {{ $teamMember->first_name }}</h1>
@@ -46,7 +38,7 @@
 
                     <hr class="team-member-hr">
 
-                    <form action="api/team/update-bio" method="POST">
+                    <form action="api/team/update-bio-request" method="POST">
                         {{ csrf_field() }}
 
                         <div class="row">
@@ -205,6 +197,16 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="awards"
+                                          class="materialize-textarea"
+                                          name="awards"
+                                          value="">{{ $teamMember->awards }}</textarea>
+                                <label for="awards">Awards</label>
+                            </div>
+                        </div>
+
                         @if($teamMember->photo)
                             <div class="row">
                                 <div class="col s12 m6">
@@ -274,6 +276,8 @@
                             </div>
                         @endif
 
+                        <input type="hidden" id="eraiderID" name="eraiderID" value="{{ $teamMember->eraiderID }}"></input>
+
                         <div class="row">
                             <div class="col s12 m4">
                                 <button class="btn waves-effect waves-light" type="submit" name="updateProfile">Update</button>
@@ -289,7 +293,7 @@
 
         @include('layouts.include-snippets.user-javascript')
 
-        <div id="eraiderID" data-field-id="{{ $teamMember->eraiderID }}"></div>
+        <!-- <div id="eraiderID" data-field-id="{{ $teamMember->eraiderID }}"></div> -->
         <script type="text/javascript">
             $(document).ready( function() {
                 initializePhotoDropzone();
