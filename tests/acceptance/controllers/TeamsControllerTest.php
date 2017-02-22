@@ -82,6 +82,7 @@ class TeamControllerTest extends TestCase
              ->type('330M', 'room_number')
              ->press('Update')
              ->seeInDatabase('team_change_profile_requests', [
+                 'team_id'        => $this->facultyTeamMember->id,
                  'eraiderID'      => 'ttesterfaculty',
                  'role'           => 'faculty',
                  'first_name'     => 'Faculty',
@@ -99,5 +100,50 @@ class TeamControllerTest extends TestCase
                  'awards'         => 'I have received the following awards...'
              ])
              ->see('Your request has been sent to the Admin.');
+    }
+
+    /** @test */
+    public function it_can_send_request_to_update_staff_bio_information()
+    {
+        $this->seeInDatabase('teams', [
+                'id'             => $this->staffTeamMember->id,
+                'eraiderID'      => 'ttesterstaff',
+                'role'           => 'staff',
+                'first_name'     => 'Staff',
+                'last_name'      => 'Tester',
+                'email'          => 'testystaff@mail.com',
+                'phone_number'   => '555-444-7890',
+                'title'          => 'New Fake Staff Title',
+                'department'     => 'CoMC New Fake Staff Department',
+                'room_number'    => '120B',
+                'bio'            => 'This is my bio...',
+                'training'       => 'I have extensive training in...',
+                'duties'         => 'My duties include...'
+             ])
+             ->visit('/user-portal/ttesterstaff')
+             ->type('Texas Tech University', 'second_degree')
+             ->type('806-124-3354', 'phone_number')
+             ->type('My Updated Title', 'title')
+             ->type('My new Department', 'department')
+             ->type('230A', 'room_number')
+             ->type('My new training duties include...', 'training')
+             ->type('I was recently awarded for...', 'awards')
+             ->press('Update')
+             ->seeInDatabase('team_change_profile_requests', [
+                 'team_id'        => $this->staffTeamMember->id,
+                 'eraiderID'      => 'ttesterstaff',
+                 'role'           => 'staff',
+                 'first_name'     => 'Staff',
+                 'last_name'      => 'Tester',
+                 'email'          => 'testystaff@mail.com',
+                 'phone_number'   => '806-124-3354',
+                 'title'          => 'My Updated Title',
+                 'department'     => 'My new Department',
+                 'room_number'    => '230A',
+                 'bio'            => 'This is my bio...',
+                 'training'       => 'My new training duties include...',
+                 'duties'         => 'My duties include...',
+                 'awards'         => 'I was recently awarded for...'
+             ]);
     }
 }

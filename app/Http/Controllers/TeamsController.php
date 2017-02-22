@@ -75,11 +75,10 @@ class TeamsController extends Controller
      * @return [type]                               [description]
      */
     public function requestToUpdateBio(Requests\UpdateTeamMemberBio $request)
-    {
+    {    
         $updateRequest = new TeamChangeProfileRequest;
-        $updateRequest = $updateRequest->createUpdateRequest($request);
 
-        return redirect('/user-portal/' . $updateRequest->eraiderID)
+        return redirect('/user-portal/' . $updateRequest->createUpdateRequest($request)->eraiderID)
                 ->with('status', 'Your request has been sent to the Admin.');
     }
 }

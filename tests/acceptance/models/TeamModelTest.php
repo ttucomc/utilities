@@ -29,4 +29,10 @@ class TeamModelTest extends TestCase
     {
         $this->assertEquals($this->teamMember->id, $this->teamMember->proposedProfileRequest()->first()->team_id);
     }
+
+    /** @test */
+    public function it_matches_eraiderID_in_the_change_profile_requests_table()
+    {
+        $this->assertEquals($this->teamMember->eraiderID, $this->teamMember->proposedProfileRequest()->first()->eraiderID);
+    }
 }

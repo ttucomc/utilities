@@ -31,15 +31,32 @@
         <main class="container">
             <section class="user-content row">
                 @include('layouts.include-snippets.errors')
+                @include('layouts.include-snippets.success-status')
 
                 <div class="col s12">
                     <h1>Welcome {{ $teamMember->first_name }}</h1>
-                    <p>Make changes to your bio below. Please note that your changes will be submitted to an administrator for final approval. Approval of changes may take 24-48 hours to finalize.</p>
+                    <h5>Make changes to your bio below. Please note that your changes will be submitted to an administrator for final approval. Approval of changes may take 24-48 hours to finalize.</h5>
+                    @if(! $teamMember->photo)
+                        <h5><strong>It looks like you don't have a profile photo associated with your bio. Profile photo requests must be sent by email to the administrator.</strong></h5>
+                    @endif
 
                     <hr class="team-member-hr">
 
                     <form action="api/team/update-bio-request" method="POST">
                         {{ csrf_field() }}
+
+                        <!-- Hidden fields, user can update cv but will do so
+                             with dropzone.js -->
+                        <input type="hidden" id="eraiderID" name="eraiderID" value="{{ $teamMember->eraiderID }}"></input>
+
+                        <input type="hidden" id="role" name="role" value="{{ $teamMember->role }}"></input>
+
+                        <input type="hidden" id="email" name="email" value="{{ $teamMember->email }}"></input>
+
+                        <input type="hidden" id="photo" name="photo" value="{{ $teamMember->photo }}"></input>
+
+                        <input type="hidden" id="cv" name="cv" value="{{ $teamMember->cv }}"></input>
+                        <!-- End of hidden inputs -->
 
                         <div class="row">
                             <div class="input-field col s12 m4">
@@ -214,31 +231,6 @@
                                     <img class="materialboxed" width="400" src="{{ $teamMember->photo }}" alt="User Profile Photo">
                                 </div>
                             </div>
-                        @else
-                            <div id="profile-photo-area-before-user-upload" class="row">
-                                <ul class="collapsible popout" data-collapsible="accordion">
-                                    <li>
-                                        <div id="add-profile-photo-button" class="collapsible-header">
-                                            <strong>Add Your Profile Photo</strong>
-                                        </div>
-                                        <div class="collapsible-body dropzone-accordion-body">
-                                            <span>
-                                                <div id="user-profile-photo-dropzone" class="myDropzone dropzone">
-                                                    <div class="dz-message" data-dz-message><span>Drag and Drop photo here or click to Upload photo</div>
-                                                    <div id="preview-template" style="display: none;"></div>
-                                                </div>
-                                            </span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div id="profile-photo-area-after-user-upload" class="row">
-                                <div class="col s12 m6">
-                                    <h5>Your Profile Photo</h5>
-                                    <img id="profile-photo-after-user-upload" class="materialboxed" width="400" src="" alt="User Profile Photo">
-                                </div>
-                            </div>
                         @endif
 
                         @if($teamMember->role == 'faculty' && $teamMember->cv != null)
@@ -276,8 +268,6 @@
                             </div>
                         @endif
 
-                        <input type="hidden" id="eraiderID" name="eraiderID" value="{{ $teamMember->eraiderID }}"></input>
-
                         <div class="row">
                             <div class="col s12 m4">
                                 <button class="btn waves-effect waves-light" type="submit" name="updateProfile">Update</button>
@@ -293,20 +283,18 @@
 
         @include('layouts.include-snippets.user-javascript')
 
-        <!-- <div id="eraiderID" data-field-id="{{ $teamMember->eraiderID }}"></div> -->
+        <div id="eraiderID" data-field-id="{{ $teamMember->eraiderID }}"></div>
         <script type="text/javascript">
             $(document).ready( function() {
-                initializePhotoDropzone();
                 initializeFacultyCVDropzone();
 
-                $('#profile-photo-area-after-user-upload').hide();
                 $('#cv-area-after-faculty-user-upload').hide();
 
                 var token = $('meta[name="token"]').attr('value');
 
                 function initializeFacultyCVDropzone() {
                     $('#faculty-user-cv-dropzone').dropzone({
-                        url: "api/team/store/faculty-team-member/cv",
+                        url: "#",
                         paramName: 'cv',
                         maxFiles: 1,
                         maxFilesize: 3,
@@ -347,55 +335,11 @@
                         }
                     });
                 }
-
-                function initializePhotoDropzone() {
-                    $('#user-profile-photo-dropzone').dropzone({
-                        url: "api/team/store/team-member/profile-photo",
-                        paramName: 'profile-photo',
-                        maxFiles: 1,
-                        maxFilesize: 1,
-                        acceptedFiles: "image/*",
-                        headers: {
-                            'X-CSRF-TOKEN': token
-                        },
-                        init: function() {
-                            var profilePhotoDropzone = this;
-
-                            this.on('sending', function(file, xhr, formData) {
-                                formData.append("eraiderID", $('#eraiderID').data("field-id"));
-                            });
-
-                            this.on('success', function(file, response) {
-                                Materialize.toast("Profile photo uploaded successfully", 4000, 'blue');
-
-                                $('#profile-photo-after-user-upload').attr("src", response.photopath);
-
-                                setTimeout(function() {
-                                    $('#user-profile-photo-dropzone').hide();
-                                }, 3000);
-
-                                setTimeout(function() {
-                                    $('#profile-photo-area-before-user-upload').hide();
-                                    $('#profile-photo-area-after-user-upload').css("display", "block")
-                                }, 4000);
-
-                            });
-
-                            this.on('error', function() {
-                                Materialize.toast("Profile photo upload failed", 4000, 'red');
-
-                                setTimeout(function() {
-                                    profilePhotoDropzone.removeAllFiles(true);
-                                }, 3000);
-                            });
-                        }
-                    });
-                }
             });
         </script>
 
         <script type="text/javascript">
-            $(document).ready( function() {
+            $(document).ready(function() {
                 // Form must be modified to click the update button
                 $('form')
                     .each(function() {
@@ -409,6 +353,14 @@
                     .find('input:submit, button:submit')
                         .attr('disabled', true);
             });
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $('#success-status').hide();
+                }, 5000);
+            })
         </script>
     </body>
 </html>
