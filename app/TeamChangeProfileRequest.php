@@ -37,7 +37,8 @@ class TeamChangeProfileRequest extends Model
 
     /**
      * [createUpdateRequest description]
-     * @param Request $request [description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
      */
     public function createUpdateRequest(Request $request)
     {
@@ -68,5 +69,19 @@ class TeamChangeProfileRequest extends Model
         ]));
 
         return $teamMember->proposedProfileRequest;
+    }
+
+    /**
+     * [hasPendingRequest description]
+     * @param  Request $request [description]
+     * @return string           [description]
+     */
+    public function hasPendingRequest(Request $request)
+    {
+        if(Team::where('eraiderID', $request->eraiderID)->first()->proposedProfileRequest) {
+            return 'true';
+        }
+
+        return 'false';
     }
 }

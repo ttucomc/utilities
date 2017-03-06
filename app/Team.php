@@ -152,30 +152,6 @@ class Team extends Model
     }
 
     /**
-     * [storeProfilePhotoUploadedByUser description]
-     * @param  Request $request [description]
-     * @return [type]           [description]
-     */
-    public function storeProfilePhotoUploadedByUser(Request $request)
-    {
-        $teamMember = Team::where('eraiderID', $request->eraiderID)->first();
-
-        $file = $request->file('profile-photo');
-
-        $fileName = $teamMember->first_name . '-' . $teamMember->last_name . '-' . time() . '.' . $file->getClientOriginalExtension();
-
-        $s3 = \Storage::disk('s3');
-        $filePath = '/photos/' . $fileName;
-        $s3->put($filePath, file_get_contents($file), 'public');
-
-        $teamMember->photo = $this->awsPhotosURL . $fileName;
-
-        $teamMember->save();
-
-        return $teamMember->photo;
-    }
-
-    /**
      * [storeFacultyCVUploadedByFacultyMember description]
      * @param  Request $request [description]
      * @return [type]           [description]

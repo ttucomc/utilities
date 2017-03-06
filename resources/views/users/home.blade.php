@@ -5,39 +5,20 @@
     </head>
 
     <body>
-        {{-- Navigation --}}
-        <nav>
-            <div class="nav-wrapper">
-                <a href="/" class="brand-logo">
-                    <img src="/storage/images/header-logo.svg" alt="CoMC Logo" title="College of Media &amp; Communication" />
-                </a>
-
-                <ul id="slide-out" class="side-nav">
-                    <li><a href="/user-portal/{{ $teamMember->eraiderID }}">Profile</a></li>
-                    <li><a href="https://eraider.ttu.edu/signout.asp">Logout</a></li>
-                </ul>
-
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="/user-portal/{{ $teamMember->eraiderID }}"><i class="small material-icons left">perm_identity</i>Profile</a></li>
-                    <li><a href="https://eraider.ttu.edu/signout.asp">Logout</a></li>
-                </ul>
-
-                <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-            </div>
-        </nav>
-        {{-- End of navigation --}}
+        @include('layouts.include-snippets.nav-team')
 
         {{-- User Main content starts here --}}
         <main class="container">
             <section class="user-content row">
-                @include('layouts.include-snippets.errors')
-                @include('layouts.include-snippets.success-status')
-
                 <div class="col s12">
+                    <!-- Errors and status session messages -->
+                    @include('layouts.include-snippets.errors')
+                    @include('layouts.include-snippets.success-status')
+
                     <h1>Welcome {{ $teamMember->first_name }}</h1>
                     <h5>Make changes to your bio below. Please note that your changes will be submitted to an administrator for final approval. Approval of changes may take 24-48 hours to finalize.</h5>
                     @if(! $teamMember->photo)
-                        <h5><strong>It looks like you don't have a profile photo associated with your bio. Profile photo requests must be sent by email to the administrator.</strong></h5>
+                        <h5><strong>It looks like you don't have a profile photo associated with your bio. Profile photo requests must be sent by email to the administrator for approval.</strong></h5>
                     @endif
 
                     <hr class="team-member-hr">
@@ -279,88 +260,10 @@
         </main>
         {{-- End of main content --}}
 
+        <div id="eraiderID" data-field-id="{{ $teamMember->eraiderID }}"></div>
+
         @include('layouts.include-snippets.footer')
 
         @include('layouts.include-snippets.user-javascript')
-
-        <div id="eraiderID" data-field-id="{{ $teamMember->eraiderID }}"></div>
-        <script type="text/javascript">
-            $(document).ready( function() {
-                initializeFacultyCVDropzone();
-
-                $('#cv-area-after-faculty-user-upload').hide();
-
-                var token = $('meta[name="token"]').attr('value');
-
-                function initializeFacultyCVDropzone() {
-                    $('#faculty-user-cv-dropzone').dropzone({
-                        url: "#",
-                        paramName: 'cv',
-                        maxFiles: 1,
-                        maxFilesize: 3,
-                        acceptedFiles: ".pdf",
-                        headers: {
-                            'X-CSRF-TOKEN': token
-                        },
-                        init: function() {
-                            var cvDropzone = this;
-
-                            this.on('sending', function(file, xhr, formData) {
-                                formData.append("eraiderID", $('#eraiderID').data("field-id"));
-                            });
-
-                            this.on('success', function(file, response) {
-                                Materialize.toast("CV uploaded successfully", 4000, 'blue');
-
-                                $('#cv-after-faculty-user-upload').attr("href", response.cvpath);
-
-                                setTimeout(function() {
-                                    $('#user-profile-photo-dropzone').hide();
-                                }, 3000);
-
-                                setTimeout(function() {
-                                    $('#cv-area-before-faculty-user-upload').hide();
-                                    $('#cv-area-after-faculty-user-upload').css("display", "block")
-                                }, 4000);
-
-                            });
-
-                            this.on('error', function() {
-                                Materialize.toast("CV upload failed", 4000, 'red');
-
-                                setTimeout(function() {
-                                    profilePhotoDropzone.removeAllFiles(true);
-                                }, 3000);
-                            });
-                        }
-                    });
-                }
-            });
-        </script>
-
-        <script type="text/javascript">
-            $(document).ready(function() {
-                // Form must be modified to click the update button
-                $('form')
-                    .each(function() {
-                        $(this).data('serialized', $(this).serialize());
-                    })
-                    .on('change input', function() {
-                        $(this)
-                            .find('input:submit, button:submit')
-                                .attr('disabled', $(this).serialize() == $(this).data('serialized'));
-                    })
-                    .find('input:submit, button:submit')
-                        .attr('disabled', true);
-            });
-        </script>
-
-        <script type="text/javascript">
-            $(document).ready(function() {
-                setTimeout(function() {
-                    $('#success-status').hide();
-                }, 5000);
-            })
-        </script>
     </body>
 </html>

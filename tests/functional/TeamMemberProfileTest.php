@@ -101,4 +101,18 @@ class UserUpdateProfileTest extends TestCase
              ->see($this->staffTeamMember->bio)
              ->see($this->staffTeamMember->training);
     }
+
+    /** @test */
+    public function it_cannot_see_cv_upload_accordion_if_team_member_is_a_staff_member()
+    {
+        $this->visit('/user-portal/ttesterstaff')
+             ->dontSee('Add Your CV');
+    }
+
+    /** @test */
+    public function it_can_see_cv_upload_accordion_if_team_member_is_a_faculty_member_and_they_dont_already_have_a_stored_cv_in_the_database()
+    {
+        $this->visit('/user-portal/ttesterfaculty')
+             ->see('Add Your CV');
+    }
 }

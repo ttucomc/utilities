@@ -21,7 +21,7 @@ class TeamsController extends Controller
     }
 
     /**
-     * Display information of the Team member.
+     * Display bio of the Team member.
      *
      * @param  string $eraiderID [eraiderID of the team member]
      * @return \Illuminate\Http\Response
@@ -30,27 +30,19 @@ class TeamsController extends Controller
     {
         $teamMember = new Team;
 
-        if($teamMember != null) {
-            return view('users.home', ['teamMember' => $teamMember->getMember($eraiderID)]);
+        $member = $teamMember->getMember($eraiderID);
+        $pendingRequest = $member->proposedProfileRequest;
+
+        if($pendingRequest) {
+            return view('users.pending-request', ['pendingRequest' => $pendingRequest,
+                                                    'teamMember'   => $member]);
+        }
+
+        if($member != null) {
+            return view('users.home', ['teamMember' => $member]);
         }
 
         return view('errors.unauthorized-access');
-    }
-
-    /**
-     * [storeUserPhoto description]
-     * @param  Request $request [description]
-     * @return [type]           [description]
-     */
-    public function storeUserPhoto(Request $request)
-    {
-        $teamMember = new Team;
-        $photopath = $teamMember->storeProfilePhotoUploadedByUser($request);
-
-        return response()->json([
-            'success'     => true,
-            'photopath'   => $photopath
-        ]);
     }
 
     /**
@@ -75,10 +67,16 @@ class TeamsController extends Controller
      * @return [type]                               [description]
      */
     public function requestToUpdateBio(Requests\UpdateTeamMemberBio $request)
-    {    
+    {
         $updateRequest = new TeamChangeProfileRequest;
 
+        // if(strcmp($updateRequest->hasPendingRequest($request), 'true') === 0)
+        // {
+        //     return redirect('/user-portal/' . $request->eraiderID)
+        //         ->with('pending-request', 'It looks like you have a pending request to change your bio that has not been approved by an administrator. You will not be able to make changes until your previous request has been approved.');
+        // }
+
         return redirect('/user-portal/' . $updateRequest->createUpdateRequest($request)->eraiderID)
-                ->with('status', 'Your request has been sent to the Admin.');
+                ->with('status', 'Your request has been sent to an administrator for approval.');
     }
 }

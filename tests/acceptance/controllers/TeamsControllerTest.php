@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Team;
+use App\TeamChangeProfileRequest;
 
 class TeamControllerTest extends TestCase
 {
@@ -12,6 +13,7 @@ class TeamControllerTest extends TestCase
 
     protected $facultyTeamMember;
     protected $staffTeamMember;
+    protected $facultyTeamMemberWithUpdateBioRequest;
 
     public function setUp()
     {
@@ -51,6 +53,28 @@ class TeamControllerTest extends TestCase
             'training'       => 'I have extensive training in...',
             'duties'         => 'My duties include...'
         ]);
+
+        // Create faculty team member and add an update faculty bio request to database
+        $this->facultyTeamMemberWithUpdateBioRequest = factory(Team::class)->create([
+            'eraiderID'      => 'ttesterfacultywithupdatebiorequest',
+            'role'           => 'faculty',
+            'first_name'     => 'FacultyWUBR',
+            'last_name'      => 'TesterWUBR',
+            'email'          => 'testyfacultyWUBR@mail.com',
+            'phone_number'   => '123-456-5555',
+            'title'          => 'Fake Faculty Title',
+            'department'     => 'CoMC Fake Faculty Department',
+            'room_number'    => '220B',
+            'office_hours'   => 'MW: 2:00pm - 3:00pm',
+            'first_degree'   => 'East Carolina University',
+            'bio'            => 'This is my bio...',
+            'training'       => 'I have extensive training in...',
+            'research'       => 'My research entails...',
+            'awards'         => 'I have received the following awards...'
+        ]);
+        $this->facultyTeamMemberWithUpdateBioRequest
+             ->proposedProfileRequest()
+             ->save(factory(TeamChangeProfileRequest::class)->make());
     }
 
     /** @test */
@@ -99,7 +123,7 @@ class TeamControllerTest extends TestCase
                  'research'       => 'My research entails...',
                  'awards'         => 'I have received the following awards...'
              ])
-             ->see('Your request has been sent to the Admin.');
+             ->see('Your request has been sent to an administrator for approval.');
     }
 
     /** @test */
@@ -144,6 +168,15 @@ class TeamControllerTest extends TestCase
                  'training'       => 'My new training duties include...',
                  'duties'         => 'My duties include...',
                  'awards'         => 'I was recently awarded for...'
-             ]);
+             ])
+             ->see('Your request has been sent to an administrator for approval.');
+    }
+
+    /** @test */
+    public function it_cannot_make_another_request_to_change_bio_if_there_exists_a_pending_request()
+    {
+        $this->visit('/user-portal/ttesterfacultywithupdatebiorequest')
+             ->see('You currently have a request to update you bio information. Please allow some time for an administrator to complete you previous request before submitting another one. Below are your proposed changes to your bio.')
+             ->see('You may still upload a CV to your bio without administrator approval.');
     }
 }
