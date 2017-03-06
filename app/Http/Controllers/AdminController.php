@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Team;
+use App\TeamChangeProfileRequest;
 use App\Http\Requests;
 
 class AdminController extends Controller
@@ -17,17 +18,20 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('admin')->except('index');
     }
 
     /**
-     * Display a listing of the resource.
+     * Display admin dashboard.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $admin = new User;
+
+        return view('layouts.admin-master',
+            ['numChangeBioRequests' => $admin->getNumChangeBioRequests()]);
     }
 
     /**
@@ -139,14 +143,12 @@ class AdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Display pending bio requests to the administrator.
+     * @return [type] [description]
      */
-    public function show($id)
+    public function showBioRequests()
     {
-        //
+        return TeamChangeProfileRequest::all();
     }
 
     /**

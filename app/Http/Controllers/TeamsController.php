@@ -70,12 +70,6 @@ class TeamsController extends Controller
     {
         $updateRequest = new TeamChangeProfileRequest;
 
-        // if(strcmp($updateRequest->hasPendingRequest($request), 'true') === 0)
-        // {
-        //     return redirect('/user-portal/' . $request->eraiderID)
-        //         ->with('pending-request', 'It looks like you have a pending request to change your bio that has not been approved by an administrator. You will not be able to make changes until your previous request has been approved.');
-        // }
-
         return redirect('/user-portal/' . $updateRequest->createUpdateRequest($request)->eraiderID)
                 ->with('status', 'Your request has been sent to an administrator for approval.');
     }

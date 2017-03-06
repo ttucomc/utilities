@@ -50,4 +50,12 @@ class User extends Authenticatable implements UserAuthenticatable
         $admin->is_admin = 1;
         $admin->save();
     }
+
+    /**
+     * [getNumChangeBioRequests description]
+     * @return [int] [description]
+     */
+    public function getNumChangeBioRequests() {
+        return TeamChangeProfileRequest::all()->count();
+    }
 }

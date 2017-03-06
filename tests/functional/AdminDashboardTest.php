@@ -55,13 +55,4 @@ class AdminDashboardTest extends TestCase
              ->click('faculty-staff') //'name' attribute on dropdown selector
              ->see('Create Staff');
     }
-
-    /** @test */
-    public function admin_can_see_option_to_create_a_new_news_article()
-    {
-        $this->actingAs($this->adminUser)
-             ->visit('/admin-portal')
-             ->click('news') //'name' attribute on dropdown selector
-             ->see('Create Article');
-    }
 }

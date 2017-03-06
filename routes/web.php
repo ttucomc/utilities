@@ -26,21 +26,16 @@ Route::post('user-portal/api/team/store/faculty-team-member/cv', 'TeamsControlle
 Route::post('user-portal/api/team/update-bio-request', 'TeamsController@requestToUpdateBio');
 
 
-Route::get('admin-portal', function () {
-    return view('layouts.admin-master');
-});
+// Route::get('admin-portal', function () {
+//     return view('layouts.admin-master');
+// });
 
-Route::get('admin-portal/create-staff-member', function() {
-    return view('layouts.admin-master');
-});
+Route::get('admin-portal', 'AdminController@index');
+Route::get('admin-portal/create-staff-member', 'AdminController@index');
+Route::get('admin-portal/create-faculty-member', 'AdminController@index');
+Route::get('admin-portal/change-bio-requests', 'AdminController@index');
 
-Route::get('admin-portal/create-news-article', function() {
-    return view('layouts.admin-master');
-});
-
-Route::get('admin-portal/create-faculty-member', function() {
-    return view('layouts.admin-master');
-});
+Route::get('admin-portal/api/get-bio-requests', 'AdminController@showBioRequests');
 
 Route::get('unauthorized-access', function() {
     return view('errors.unauthorized-access');

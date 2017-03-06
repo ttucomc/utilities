@@ -21,7 +21,7 @@ Vue.use(VueRouter);
 import CreateAdministrator from './components/CreateAdministrator.vue';
 import CreateFacultyMember from './components/CreateFacultyMember.vue';
 import CreateStaffMember from './components/CreateStaffMember.vue';
-import CreateNewsArticle from './components/CreateNewsArticle.vue';
+import ShowBioRequests from './components/ShowBioRequests.vue';
 import Home from './components/Home.vue';
 
 // Setup Vue-router
@@ -48,8 +48,8 @@ const router = new VueRouter({
         },
 
         {
-            path: '/admin-portal/create-news-article',
-            component: CreateNewsArticle
+            path: '/admin-portal/change-bio-requests',
+            component: ShowBioRequests
         }
     ]
 });

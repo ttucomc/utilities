@@ -20,6 +20,8 @@
 
         Materialize.updateTextFields();
 
+        $('.collapsible').collapsible();
+
         // Login modal will display if user is not logged in
         @if(! Auth::check())
             $('#login-modal').openModal({dismissible:false});

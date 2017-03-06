@@ -14,7 +14,7 @@
                 @include('auth.login-modal')
 
                 <div class="container">
-                    <div class="row" style="padding-top: 2em;">
+                    <div class="row" style="padding-top: 2rem;">
                         @if(Auth::check() && Auth::user()->isAdmin())
                             <div class="col s12">
                                 <h3>Admin Dashboard: <small>Welcome, {{ Auth::user()->first_name }}</small></h3>
