@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
+
 use App\User;
 use App\Team;
 use App\TeamChangeProfileRequest;
@@ -148,7 +150,11 @@ class AdminController extends Controller
      */
     public function showBioRequests()
     {
-        return TeamChangeProfileRequest::all();
+        $bioRequests = new TeamChangeProfileRequest;
+
+        return response()->json([
+            'changeBioRequests' => $bioRequests->fetchBioRequests()
+        ]);
     }
 
     /**

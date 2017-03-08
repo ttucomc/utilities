@@ -22,7 +22,7 @@ class TeamControllerTest extends TestCase
         // Create test faculty team member and persist to DB: run before every test
         $this->facultyTeamMember = factory(Team::class)->create([
             'eraiderID'      => 'ttesterfaculty',
-            'role'           => 'faculty',
+            'position'       => 'faculty',
             'first_name'     => 'Faculty',
             'last_name'      => 'Tester',
             'email'          => 'testyfaculty@mail.com',
@@ -41,7 +41,7 @@ class TeamControllerTest extends TestCase
         // Create test staff team member and persist to DB: run before every test
         $this->staffTeamMember = factory(Team::class)->create([
             'eraiderID'      => 'ttesterstaff',
-            'role'           => 'staff',
+            'position'       => 'staff',
             'first_name'     => 'Staff',
             'last_name'      => 'Tester',
             'email'          => 'testystaff@mail.com',
@@ -57,7 +57,7 @@ class TeamControllerTest extends TestCase
         // Create faculty team member and add an update faculty bio request to database
         $this->facultyTeamMemberWithUpdateBioRequest = factory(Team::class)->create([
             'eraiderID'      => 'ttesterfacultywithupdatebiorequest',
-            'role'           => 'faculty',
+            'position'       => 'faculty',
             'first_name'     => 'FacultyWUBR',
             'last_name'      => 'TesterWUBR',
             'email'          => 'testyfacultyWUBR@mail.com',
@@ -83,7 +83,7 @@ class TeamControllerTest extends TestCase
         $this->seeInDatabase('teams', [
                 'id'             => $this->facultyTeamMember->id,
                 'eraiderID'      => 'ttesterfaculty',
-                'role'           => 'faculty',
+                'position'       => 'faculty',
                 'first_name'     => 'Faculty',
                 'last_name'      => 'Tester',
                 'email'          => 'testyfaculty@mail.com',
@@ -108,7 +108,7 @@ class TeamControllerTest extends TestCase
              ->seeInDatabase('team_change_profile_requests', [
                  'team_id'        => $this->facultyTeamMember->id,
                  'eraiderID'      => 'ttesterfaculty',
-                 'role'           => 'faculty',
+                 'position'       => 'faculty',
                  'first_name'     => 'Faculty',
                  'last_name'      => 'Tester',
                  'email'          => 'testyfaculty@mail.com',
@@ -132,7 +132,7 @@ class TeamControllerTest extends TestCase
         $this->seeInDatabase('teams', [
                 'id'             => $this->staffTeamMember->id,
                 'eraiderID'      => 'ttesterstaff',
-                'role'           => 'staff',
+                'position'       => 'staff',
                 'first_name'     => 'Staff',
                 'last_name'      => 'Tester',
                 'email'          => 'testystaff@mail.com',
@@ -156,7 +156,7 @@ class TeamControllerTest extends TestCase
              ->seeInDatabase('team_change_profile_requests', [
                  'team_id'        => $this->staffTeamMember->id,
                  'eraiderID'      => 'ttesterstaff',
-                 'role'           => 'staff',
+                 'position'       => 'staff',
                  'first_name'     => 'Staff',
                  'last_name'      => 'Tester',
                  'email'          => 'testystaff@mail.com',

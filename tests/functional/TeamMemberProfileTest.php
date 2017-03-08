@@ -20,7 +20,7 @@ class UserUpdateProfileTest extends TestCase
         // Create test faculty team member and persist to DB: run before every test
         $this->facultyTeamMember = factory(Team::class)->create([
             'eraiderID'      => 'ttesterfaculty',
-            'role'           => 'faculty',
+            'position'       => 'faculty',
             'first_name'     => 'Faculty',
             'last_name'      => 'Tester',
             'email'          => 'testyfaculty@mail.com',
@@ -39,7 +39,7 @@ class UserUpdateProfileTest extends TestCase
         // Create test staff team member and persist to DB: run before every test
         $this->staffTeamMember = factory(Team::class)->create([
             'eraiderID'      => 'ttesterstaff',
-            'role'           => 'staff',
+            'position'       => 'staff',
             'first_name'     => 'Staff',
             'last_name'      => 'Tester',
             'email'          => 'testystaff@mail.com',

@@ -78,7 +78,7 @@
                         </div>
                     </div>
 
-                    @if($pendingRequest->role == 'faculty')
+                    @if($pendingRequest->position == 'faculty')
                         <div class="row">
                             <div class="input-field col s12">
                                 <input id="office_hours"
@@ -118,7 +118,7 @@
                         </div>
                     </div>
 
-                    @if($pendingRequest->role == 'faculty')
+                    @if($pendingRequest->position == 'faculty')
                         <div class="row">
                             <div class="input-field col s12">
                                 <textarea id="social-handles"
@@ -150,7 +150,7 @@
                         </div>
                     </div>
 
-                    @if($pendingRequest->role == 'faculty')
+                    @if($pendingRequest->position == 'faculty')
                     <div class="row">
                         <div class="input-field col s12">
                             <textarea id="research"
@@ -201,14 +201,14 @@
                         </div>
                     @endif
 
-                    @if($pendingRequest->role == 'faculty' && $pendingRequest->cv != null)
+                    @if($pendingRequest->position == 'faculty' && $pendingRequest->cv != null)
                         <div class="row">
                             <div class="col s12 m6">
                                 <h5>Your CV</h5>
                                 <a class="user-home-a" href="{{ $pendingRequest->cv }}" target="_blank"><p>{{ $pendingRequest->first_name }}-{{ $pendingRequest->last_name }}-CV</p></a>
                             </div>
                         </div>
-                    @elseif($pendingRequest->role == 'faculty')
+                    @elseif($pendingRequest->position == 'faculty')
                         <div id="cv-area-before-faculty-user-upload" class="row">
                             <ul class="collapsible popout" data-collapsible="accordion">
                                 <li>

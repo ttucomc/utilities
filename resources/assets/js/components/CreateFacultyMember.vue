@@ -162,7 +162,7 @@
                                           class="materialize-textarea"
                                           name="courses"
                                           value=""></textarea>
-                                <label for="bio">Courses</label>
+                                <label for="courses">Courses</label>
                             </div>
                         </div>
 
@@ -184,7 +184,7 @@
                                           class="materialize-textarea"
                                           name="research"
                                           value=""></textarea>
-                                <label for="bio">Research</label>
+                                <label for="research">Research</label>
                             </div>
                         </div>
 

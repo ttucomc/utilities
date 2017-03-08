@@ -15,7 +15,7 @@ class TeamChangeProfileRequest extends Model
      * @var array
      */
     protected $fillable = [
-        'team_id', 'eraiderID', 'first_name', 'last_name', 'email', 'role', 'phone_number', 'photo', 'title', 'department', 'room_number', 'office_hours', 'first_degree', 'second_degree', 'third_degree', 'social_handles', 'bio', 'courses', 'research', 'duties', 'training', 'awards', 'cv'
+        'team_id', 'eraiderID', 'first_name', 'last_name', 'email', 'position', 'phone_number', 'photo', 'title', 'department', 'room_number', 'office_hours', 'first_degree', 'second_degree', 'third_degree', 'social_handles', 'bio', 'courses', 'research', 'duties', 'training', 'awards', 'cv'
     ];
 
     /**
@@ -51,7 +51,7 @@ class TeamChangeProfileRequest extends Model
             'last_name'      => $request->last_name,
             'email'          => $teamMember->email,
             'phone_number'   => $request->phone_number,
-            'role'           => $teamMember->role,
+            'position'       => $teamMember->position,
             'title'          => $request->title,
             'department'     => $request->department,
             'room_number'    => $request->room_number,
@@ -83,5 +83,14 @@ class TeamChangeProfileRequest extends Model
         }
 
         return 'false';
+    }
+
+    /**
+     * Fetch requests to change bio information from database.
+     * @return [type] [description]
+     */
+    public function fetchBioRequests()
+    {
+        return TeamChangeProfileRequest::all();
     }
 }

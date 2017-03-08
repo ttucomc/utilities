@@ -4,54 +4,206 @@
             <h4 style="margin-bottom: 2rem;">Pending requests:</h4>
 
             <ul class="collapsible popout" data-collapsible="accordion">
-                <li class="request-accordion" v-for="request in requests">
+                <li class="bioRequest-accordion" v-for="bioRequest in bioRequests.changeBioRequests">
                     <div class="collapsible-header">
                         <i class="material-icons">swap_vert</i>
-                        {{ request.first_name }} {{ request.last_name }}
+                        {{ bioRequest.first_name }} {{ bioRequest.last_name }}
                     </div>
 
                     <div class="collapsible-body">
-                        <form id="request-form" v-on:submit.prevent="updateBio(request.eraiderID)">
+                        <form id="request-form" v-on:submit.prevent="updateBio(bioRequest.eraiderID)">
                             <div class="row">
-                                <div class="input-field col s12">
-                                    <input id="title"
-                                           v-model="request.title"
+                                <div class="input-field col s12 m6">
+                                    <input id="first_name"
+                                           v-model="bioRequest.first_name"
                                            type="text"
-                                           name="title"
-                                           value="request.title">
-                                    <label class="active" for="title">Title</label>
+                                           name="first_name"
+                                           value="bioRequest.first_name">
+                                    <label class="active" for="first_name">First Name</label>
+                                </div>
+
+                                <div class="input-field col s12 m6">
+                                    <input id="last_name"
+                                           v-model="bioRequest.last_name"
+                                           type="text"
+                                           name="last_name"
+                                           value="bioRequest.last_name">
+                                    <label class="active" for="last_name">Last Name</label>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s12">
+                                    <input id="title"
+                                           v-model="bioRequest.title"
+                                           type="text"
+                                           name="title"
+                                           value="bioRequest.title">
+                                    <label class="active" for="title">Title</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12 m6">
                                     <input id="department"
-                                           v-model="request.department"
+                                           v-model="bioRequest.department"
                                            type="text"
                                            name="department"
-                                           value="request.department">
+                                           value="bioRequest.department">
                                     <label class="active" for="department">Department</label>
+                                </div>
+
+                                <div class="input-field col s12 m6">
+                                    <input id="phone_number"
+                                           v-model="bioRequest.phone_number"
+                                           type="text"
+                                           name="phone_number"
+                                           value="bioRequest.phone_number">
+                                    <label class="active" for="phone_number">Phone Number</label>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s12 m6">
                                     <input id="room_number"
-                                           v-model="request.room_number"
+                                           v-model="bioRequest.room_number"
                                            type="text"
                                            name="room_number"
-                                           value="request.room_number">
+                                           value="bioRequest.room_number">
                                     <label class="active" for="room_number">Room Number</label>
                                 </div>
 
                                 <div class="input-field col s12 m6">
                                     <input id="office_hours"
-                                           v-model="request.office_hours"
+                                           v-model="bioRequest.office_hours"
                                            type="text"
                                            name="office_hours"
-                                           value="request.office_hours">
+                                           value="bioRequest.office_hours">
                                     <label class="active" for="office_hours">Office Hours</label>
                                 </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="first_degree"
+                                           v-model="bioRequest.first_degree"
+                                           type="text"
+                                           name="first_degree"
+                                           value="bioRequest.first_degree">
+                                    <label class="active" for="first_degree">First Degree</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="second_degree"
+                                           v-model="bioRequest.second_degree"
+                                           type="text"
+                                           name="second_degree"
+                                           value="bioRequest.second_degree">
+                                    <label class="active" for="second_degree">Second Degree</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="third_degree"
+                                           v-model="bioRequest.third_degree"
+                                           type="text"
+                                           name="third_degree"
+                                           value="bioRequest.third_degree">
+                                    <label class="active" for="third_degree">Third Degree</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="social-handles"
+                                              v-model="bioRequest.social_handles"
+                                              class="materialize-textarea"
+                                              name="social-handles"
+                                              value="bioRequest.social_handles"></textarea>
+                                    <label class="active" for="social-handles">Social Handles | Website</label>
+                                 </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="bio"
+                                              v-model="bioRequest.bio"
+                                              class="materialize-textarea"
+                                              name="bio"
+                                              value="bioRequest.bio"></textarea>
+                                    <label class="active" for="bio">Bio</label>
+                                </div>
+                            </div>
+
+                            <div v-if="bioRequest.position === 'faculty'">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="courses"
+                                                  v-model="bioRequest.courses"
+                                                  class="materialize-textarea"
+                                                  name="courses"
+                                                  value="bioRequest.courses"></textarea>
+                                        <label class="active" for="courses">Courses</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="research"
+                                                  v-model="bioRequest.research"
+                                                  class="materialize-textarea"
+                                                  name="research"
+                                                  value="bioRequest.research"></textarea>
+                                        <label class="active" for="research">Research</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="duties"
+                                              v-model="bioRequest.duties"
+                                              class="materialize-textarea"
+                                              name="duties"
+                                              value="bioRequest.duties"></textarea>
+                                    <label class="active" for="duties">Duties</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="awards"
+                                              v-model="bioRequest.awards"
+                                              class="materialize-textarea"
+                                              name="awards"
+                                              value="bioRequest.awards"></textarea>
+                                    <label class="active" for="awards">Awards</label>
+                                </div>
+                            </div>
+
+                            <button class="waves-effect btn-flat update-bio-button-color"
+                                    v-show="! AJAXIcon"
+                                    @click="AJAXIcon = true"
+                                    type="submit"
+                                    name="update-bio"
+                                    >Update<i class="material-icons right">done</i></button>
+                            <!-- <div class="preloader-wrapper small active"
+                                 v-show="AJAXIcon">
+                                <div class="spinner-layer spinner-blue-only">
+                                  <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                  </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                  </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                  </div>
+                                </div>
+                            </div> -->
+                            <div class="progress" v-show="AJAXIcon">
+                                <div class="indeterminate"></div>
                             </div>
                         </form>
                     </div>
@@ -65,7 +217,9 @@
     export default {
         data() {
             return {
-                requests: []
+                bioRequests: {},
+
+                AJAXIcon: false,
             }
         },
         computed: {
@@ -74,14 +228,18 @@
         mounted: function() {
             this.getBioRequests();
         },
-        created: function() {},
+        created: function() {
+            // this.getBioRequests();
+        },
         methods: {
             getBioRequests() {
                 const vm = this;
 
                 vm.$http.get('/admin-portal/api/get-bio-requests')
                 .then((response) => {
-                    vm.requests = response.body;
+                    vm.bioRequests = response.body;
+
+                    $('.collapsible').collapsible();
                 }, (error) => {
                     console.log(error);
                 });
@@ -90,18 +248,31 @@
             updateBio(eraiderID) {
                 const vm = this;
 
-                // update bio of user
+                vm.$http.post('/admin-portal/api/get-bio-requests')
+                .then((response) => {
+                    Materialize.toast("Bio updated successfully", 4000, 'blue');
+                }, (error) => {
+                    console.log(error);
+                });
             }
         }
     }
 </script>
 
 <style lang="sass">
-    ul li.request-accordion {
+    .collapsible.popout>li.bioRequest-accordion {
         margin: 1rem 24px;
     }
 
-    .collapsible-body {
-        padding: 1rem;
+    .bioRequest-accordion div.collapsible-body {
+        padding: 2rem;
+    }
+
+    .update-bio-button-color {
+        color: #00acff;
+    }
+
+    .progress .indeterminate {
+        background-color: #00acff;
     }
 </style>

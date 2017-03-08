@@ -28,7 +28,7 @@ class Team extends Model
      * @var array
      */
     protected $hidden = [
-        'role'
+        'position'
     ];
 
     /**
@@ -61,7 +61,7 @@ class Team extends Model
     public function storeStaff(Request $request)
     {
         $staffMember = Team::create($request->all());
-        $staffMember->role = "staff";
+        $staffMember->position = "staff";
         $staffMember->save();
 
         return $staffMember;
@@ -99,7 +99,7 @@ class Team extends Model
     public function storeFaculty(Request $request)
     {
         $facultyMember = Team::create($request->all());
-        $facultyMember->role = "faculty";
+        $facultyMember->position = "faculty";
         $facultyMember->save();
 
         return $facultyMember;

@@ -21,7 +21,7 @@ class CreateTeamChangeProfileRequestsTable extends Migration
             $table->string('email')->unique();
             $table->string('phone_number')->nullable();
             $table->string('photo')->nullable();
-            $table->string('role')->nullable();
+            $table->string('position')->nullable();
             $table->string('title');
             $table->string('department');
             $table->string('room_number')->nullable();

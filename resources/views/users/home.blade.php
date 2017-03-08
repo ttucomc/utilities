@@ -30,7 +30,7 @@
                              with dropzone.js -->
                         <input type="hidden" id="eraiderID" name="eraiderID" value="{{ $teamMember->eraiderID }}"></input>
 
-                        <input type="hidden" id="role" name="role" value="{{ $teamMember->role }}"></input>
+                        <input type="hidden" id="position" name="position" value="{{ $teamMember->position }}"></input>
 
                         <input type="hidden" id="email" name="email" value="{{ $teamMember->email }}"></input>
 
@@ -91,7 +91,7 @@
                             </div>
                         </div>
 
-                        @if($teamMember->role == 'faculty')
+                        @if($teamMember->position == 'faculty')
                             <div class="row">
                                 <div class="input-field col s12">
                                     <input id="office_hours"
@@ -131,7 +131,7 @@
                             </div>
                         </div>
 
-                        @if($teamMember->role == 'faculty')
+                        @if($teamMember->position == 'faculty')
                             <div class="row">
                                 <div class="input-field col s12">
                                     <textarea id="social-handles"
@@ -163,7 +163,7 @@
                             </div>
                         </div>
 
-                        @if($teamMember->role == 'faculty')
+                        @if($teamMember->position == 'faculty')
                         <div class="row">
                             <div class="input-field col s12">
                                 <textarea id="research"
@@ -214,14 +214,14 @@
                             </div>
                         @endif
 
-                        @if($teamMember->role == 'faculty' && $teamMember->cv != null)
+                        @if($teamMember->position == 'faculty' && $teamMember->cv != null)
                             <div class="row">
                                 <div class="col s12 m6">
                                     <h5>Your CV</h5>
                                     <a class="user-home-a" href="{{ $teamMember->cv }}" target="_blank"><p>{{ $teamMember->first_name }}-{{ $teamMember->last_name }}-CV</p></a>
                                 </div>
                             </div>
-                        @elseif($teamMember->role == 'faculty')
+                        @elseif($teamMember->position == 'faculty')
                             <div id="cv-area-before-faculty-user-upload" class="row">
                                 <ul class="collapsible popout" data-collapsible="accordion">
                                     <li>
