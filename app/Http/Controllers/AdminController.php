@@ -172,12 +172,18 @@ class AdminController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateBio(Requests\UpdateTeamMemberBio $request)
     {
-        //
+        $teamMember = new Team;
+        $teamMember->updateTeamMemberBio($request);
+
+        return response()->json([
+            'success'   => true,
+            'name'      => $request->first_name . ' ' . $request->last_name,
+            'eraiderID' => $request->eraiderID
+        ]);
     }
 
     /**

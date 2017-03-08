@@ -5,7 +5,7 @@
             <img src="/storage/images/header-logo.svg" alt="TTU Utilities Header Logo" />
         </a>
 
-        <ul id="slide-out" class="side-nav">
+        <ul id="slide-out" class="side-nav parent-num-requests">
             @if (Auth::check())
                 <li><router-link to="/admin-portal">Profile</router-link></li>
                 <li><router-link to="/admin-portal/create-faculty-member">Create Faculty</router-link></li>
@@ -15,21 +15,21 @@
                 @if($numChangeBioRequests)
                     <hr>
                     @if($numChangeBioRequests == 1)
-                    <li><router-link to="/admin-portal/change-bio-requests"><i class="tiny material-icons left">info</i>{{ $numChangeBioRequests }} Pending Request</router-link></li>
+                    <li><router-link to="/admin-portal/change-bio-requests"><i class="tiny material-icons left">info</i><span class="numChangeBioRequests">{{ $numChangeBioRequests }}</span> Pending Request</router-link></li>
                     @else
-                    <li><router-link to="/admin-portal/change-bio-requests"><i class="tiny material-icons left">info</i>{{ $numChangeBioRequests }} Pending Requests</router-link></li>
+                    <li><router-link to="/admin-portal/change-bio-requests"><i class="tiny material-icons left">info</i><span class="numChangeBioRequests">{{ $numChangeBioRequests }}</span> Pending Requests</router-link></li>
                     @endif
                 @endif
             @endif
         </ul>
 
-        <ul class="right hide-on-med-and-down">
+        <ul class="right hide-on-med-and-down parent-num-requests">
             @if (Auth::check())
                 @if($numChangeBioRequests)
                     @if($numChangeBioRequests == 1)
-                        <li><router-link to="/admin-portal/change-bio-requests"><i class="small material-icons left">info</i>{{ $numChangeBioRequests }} Pending Request</router-link></li>
+                        <li><router-link to="/admin-portal/change-bio-requests"><i class="small material-icons left">info</i><span class="numChangeBioRequests">{{ $numChangeBioRequests }}</span> Pending Request</router-link></li>
                     @else
-                        <li><router-link to="/admin-portal/change-bio-requests"><i class="small material-icons left">info</i>{{ $numChangeBioRequests }} Pending Requests</router-link></li>
+                        <li><router-link to="/admin-portal/change-bio-requests"><i class="small material-icons left">info</i><span class="numChangeBioRequests">{{ $numChangeBioRequests }}</span> Pending Requests</router-link></li>
                     @endif
                 @endif
                 <li><router-link to="/admin-portal"><i class="small material-icons left">perm_identity</i>Profile</router-link></li>

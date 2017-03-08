@@ -14,6 +14,7 @@ class CreateTeamChangeProfileRequestsTable extends Migration
     public function up()
     {
         Schema::create('team_change_profile_requests', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('team_id')->unsigned();
             $table->string('eraiderID');
             $table->string('first_name');

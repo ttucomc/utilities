@@ -7,11 +7,11 @@
                 <li class="bioRequest-accordion" v-for="bioRequest in bioRequests.changeBioRequests">
                     <div class="collapsible-header">
                         <i class="material-icons">swap_vert</i>
-                        {{ bioRequest.first_name }} {{ bioRequest.last_name }}
+                            {{ bioRequest.first_name }} {{ bioRequest.last_name }}
                     </div>
 
                     <div class="collapsible-body">
-                        <form id="request-form" v-on:submit.prevent="updateBio(bioRequest.eraiderID)">
+                        <form id="request-form" v-on:submit.prevent="updateBio(bioRequest)">
                             <div class="row">
                                 <div class="input-field col s12 m6">
                                     <input id="first_name"
@@ -190,18 +190,6 @@
                                     type="submit"
                                     name="update-bio"
                                     >Update<i class="material-icons right">done</i></button>
-                            <!-- <div class="preloader-wrapper small active"
-                                 v-show="AJAXIcon">
-                                <div class="spinner-layer spinner-blue-only">
-                                  <div class="circle-clipper left">
-                                    <div class="circle"></div>
-                                  </div><div class="gap-patch">
-                                    <div class="circle"></div>
-                                  </div><div class="circle-clipper right">
-                                    <div class="circle"></div>
-                                  </div>
-                                </div>
-                            </div> -->
                             <div class="progress" v-show="AJAXIcon">
                                 <div class="indeterminate"></div>
                             </div>
@@ -220,6 +208,8 @@
                 bioRequests: {},
 
                 AJAXIcon: false,
+
+                show: true
             }
         },
         computed: {
@@ -228,9 +218,7 @@
         mounted: function() {
             this.getBioRequests();
         },
-        created: function() {
-            // this.getBioRequests();
-        },
+        created: function() {},
         methods: {
             getBioRequests() {
                 const vm = this;
@@ -241,18 +229,38 @@
 
                     $('.collapsible').collapsible();
                 }, (error) => {
-                    console.log(error);
+                    Materialize.toast("There was an error fetching the bio requests. Please consult the console log", 4000, 'blue');
+
+                    console.log(error.body);
                 });
             },
 
-            updateBio(eraiderID) {
+            updateBio(bioRequest) {
                 const vm = this;
 
-                vm.$http.post('/admin-portal/api/get-bio-requests')
+                vm.$http.post('/admin-portal/api/update-team-member-bio/', bioRequest)
                 .then((response) => {
-                    Materialize.toast("Bio updated successfully", 4000, 'blue');
+                    vm.AJAXIcon = false;
+
+                    let iLen = vm.bioRequests.changeBioRequests.length;
+                    for(let i = 0; i < iLen; i++) {
+                        if(vm.bioRequests.changeBioRequests[i].eraiderID == response.body.eraiderID) {
+                            vm.bioRequests.changeBioRequests.splice(i, 1);
+
+                            document.querySelectorAll('.numChangeBioRequests').forEach(function(obj) {
+                                obj.innerHTML--;
+                            });
+                        }
+                    }
+
+                    Materialize.toast(response.body.name + "'s bio updated successfully", 4000, 'blue');
+
                 }, (error) => {
-                    console.log(error);
+                    vm.AJAXIcon = false;
+
+                    $.each(error.body, function(key, value) {
+                        Materialize.toast(value[0], 4000, 'red');
+                    });
                 });
             }
         }
@@ -274,5 +282,17 @@
 
     .progress .indeterminate {
         background-color: #00acff;
+    }
+
+    .slide-fade-enter-active {
+      transition: all 1s ease;
+    }
+    .slide-fade-leave-active {
+      transition: all 1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active for <2.1.8 */ {
+      transform: translateX(10px);
+      opacity: 0;
     }
 </style>

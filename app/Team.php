@@ -174,4 +174,37 @@ class Team extends Model
 
         return $facultyMember->cv;
     }
+
+    /**
+     * [updateTeamMemberBio description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function updateTeamMemberBio(Request $request) {
+        $changeBioRequestInfo = TeamChangeProfileRequest::where('eraiderID', $request->eraiderID)->first();
+
+        $teamMember = Team::where('eraiderID', $request->eraiderID)->first();
+        $teamMember->update([
+                'first_name'        => $changeBioRequestInfo->first_name,
+                'last_name'         => $changeBioRequestInfo->last_name,
+                'phone_number'      => $changeBioRequestInfo->phone_number,
+                'title'             => $changeBioRequestInfo->title,
+                'department'        => $changeBioRequestInfo->department,
+                'room_number'       => $changeBioRequestInfo->room_number,
+                'office_hours'      => $changeBioRequestInfo->office_hours,
+                'first_degree'      => $changeBioRequestInfo->first_degree,
+                'second_degree'     => $changeBioRequestInfo->second_degree,
+                'third_degree'      => $changeBioRequestInfo->third_degree,
+                'social_handles'    => $changeBioRequestInfo->social_handles,
+                'bio'               => $changeBioRequestInfo->bio,
+                'courses'           => $changeBioRequestInfo->courses,
+                'research'          => $changeBioRequestInfo->research,
+                'duties'            => $changeBioRequestInfo->duties,
+                'training'          => $changeBioRequestInfo->training,
+                'awards'            => $changeBioRequestInfo->awards
+            ]);
+        $teamMember->save();
+
+        $teamMember->proposedProfileRequest->delete();
+    }
 }

@@ -34,6 +34,7 @@ Route::get('admin-portal', 'AdminController@index');
 Route::get('admin-portal/create-staff-member', 'AdminController@index');
 Route::get('admin-portal/create-faculty-member', 'AdminController@index');
 Route::get('admin-portal/change-bio-requests', 'AdminController@index');
+Route::post('admin-portal/api/update-team-member-bio', 'AdminController@updateBio');
 
 Route::get('admin-portal/api/get-bio-requests', 'AdminController@showBioRequests');
 
