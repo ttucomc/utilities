@@ -21,7 +21,8 @@ class TeamsController extends Controller
     }
 
     /**
-     * Display bio of the Team member.
+     * Display bio of the Team member. Show an error screen if the Team member does not
+     * exist in the database.
      *
      * @param  string $eraiderID [eraiderID of the team member]
      * @return \Illuminate\Http\Response
@@ -29,9 +30,13 @@ class TeamsController extends Controller
     public function showTeamMemberInfo($eraiderID)
     {
         $teamMember = new Team;
+        $pendingRequest = new TeamChangeProfileRequest;
 
         $member = $teamMember->getMember($eraiderID);
-        $pendingRequest = $member->proposedProfileRequest;
+
+        if($member != null) {
+            $pendingRequest = $member->proposedProfileRequest;
+        }
 
         if($pendingRequest) {
             return view('users.pending-request', ['pendingRequest' => $pendingRequest,

@@ -7,6 +7,7 @@
     <body>
         @include('layouts.include-snippets.nav-team')
 
+        @if($pendingRequest && $teamMember)
         {{-- User Main content starts here --}}
         <main class="container">
             <section class="user-content row">
@@ -238,6 +239,9 @@
                 </div>
             </section>
         </main>
+        @else
+            @include('errors.user-not-in-db')
+        @endif
 
         @include('layouts.include-snippets.footer')
 

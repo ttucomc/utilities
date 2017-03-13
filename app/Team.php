@@ -49,7 +49,12 @@ class Team extends Model
      */
     public function getMember($eraiderID)
     {
-        return Team::where('eraiderID', $eraiderID)->first();
+        $teamMember = Team::where('eraiderID', $eraiderID)->first();
+        if($teamMember) {
+            return $teamMember;
+        }
+
+        return null;
     }
 
     /**
