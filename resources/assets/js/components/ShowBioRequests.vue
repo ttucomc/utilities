@@ -238,7 +238,7 @@
             updateBio(bioRequest) {
                 const vm = this;
 
-                vm.$http.post('/admin-portal/api/update-team-member-bio/', bioRequest)
+                vm.$http.put('/admin-portal/api/update-team-member-bio/', bioRequest)
                 .then((response) => {
                     vm.AJAXIcon = false;
 
