@@ -11,6 +11,12 @@
 |
 */
 
+// CORS
+header('Access-Control-Allow-Origin: http://utilities.comc.ttu.edu');
+header('Access-Control-Allow-Origin: http://comc-utilities.cqse64fujb80.us-east-1.rds.amazonaws.com');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+header('Access-Control-Allow-Credentials: true');
+
 Auth::routes();
 
 Route::get('/', function () {
@@ -45,7 +51,6 @@ Route::get('auth/logout', function() {
 });
 
 Route::group(['middleware' => 'admin', 'cors'], function() {
-
     Route::get('admin-portal/create-staff-member', 'AdminController@index');
     Route::get('admin-portal/create-faculty-member', 'AdminController@index');
     Route::get('admin-portal/change-bio-requests', 'AdminController@index');
