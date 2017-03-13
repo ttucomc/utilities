@@ -244,7 +244,7 @@
                             <div id="cv-area-after-faculty-user-upload" class="row">
                                 <div class="col s12 m6">
                                     <h5>Your CV</h5>
-                                    <a id="cv-after-faculty-user-upload" class="user-home-a" href="" target="_blank"><p>{{ $teamMember->first_name }}-{{ $teamMember->last_name }}-CV</p></a>
+                                    <a id="cv-after-faculty-user-upload" class="user-home-a" href="{{ $teamMember->cv }}" target="_blank"><p>{{ $teamMember->first_name }}-{{ $teamMember->last_name }}-CV</p></a>
                                 </div>
                             </div>
                         @endif

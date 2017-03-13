@@ -229,7 +229,7 @@
 
                     $('.collapsible').collapsible();
                 }, (error) => {
-                    Materialize.toast("There was an error fetching the bio requests. Please consult the console log", 4000, 'blue');
+                    Materialize.toast("There was an error fetching the bio requests. Please consult the console log", 4000, 'red');
 
                     console.log(error.body);
                 });

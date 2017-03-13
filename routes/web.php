@@ -27,13 +27,6 @@ Route::post('user-portal/api/team/update-bio-request', 'TeamsController@requestT
 
 Route::get('admin-portal', 'AdminController@index');
 
-// Route::get('admin-portal', function () {
-//     return view('layouts.admin-master');
-// });
-
-
-Route::get('admin-portal/api/get-bio-requests', 'AdminController@showBioRequests');
-
 Route::get('unauthorized-access', function() {
     return view('errors.unauthorized-access');
 });
@@ -48,6 +41,8 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('admin-portal/create-staff-member', 'AdminController@index');
     Route::get('admin-portal/create-faculty-member', 'AdminController@index');
     Route::get('admin-portal/change-bio-requests', 'AdminController@index');
+
+    Route::get('admin-portal/api/get-bio-requests', 'AdminController@showBioRequests');
 
     Route::put('admin-portal/api/update-team-member-bio', 'AdminController@updateBio');
 
