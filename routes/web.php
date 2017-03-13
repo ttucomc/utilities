@@ -25,16 +25,12 @@ Route::get('user-portal/{eraiderID}', 'TeamsController@showTeamMemberInfo');
 Route::post('user-portal/api/team/store/faculty-team-member/cv', 'TeamsController@storeFacultyCV');
 Route::post('user-portal/api/team/update-bio-request', 'TeamsController@requestToUpdateBio');
 
+Route::get('admin-portal', 'AdminController@index');
 
 // Route::get('admin-portal', function () {
 //     return view('layouts.admin-master');
 // });
 
-Route::get('admin-portal', 'AdminController@index');
-Route::get('admin-portal/create-staff-member', 'AdminController@index');
-Route::get('admin-portal/create-faculty-member', 'AdminController@index');
-Route::get('admin-portal/change-bio-requests', 'AdminController@index');
-Route::post('admin-portal/api/update-team-member-bio', 'AdminController@updateBio');
 
 Route::get('admin-portal/api/get-bio-requests', 'AdminController@showBioRequests');
 
@@ -48,7 +44,14 @@ Route::get('auth/logout', function() {
     return Redirect::to('/');
 });
 
-Route::group(['middleware' => 'admin'], function() {
+Route::group(['middleware' => 'admin', 'cors'], function() {
+
+    Route::get('admin-portal/create-staff-member', 'AdminController@index');
+    Route::get('admin-portal/create-faculty-member', 'AdminController@index');
+    Route::get('admin-portal/change-bio-requests', 'AdminController@index');
+
+    Route::post('admin-portal/api/update-team-member-bio', 'AdminController@updateBio');
+
     Route::post('admin-portal/api/admin/store', 'AdminController@storeAdmin');
 
     Route::post('admin-portal/api/team/store/staff', 'AdminController@storeStaff');
