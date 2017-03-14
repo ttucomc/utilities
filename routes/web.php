@@ -44,6 +44,8 @@ Route::group(['middleware' => 'admin'], function() {
 
     Route::get('admin-portal/api/get-bio-requests', 'AdminController@showBioRequests');
 
+    Route::get('admin-portal/api/get-all-team-members', 'AdminController@getAllTeamMembers');
+
     Route::put('admin-portal/api/update-team-member-bio', 'AdminController@updateBio');
 
     Route::post('admin-portal/api/admin/store', 'AdminController@storeAdmin');

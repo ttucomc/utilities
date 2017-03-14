@@ -58,6 +58,15 @@ class Team extends Model
     }
 
     /**
+     * Fetch and return all team members.
+     * @return App\Team collection
+     */
+    public function getAllMembers()
+    {
+        return Team::all();
+    }
+
+    /**
      * Store the new staff member in the database.
      *
      * @param  \Illuminate\Http\Request $request

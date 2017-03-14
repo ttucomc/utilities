@@ -187,6 +187,17 @@ class AdminController extends Controller
     }
 
     /**
+     * Fetch and return all team members from database.
+     * @return App\Team collection
+     */
+    public function getAllTeamMembers()
+    {
+        $teamMembers = new Team;
+
+        return $teamMembers->getAllMembers();
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

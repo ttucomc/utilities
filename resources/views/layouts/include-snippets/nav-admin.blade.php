@@ -15,9 +15,9 @@
                 @if($numChangeBioRequests)
                     <hr>
                     @if($numChangeBioRequests == 1)
-                    <li><router-link to="/admin-portal/change-bio-requests"><i class="tiny material-icons left">info</i><span class="numChangeBioRequests">{{ $numChangeBioRequests }}</span> Pending Request</router-link></li>
+                        <li><router-link to="/admin-portal/change-bio-requests"><i class="tiny material-icons left">info</i><span class="numChangeBioRequests">{{ $numChangeBioRequests }}</span> Pending Request</router-link></li>
                     @else
-                    <li><router-link to="/admin-portal/change-bio-requests"><i class="tiny material-icons left">info</i><span class="numChangeBioRequests">{{ $numChangeBioRequests }}</span> Pending Requests</router-link></li>
+                        <li><router-link to="/admin-portal/change-bio-requests"><i class="tiny material-icons left">info</i><span class="numChangeBioRequests">{{ $numChangeBioRequests }}</span> Pending Requests</router-link></li>
                     @endif
                 @endif
             @endif
